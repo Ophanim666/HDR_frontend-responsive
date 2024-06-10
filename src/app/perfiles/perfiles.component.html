@@ -1,0 +1,11 @@
+<h1>Perfiles</h1>
+<!-- aqui en perfiles añadiremos las opciones de listar update, etc -->
+<div class="card">
+  <div class="card-head">Listado de usuarios - dashboard</div>
+  <div class="card-body">
+    <!-- Funcion para listar usuarios / echa por procedimieto almacenado -->
+    <h5 *ngFor="let usuario of usuarios">
+      {{usuario.id}} - {{usuario.userName}}
+    </h5>
+  </div>
+</div>
