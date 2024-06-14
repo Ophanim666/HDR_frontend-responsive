@@ -1,0 +1,21 @@
+/* app.component.css */
+.main-container {
+    display: flex;
+    transition: margin-left 0.5s ease;
+    overflow-x: hidden; /* Evita el desbordamiento horizontal */
+  }
+  
+  .main-container .content {
+    flex-grow: 1;
+    transition: margin-left 0.5s ease;
+  }
+  
+  .main-container.collapsed .content {
+    margin-left: 11rem; /* Ajuste de margen cuando el sidenav está colapsado */
+  }
+  
+  .main-container:not(.collapsed) .content {
+    margin-left: 0rem; /* Ajuste de margen cuando el sidenav no está colapsado */
+  }
+  
+  

@@ -8,6 +8,7 @@
 body{
   position: relative;
   font-family: 'Poppins', sans-serif;
+  overflow-x: hidden; /* Evita el desbordamiento horizontal */
 }
 
 
@@ -31,3 +32,6 @@ body{
     padding: 1rem 1.5rem;
   }
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
