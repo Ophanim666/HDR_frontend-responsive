@@ -22,12 +22,18 @@ import { PerfilesComponent } from './perfiles/perfiles.component';
 import { RazonesSocialesComponent } from './razones-sociales/razones-sociales.component';
 import { ObrasComponent } from './obras/obras.component';
 import { EspecialidadesComponent } from './especialidades/especialidades.component';
-import { CalendarioComponent } from './calendario/calendario.component';
 
 //HTTPclient
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+//crear usuarios
+import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
+//editar usuarios
+import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usuarios.component';
+
+
+
 
 
 
@@ -44,9 +50,11 @@ import { HeaderComponent } from './header/header.component';
     RazonesSocialesComponent,
     ObrasComponent,
     EspecialidadesComponent,
-    CalendarioComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    CrearUsuariosComponent,
+    EdicionDeUsuariosComponent,
+
     //Eliminar esto solo es de ejemplo
     // ProductsComponent,
     // StatisticsComponent,

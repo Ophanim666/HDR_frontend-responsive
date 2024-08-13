@@ -6,7 +6,10 @@ import { PerfilesComponent } from './perfiles/perfiles.component';
 import { RazonesSocialesComponent } from './razones-sociales/razones-sociales.component';
 import { ObrasComponent } from './obras/obras.component';
 import { EspecialidadesComponent } from './especialidades/especialidades.component';
-import { CalendarioComponent } from './calendario/calendario.component';
+
+// componente crear usuario
+import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
+import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usuarios.component';
 
 
 
@@ -20,7 +23,10 @@ const routes: Routes = [
   {path: 'razonesSociales', component: RazonesSocialesComponent},
   {path: 'obras', component: ObrasComponent},
   {path: 'especialidades', component: EspecialidadesComponent},
-  {path: 'calendario', component: CalendarioComponent},
+  // crear usuario
+  { path: 'crear-usuario', component: CrearUsuariosComponent },
+  //Edicion de usuarios
+  { path: 'edicion-de-usuarios', component: EdicionDeUsuariosComponent },
 ];
 
 @NgModule({
