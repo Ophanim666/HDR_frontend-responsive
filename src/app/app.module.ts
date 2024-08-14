@@ -26,7 +26,6 @@ import { EspecialidadesComponent } from './especialidades/especialidades.compone
 //HTTPclient
 import { HttpClientModule } from '@angular/common/http';
 import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
 //crear usuarios
 import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
 //editar usuarios
@@ -51,7 +50,6 @@ import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usu
     ObrasComponent,
     EspecialidadesComponent,
     FooterComponent,
-    HeaderComponent,
     CrearUsuariosComponent,
     EdicionDeUsuariosComponent,
 
