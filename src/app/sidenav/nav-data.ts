@@ -64,10 +64,6 @@ export const navbarData = [
     icon: 'fa-solid fa-user-plus',
     label: 'Especialidades'
   },
-  {
-    RouterLink: 'calendario',
-    icon: 'fa-solid fa-calendar-days',
-    label: 'Calendario'
-  },
+
 
 ];

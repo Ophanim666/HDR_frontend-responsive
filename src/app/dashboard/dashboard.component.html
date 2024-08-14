@@ -1,10 +1,28 @@
 <h1>Dashboard</h1>
 <div class="card">
-  <div class="card-head">Listado de usuarios - dashboard</div>
+  <div class="card-head">
+    Listado de usuarios - dashboard
+    <!-- Crear usaurio -->
+    <button routerLink="/crear-usuario" class="btn btn-primary">Crear Usuario</button>
+  </div>
   <div class="card-body">
-    <!-- Funcion para listar usuarios / echa por procedimieto almacenado -->
-    <h5 *ngFor="let usuario of usuarios">
-      {{usuario.id}} - {{usuario.userName}}
-    </h5>
+    <div class="user-card" *ngFor="let usuario of usuarios">
+      <p><strong>Id:</strong> {{usuario.id}}</p>
+      <p><strong>Primer Nombre:</strong> {{usuario.primer_Nombre}}</p>
+      <p><strong>Segundo Nombre:</strong> {{usuario.segundo_Nombre}}</p>
+      <p><strong>Primer Apellido:</strong> {{usuario.primer_Apellido}}</p>
+      <p><strong>Segundo Apellido:</strong> {{usuario.segundo_Apellido}}</p>
+      <p><strong>RUT:</strong> {{usuario.rut}}</p>
+      <p><strong>Fecha de Nacimiento:</strong> {{usuario.fecha_de_nacimiento | date}}</p>
+      <p><strong>Rol:</strong> {{usuario.rol}}</p>
+      <p><strong>Especialidad:</strong> {{usuario.especialidad}}</p>
+
+      <div class="user-actions">
+        <button routerLink="/edicion-de-usuarios" class="btn btn-primary">Editar usuario</button>
+        <button (click)="changeRole(usuario.id)">Cambiar Rol</button>
+        <button (click)="deleteUser(usuario.id)">Eliminar Usuario</button>
+      </div>
+    </div>
   </div>
 </div>
+
