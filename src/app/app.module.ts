@@ -30,6 +30,8 @@ import { FooterComponent } from './footer/footer.component';
 import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
 //editar usuarios
 import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usuarios.component';
+import { GestionParametrosComponent } from './gestion-parametros/gestion-parametros.component';
+import { GestionTipoParametrosComponent } from './gestion-tipo-parametros/gestion-tipo-parametros.component';
 
 
 
@@ -52,6 +54,8 @@ import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usu
     FooterComponent,
     CrearUsuariosComponent,
     EdicionDeUsuariosComponent,
+    GestionParametrosComponent,
+    GestionTipoParametrosComponent,
 
     //Eliminar esto solo es de ejemplo
     // ProductsComponent,
