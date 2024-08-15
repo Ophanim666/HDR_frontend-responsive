@@ -11,6 +11,9 @@ import { EspecialidadesComponent } from './especialidades/especialidades.compone
 import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
 import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usuarios.component';
 
+//componente gestion tipo de parametro
+import { GestionTipoParametrosComponent } from './gestion-tipo-parametros/gestion-tipo-parametros.component';
+
 
 
 const routes: Routes = [
@@ -27,6 +30,8 @@ const routes: Routes = [
   { path: 'crear-usuario', component: CrearUsuariosComponent },
   //Edicion de usuarios
   { path: 'edicion-de-usuarios', component: EdicionDeUsuariosComponent },
+  //Gestion tipo de parametro ALVARO
+  { path: 'gestion-tipo-parametros', component: GestionTipoParametrosComponent },
 ];
 
 @NgModule({

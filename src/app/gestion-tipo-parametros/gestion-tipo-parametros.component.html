@@ -1,1 +1,21 @@
-<p>gestion-tipo-parametros works!</p>
+<h1>Dashboard de Tipos de Parámetros</h1>
+<div class="card">
+  <div class="card-head">
+    Listado de tipos de parámetros - dashboard
+    <!-- Crear tipo de parámetro -->
+    <button routerLink="/crear-tipo-parametro" class="btn btn-primary">Crear Tipo de Parámetro</button>
+  </div>
+  <div class="card-body">
+    <div class="tipo-parametro-card" *ngFor="let tipoParametro of tipoParametros">
+      <p><strong>Id:</strong> {{tipoParametro.id}}</p>
+      <p><strong>Tipo de Parámetro:</strong> {{tipoParametro.tipO_PARAMETRO}}</p>
+      <p><strong>Estado:</strong> {{tipoParametro.estado}}</p>
+      <p><strong>Usuario de Creación:</strong> {{tipoParametro.usuariO_CREACION}}</p>
+      <p><strong>Fecha de Creación:</strong> {{tipoParametro.fechA_CREACION | date}}</p>
+
+      <div class="tipo-parametro-actions">
+        <button routerLink="/editar-tipo-parametro/{{tipoParametro.id}}" class="btn btn-primary">Editar Tipo de Parámetro</button>
+      </div>
+    </div>
+  </div>
+</div>

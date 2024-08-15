@@ -1,0 +1,38 @@
+.card {
+  margin: 20px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card-head {
+  font-size: 1.5em;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.tipo-parametro-card {
+  border: 1px solid #ddd;
+  padding: 15px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.tipo-parametro-card h5 {
+  margin: 0;
+  font-size: 1.2em;
+}
+
+.tipo-parametro-card p {
+  margin: 5px 0;
+}
+
+.tipo-parametro-actions {
+  margin-top: 10px;
+}
+
+.tipo-parametro-actions button {
+  margin-right: 10px;
+}
