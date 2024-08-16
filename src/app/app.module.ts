@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 //agregaremos animaciones wajajajaja
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//necesaria para editar parametros ALVARO
+import { FormsModule } from '@angular/forms'; // Importar FormsModule
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -32,6 +34,8 @@ import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.componen
 import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usuarios.component';
 //rama que esta trbajando alvaro para el crud tipo de parametro
 import { GestionTipoParametrosComponent } from './gestion-tipo-parametros/gestion-tipo-parametros.component';
+import { EditarTipoParametroComponent } from './editar-tipo-parametro/editar-tipo-parametro.component';
+import { CrearTipoParametroComponent } from './crear-tipo-parametro/crear-tipo-parametro.component';
 
 
 
@@ -56,6 +60,8 @@ import { GestionTipoParametrosComponent } from './gestion-tipo-parametros/gestio
     EdicionDeUsuariosComponent,
     //gestion de tipo parametro - Alvaro
     GestionTipoParametrosComponent,
+    EditarTipoParametroComponent,
+    CrearTipoParametroComponent,
 
     //Eliminar esto solo es de ejemplo
     // ProductsComponent,
@@ -67,6 +73,7 @@ import { GestionTipoParametrosComponent } from './gestion-tipo-parametros/gestio
   ],
   imports: [
     BrowserModule,
+    FormsModule, // Asegúrate de que FormsModule está importado aquí
     //animations
     BrowserAnimationsModule,
     AppRoutingModule,

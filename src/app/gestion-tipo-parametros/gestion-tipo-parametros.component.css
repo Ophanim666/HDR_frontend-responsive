@@ -6,8 +6,8 @@
 }
 
 .card-head {
-  font-size: 1.5em;
-  margin-bottom: 20px;
+  font-size: 1.2em;
+  margin-bottom: 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -35,4 +35,68 @@
 
 .tipo-parametro-actions button {
   margin-right: 10px;
+}
+
+.confirmation-dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border: 1px solid black;
+  padding: 20px;
+  z-index: 1000;
+}
+
+.confirmation-dialog button {
+  margin: 5px;
+}
+
+/* Estilos generales para los botones */
+.btn {
+  padding: 8px 16px; /* Tamaño ajustado para que no sean tan grandes */
+  border: none;
+  border-radius: 20px; /* Botones más redondos */
+  font-size: 0.9em; /* Tamaño de fuente similar al original */
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/* Estilos de colores pastel */
+.btn-primary {
+  background-color: #77dd77; /* Verde pastel */
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #66cc66; /* Verde pastel más oscuro al hacer hover */
+}
+
+.btn-danger {
+  background-color: #ff6961; /* Rojo pastel */
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #ff5c5c; /* Rojo pastel más oscuro al hacer hover */
+}
+
+.btn-warning {
+  background-color: #fdfd96; /* Amarillo pastel */
+  color: #333;
+}
+
+.btn-warning:hover {
+  background-color: #fceb66; /* Amarillo pastel más oscuro al hacer hover */
+}
+
+/* Estilo específico para el botón de crear */
+.btn-primary.crear-btn {
+  padding: 6px 12px; /* Tamaño más pequeño */
+  font-size: 0.85em;
+}
+
+/* Estilos específicos para el modal */
+.confirmation-dialog button {
+  margin: 5px;
 }
