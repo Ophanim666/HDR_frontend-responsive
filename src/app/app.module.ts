@@ -30,6 +30,7 @@ import { FooterComponent } from './footer/footer.component';
 import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
 //editar usuarios
 import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usuarios.component';
+import { GestionEspecialidadComponent } from './gestion-especialidad/gestion-especialidad.component';
 
 
 
@@ -52,6 +53,7 @@ import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usu
     FooterComponent,
     CrearUsuariosComponent,
     EdicionDeUsuariosComponent,
+    GestionEspecialidadComponent,
 
     //Eliminar esto solo es de ejemplo
     // ProductsComponent,
