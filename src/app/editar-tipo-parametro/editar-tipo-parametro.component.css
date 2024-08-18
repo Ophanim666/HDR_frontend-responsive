@@ -1,8 +1,44 @@
-.form-container {
-  margin: 20px;
+.page-container {
+  position: relative; /* Permite posicionar el botón 'Volver' con posición absoluta */
   padding: 20px;
+}
+
+.volver-btn {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  background-color: #6c757d; /* Gris oscuro */
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 20px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 1000; /* Asegura que el botón esté encima de otros elementos */
+}
+
+.volver-btn:hover {
+  background-color: #5a6268; /* Gris más oscuro al hacer hover */
+}
+
+.tipo-parametro-container {
+  margin-top: 60px; /* Ajusta el espacio para el botón 'Volver' */
+}
+
+.tipo-parametro-card {
+  border: 1px solid #ddd;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  padding: 20px;
+  margin-bottom: 15px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.tipo-parametro-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 .form-group {
@@ -11,45 +47,34 @@
 
 .form-group label {
   display: block;
-  margin-bottom: 5px;
   font-weight: bold;
-}
-
-.form-control {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-}
-
-.form-actions {
-  margin-top: 20px;
-}
-
-.form-actions button {
-  margin-right: 10px;
-  padding: 8px 16px; /* Tamaño ajustado */
-  border: none;
-  border-radius: 20px; /* Botones más redondos */
-  font-size: 0.9em; /* Tamaño de fuente ajustado */
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.btn-primary.guardar-btn {
-  background-color: #77dd77; /* Verde pastel */
-  color: #fff;
-}
-
-.btn-primary.guardar-btn:hover {
-  background-color: #66cc66; /* Verde pastel más oscuro */
-}
-
-.btn-secondary.volver-btn {
-  background-color: #cccccc; /* Gris */
+  margin-bottom: 5px;
   color: #333;
 }
 
-.btn-secondary.volver-btn:hover {
-  background-color: #b3b3b3; /* Gris más oscuro */
+.form-group input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1em;
+  box-sizing: border-box;
+}
+
+button.btn-update {
+  background-color: #ffeb3b; /* Amarillo brillante */
+  color: #333;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 25px; /* Botón más redondo */
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  display: inline-block;
+  text-align: center;
+}
+
+button.btn-update:hover {
+  background-color: #fdd835; /* Amarillo más oscuro al hacer hover */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }

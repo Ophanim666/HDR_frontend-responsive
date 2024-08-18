@@ -8,7 +8,6 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./editar-tipo-parametro.component.css']
 })
 export class EditarTipoParametroComponent implements OnInit {
-  tipoParametro: any = {};
   tipoParametros: any[] = [];
   apiUrl: string = 'https://localhost:7125/api/TipoParametro';
 
@@ -24,12 +23,41 @@ export class EditarTipoParametroComponent implements OnInit {
 
   // Listar datos de tipo de parámetro
   loadTipoParametros(): void {
-    this.http.get<any[]>("https://localhost:7125/api/TipoParametro").subscribe({
-      next: response => this.tipoParametros = response,
-      error: error => console.log(error),
-      complete: () => console.log('La solicitud está completa')
+    this.http.get<any[]>(this.apiUrl).subscribe({
+      next: response => {
+        console.log('Datos de tipo de parámetros cargados:', response);
+        this.tipoParametros = response;
+      },
+      error: error => {
+        console.error('Error al cargar los datos de tipo de parámetros:', error);
+      },
+      complete: () => console.log('La solicitud de carga de tipos de parámetros está completa')
     });
   }
 
 
+  // Actualizar un tipo de parámetro
+  updateTipoParametro(tipoParametro: any): void {
+    const url = `${this.apiUrl}/${tipoParametro.id}`;
+    const updatedData = {
+      tipO_PARAMETRO: tipoParametro.tipO_PARAMETRO,
+      estado: tipoParametro.estado,
+      usuariO_CREACION: tipoParametro.usuariO_CREACION,
+      fechA_CREACION: tipoParametro.fechA_CREACION
+    };
+
+    this.http.put(url, updatedData, { responseType: 'text' }).subscribe({
+      next: response => {
+        console.log('Tipo de parámetro actualizado:', response);
+        this.loadTipoParametros(); // Recargar la lista después de la actualización
+      },
+      error: error => {
+        console.error('Error al actualizar el tipo de parámetro:', error);
+      }
+    });
+  }
+  //boton volver
+  volver(): void {
+    this.router.navigate(['/gestion-tipo-parametros']);
+  }
 }

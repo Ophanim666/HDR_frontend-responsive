@@ -1,42 +1,51 @@
-<div class="tipo-parametro-card" *ngFor="let tipoParametro of tipoParametros">
-  <div>
-    <label for="id-{{tipoParametro.id}}">Id:</label>
-    <input id="id-{{tipoParametro.id}}" type="text" [value]="tipoParametro.id" disabled />
-  </div>
-  <div>
-    <label for="tipoParametro-{{tipoParametro.id}}">Tipo de Parámetro:</label>
-    <input
-      id="tipoParametro-{{tipoParametro.id}}"
-      type="text"
-      [(ngModel)]="tipoParametro.tipO_PARAMETRO"
-      name="tipoParametro"
-    />
-  </div>
-  <div>
-    <label for="estado-{{tipoParametro.id}}">Estado:</label>
-    <input
-      id="estado-{{tipoParametro.id}}"
-      type="number"
-      [(ngModel)]="tipoParametro.estado"
-      name="estado"
-    />
-  </div>
-  <div>
-    <label for="usuarioCreacion-{{tipoParametro.id}}">Usuario de Creación:</label>
-    <input
-      id="usuarioCreacion-{{tipoParametro.id}}"
-      type="text"
-      [(ngModel)]="tipoParametro.usuariO_CREACION"
-      name="usuarioCreacion"
-    />
-  </div>
-  <div>
-    <label for="fechaCreacion-{{tipoParametro.id}}">Fecha de Creación:</label>
-    <input
-      id="fechaCreacion-{{tipoParametro.id}}"
-      type="datetime-local"
-      [(ngModel)]="tipoParametro.fechA_CREACION"
-      name="fechaCreacion"
-    />
+<div class="page-container">
+  <!-- Botón "Volver" en la esquina izquierda -->
+  <button type="button" (click)="volver()" class="btn btn-secondary volver-btn">Volver</button>
+
+  <!-- Contenedor de tipos de parámetros -->
+  <div class="tipo-parametro-container">
+    <div class="tipo-parametro-card" *ngFor="let tipoParametro of tipoParametros">
+      <div class="form-group">
+        <label for="id-{{tipoParametro.id}}">Id:</label>
+        <input id="id-{{tipoParametro.id}}" type="text" [value]="tipoParametro.id" disabled />
+      </div>
+      <div class="form-group">
+        <label for="tipoParametro-{{tipoParametro.id}}">Tipo de Parámetro:</label>
+        <input
+          id="tipoParametro-{{tipoParametro.id}}"
+          type="text"
+          [(ngModel)]="tipoParametro.tipO_PARAMETRO"
+          name="tipoParametro"
+        />
+      </div>
+      <div class="form-group">
+        <label for="estado-{{tipoParametro.id}}">Estado:</label>
+        <input
+          id="estado-{{tipoParametro.id}}"
+          type="number"
+          [(ngModel)]="tipoParametro.estado"
+          name="estado"
+        />
+      </div>
+      <div class="form-group">
+        <label for="usuarioCreacion-{{tipoParametro.id}}">Usuario de Creación:</label>
+        <input
+          id="usuarioCreacion-{{tipoParametro.id}}"
+          type="text"
+          [(ngModel)]="tipoParametro.usuariO_CREACION"
+          name="usuarioCreacion"
+        />
+      </div>
+      <div class="form-group">
+        <label for="fechaCreacion-{{tipoParametro.id}}">Fecha de Creación:</label>
+        <input
+          id="fechaCreacion-{{tipoParametro.id}}"
+          type="datetime-local"
+          [(ngModel)]="tipoParametro.fechA_CREACION"
+          name="fechaCreacion"
+        />
+      </div>
+      <button (click)="updateTipoParametro(tipoParametro)" class="btn btn-update">Actualizar</button>
+    </div>
   </div>
 </div>
