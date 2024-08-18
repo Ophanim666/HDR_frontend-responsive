@@ -39,10 +39,6 @@ import { CrearTipoParametroComponent } from './crear-tipo-parametro/crear-tipo-p
 
 
 
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
