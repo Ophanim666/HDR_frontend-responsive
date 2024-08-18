@@ -18,6 +18,8 @@ import { CrearTipoParametroComponent } from './crear-tipo-parametro/crear-tipo-p
 
 
 
+
+
 const routes: Routes = [
   //Aqui agregaremos las rutas de las paginas la sacaremos de nav-data
   {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
@@ -36,6 +38,7 @@ const routes: Routes = [
   { path: 'gestion-tipo-parametros', component: GestionTipoParametrosComponent },
   { path: 'editar-tipo-parametro', component: EditarTipoParametroComponent },
   { path: 'crear-tipo-parametro', component: CrearTipoParametroComponent },
+
 ];
 
 @NgModule({
