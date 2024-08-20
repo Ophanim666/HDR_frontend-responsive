@@ -35,7 +35,6 @@ export class EditarTipoParametroComponent implements OnInit {
     });
   }
 
-
   // Actualizar un tipo de parámetro
   updateTipoParametro(tipoParametro: any): void {
     const url = `${this.apiUrl}/${tipoParametro.id}`;
