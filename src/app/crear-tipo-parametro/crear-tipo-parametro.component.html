@@ -1,0 +1,57 @@
+<h6>Crear Tipo de Parámetro</h6>
+<div class="form-container">
+  <form (ngSubmit)="onSubmit()" #tipoParametroForm="ngForm">
+    <div class="form-group">
+      <label for="tipO_PARAMETRO">Tipo de Parámetro</label>
+      <input
+        type="text"
+        id="tipO_PARAMETRO"
+        [(ngModel)]="tipoParametro.tipO_PARAMETRO"
+        name="tipO_PARAMETRO"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="estado">Estado</label>
+      <input
+        type="number"
+        id="estado"
+        [(ngModel)]="tipoParametro.estado"
+        name="estado"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="usuariO_CREACION">Usuario de Creación</label>
+      <input
+        type="text"
+        id="usuariO_CREACION"
+        [(ngModel)]="tipoParametro.usuariO_CREACION"
+        name="usuariO_CREACION"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <div class="form-group">
+      <label for="fechA_CREACION">Fecha de Creación</label>
+      <input
+        type="datetime-local"
+        id="fechA_CREACION"
+        [(ngModel)]="tipoParametro.fechA_CREACION"
+        name="fechA_CREACION"
+        class="form-control"
+        required
+      />
+    </div>
+
+    <div class="form-actions">
+      <button type="submit" class="btn btn-primary crear-btn">Crear Tipo de Parámetro</button>
+      <button type="button" (click)="volver()" class="btn btn-secondary volver-btn">Volver</button>
+    </div>
+  </form>
+</div>

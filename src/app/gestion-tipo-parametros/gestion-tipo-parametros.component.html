@@ -1,0 +1,28 @@
+<div class="card">
+  <div class="card-head">
+    Listado de tipos de parámetros - dashboard
+    <!-- Crear tipo de parámetro -->
+    <button routerLink="/crear-tipo-parametro" class="btn btn-primary">Crear Tipo de Parámetro</button>
+  </div>
+  <div class="card-body">
+    <div class="tipo-parametro-card" *ngFor="let tipoParametro of tipoParametros">
+      <p><strong>Id:</strong> {{tipoParametro.id}}</p>
+      <p><strong>Tipo de Parámetro:</strong> {{tipoParametro.tipO_PARAMETRO}}</p>
+      <p><strong>Estado:</strong> {{tipoParametro.estado}}</p>
+      <p><strong>Usuario de Creación:</strong> {{tipoParametro.usuariO_CREACION}}</p>
+      <p><strong>Fecha de Creación:</strong> {{tipoParametro.fechA_CREACION | date}}</p>
+
+      <div class="tipo-parametro-actions">
+        <button routerLink="/editar-tipo-parametro" class="btn btn-warning">Editar Tipo de Parámetro</button>
+        <button (click)="confirmDelete(tipoParametro.id)" class="btn btn-danger">Eliminar Tipo de Parámetro</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de confirmación -->
+<div *ngIf="showConfirmationDialog" class="confirmation-dialog">
+  <p>¿Está seguro de que desea eliminar este tipo de parámetro?</p>
+  <button (click)="deleteTipoParametro()" class="btn btn-danger">Sí</button>
+  <button (click)="cancelDelete()" class="btn btn-secondary">No</button>
+</div>
