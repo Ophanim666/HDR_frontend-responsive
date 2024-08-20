@@ -27,15 +27,14 @@ import { EspecialidadesComponent } from './especialidades/especialidades.compone
 
 //HTTPclient
 import { HttpClientModule } from '@angular/common/http';
-import { FooterComponent } from './footer/footer.component';
+
 //crear usuarios
 import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
 //editar usuarios
 import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usuarios.component';
 //rama que esta trbajando alvaro para el crud tipo de parametro
 import { GestionTipoParametrosComponent } from './gestion-tipo-parametros/gestion-tipo-parametros.component';
-import { EditarTipoParametroComponent } from './editar-tipo-parametro/editar-tipo-parametro.component';
-import { CrearTipoParametroComponent } from './crear-tipo-parametro/crear-tipo-parametro.component';
+
 
 
 
@@ -51,13 +50,11 @@ import { CrearTipoParametroComponent } from './crear-tipo-parametro/crear-tipo-p
     RazonesSocialesComponent,
     ObrasComponent,
     EspecialidadesComponent,
-    FooterComponent,
     CrearUsuariosComponent,
     EdicionDeUsuariosComponent,
     //gestion de tipo parametro - Alvaro
     GestionTipoParametrosComponent,
-    EditarTipoParametroComponent,
-    CrearTipoParametroComponent,
+
 
     //Eliminar esto solo es de ejemplo
     // ProductsComponent,

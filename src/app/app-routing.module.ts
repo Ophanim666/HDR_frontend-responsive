@@ -13,8 +13,6 @@ import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usu
 
 //componente gestion tipo de parametro Alvaro
 import { GestionTipoParametrosComponent } from './gestion-tipo-parametros/gestion-tipo-parametros.component';
-import { EditarTipoParametroComponent } from './editar-tipo-parametro/editar-tipo-parametro.component';
-import { CrearTipoParametroComponent } from './crear-tipo-parametro/crear-tipo-parametro.component';
 
 
 
@@ -36,8 +34,7 @@ const routes: Routes = [
   { path: 'edicion-de-usuarios', component: EdicionDeUsuariosComponent },
   //Gestion tipo de parametro ALVARO
   { path: 'gestion-tipo-parametros', component: GestionTipoParametrosComponent },
-  { path: 'editar-tipo-parametro', component: EditarTipoParametroComponent },
-  { path: 'crear-tipo-parametro', component: CrearTipoParametroComponent },
+
 
 ];
 
