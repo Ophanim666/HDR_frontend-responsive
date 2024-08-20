@@ -1,52 +1,52 @@
 .sidenav {
-  background: #263238;
+  background: #262626;
   transition: all .5s ease;
   position: fixed;
   z-index: 1;
   top: 0;
   width: 5rem;
   height: 100vh;
-  box-shadow: 0.063rem 0 1.25rem 0 #8690a3;
+  box-shadow: 0.063rem 0 1.25rem 0 #a6a6a6;
 }
 
 .logo-container {
   display: flex;
   align-items: center;
-  padding: 0.938rem 0.938rem 0 0.938rem;
+  padding: 0.938rem;
   width: 100%;
 }
 
 .logo {
-  background: #fff;
   text-align: center;
   width: 3rem;
   min-width: 3rem;
+  height: 3rem; /* Ajustar la altura del botón */
   border-radius: 0.313rem;
-  font-size: 24px;
-  font-weight: 900;
   cursor: pointer;
   border: none;
+  padding: 0; /* Eliminar el padding adicional */
+  background: none; /* Eliminar el fondo para que solo se vea la imagen */
 }
 
 .logo-text {
   margin-left: 1.5rem;
   font-size: 24px;
-  font-weight: 700;
-  color: #fff;
+  font-weight: 600;
+  color: #f2f2f2;
 }
 
 .btn-close {
   margin-left: auto;
   cursor: pointer;
-  width: 2rem;
-  height: 2rem;
+  width: 3rem;
+  height: 3rem;
   border-radius: 50%;
   background-color: transparent;
   border: none;
 }
 
 .btn-close .fa-regular {
-  color: #fff;
+  color: #f2f2f2;
   font-size: 24px;
 }
 
@@ -74,7 +74,7 @@
   display: flex;
   align-items: center;
   height: 3rem;
-  color: #f3f3f3;
+  color: #f2f2f2;
   text-decoration: none;
   border-radius: 0.625rem;
   transition: all .3s ease;
@@ -93,13 +93,13 @@
 }
 
 .sidenav-nav-item:hover .sidenav-nav-link {
-  background-color: #fff;
-  color: #000;
+  background-color: #f2f2f2;
+  color: #262626;
 }
 
 .sidenav-nav-item:hover .sidenav-link-icon,
 .sidenav-nav-item:hover .sidenav-link-text {
-  color: #000;
+  color: #262626;
 }
 
 .active {
@@ -108,5 +108,5 @@
 
 .active .sidenav-link-icon,
 .active .sidenav-link-text {
-  color: #000;
+  color: #262626;
 }

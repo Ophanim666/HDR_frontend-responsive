@@ -25,12 +25,14 @@ import { EspecialidadesComponent } from './especialidades/especialidades.compone
 
 //HTTPclient
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
 //crear usuarios
 import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
 //editar usuarios
 import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usuarios.component';
 import { GestionEspecialidadComponent } from './gestion-especialidad/gestion-especialidad.component';
+import { HeaderComponent } from './header/header.component';
 
 
 
@@ -54,6 +56,8 @@ import { GestionEspecialidadComponent } from './gestion-especialidad/gestion-esp
     CrearUsuariosComponent,
     EdicionDeUsuariosComponent,
     GestionEspecialidadComponent,
+    HeaderComponent,
+    
 
     //Eliminar esto solo es de ejemplo
     // ProductsComponent,
@@ -69,7 +73,8 @@ import { GestionEspecialidadComponent } from './gestion-especialidad/gestion-esp
     BrowserAnimationsModule,
     AppRoutingModule,
     //HTTPclient
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [
     provideAnimationsAsync()

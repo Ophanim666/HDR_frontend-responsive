@@ -6,6 +6,7 @@ import { PerfilesComponent } from './perfiles/perfiles.component';
 import { RazonesSocialesComponent } from './razones-sociales/razones-sociales.component';
 import { ObrasComponent } from './obras/obras.component';
 import { EspecialidadesComponent } from './especialidades/especialidades.component';
+import { GestionEspecialidadComponent } from './gestion-especialidad/gestion-especialidad.component';
 
 // componente crear usuario
 import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
@@ -27,6 +28,9 @@ const routes: Routes = [
   { path: 'crear-usuario', component: CrearUsuariosComponent },
   //Edicion de usuarios
   { path: 'edicion-de-usuarios', component: EdicionDeUsuariosComponent },
+  //Gestión de especialidad
+  { path: 'gestion-especialidad', component: GestionEspecialidadComponent },
+
 ];
 
 @NgModule({

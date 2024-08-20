@@ -1,0 +1,99 @@
+/* gestion-especialidad.component.css */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border-radius: .5rem;
+  }
+  
+  th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+
+/* Espacio para botones de las listas */
+  .button-container {
+    display: flex;
+    min-width: 40px; /* Ancho mínimo para los botones */
+    gap: 5px; /* Espacio entre botones */
+  }  
+
+  /* Estilo específico para la columna de acciones */
+.actions-column {
+  width: 120px; /* Ajusta este valor según el tamaño deseado */
+  text-align: center; /* Centra el contenido de la columna */
+}
+
+.modal-title{
+  text-align: center;
+}
+
+/* Estilo general para el modal */
+.modal-content {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Espacio adicional en el modal */
+.modal-body {
+  padding: 20px;
+}
+
+/* Estilo para el input */
+.input-style {
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 14px;
+  width: 100%; /* Ocupa todo el ancho disponible */
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.input-style:focus {
+  border-color: #ccc; /* Color del borde al enfocar */
+  box-shadow: 0 0 8px #ccc; /* Sombra más intensa al enfocar */
+  outline: none;
+}
+
+/* Estilos para el modal */
+.modal-footer {
+  display: flex;
+  justify-content: space-between; /* Alinea los botones a los extremos */
+  padding: 20px;
+}
+
+/* Estilos para el modal de ÉXITO AL ELIMINAR */
+/* Modal Container */
+.modal-success {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  z-index: 1000;
+  width: 300px; /* Ajusta el ancho según lo necesites */
+  display: none; /* Oculto por defecto */
+}
+
+/* Modal Text */
+.modal-success p {
+  margin: 0;
+  font-size: 16px;
+  text-align: center;
+}
+
+/* Modal Button */
+.modal-success button {
+  display: block;
+  margin: 20px auto 0;
+  padding: 10px 20px;
+  font-size: 14px;
+}

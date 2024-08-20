@@ -1,1 +1,71 @@
-<p>gestion-especialidad works!</p>
+<app-header
+  [title]="'Especialidades'"
+  [buttonText]="'Agregar'"
+  (buttonClick)="abrirModal()">
+</app-header>
+
+<!-- Encapsulamos la tabla dentro de una tarjeta -->
+<div class="card">
+  <div class="card-head">
+    Listado
+  </div>
+  <div class="card-body">
+    <table>
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Especialidades</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let especialidad of especialidades">
+          <td>{{ especialidad.id }}</td>
+          <td>{{ especialidad.nombre }}</td>
+          <td class="actions-column">
+            <div class="button-container">
+            <button class="btn-primary" (click)="updateEspecialidad(especialidad.id)">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+            <button class="btn-danger" (click)="deleteEspecialidad(especialidad.id)">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="modalAddEspecialidad" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Creación de especialidad</h5>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control input-style" id="nombre" [(ngModel)]="nuevaEspecialidad.nombre" name="nombre">
+          </div>
+          <!-- Agrega más campos según sea necesario -->
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-success" (click)="addEspecialidad()">Crear especialidad</button>
+        <button type="button" class="btn-nigg" (click)="cerrarModal()">Volver</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de confirmación de eliminación -->
+<div id="modalSuccess" class="modal-success" style="display: none;">
+  <p>¡Especialidad eliminada con éxito!</p>
+  <button class="btn-nigg" (click)="cerrarModalSuccess()">Aceptar</button>
+</div>
+
+
