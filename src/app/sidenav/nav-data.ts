@@ -64,6 +64,11 @@ export const navbarData = [
     icon: 'fa-solid fa-user-plus',
     label: 'Especialidades'
   },
+  {
+    RouterLink: 'gestion-tarea',
+    icon: 'fa-solid fa-tasks',
+    label: 'Tareas'
+  },
 
 
 ];

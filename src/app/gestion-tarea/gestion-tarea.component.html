@@ -1,0 +1,43 @@
+<!-- <h1>Tareas</h1> -->
+<div class="card">
+    <div class="card-head">Listado de tareas</div>
+    <div class="card-body">
+      <!-- Contenedor para el buscador y el botón de agregar -->
+      <div class="buscador-agregar">
+        <input type="text" placeholder="Buscar tarea..." class="buscador" />
+        <button class="btn agregar">
+          <i class="fas fa-plus"></i> Agregar
+        </button>
+      </div>
+      <ol class="lista-tareas">
+        <!-- Encabezado de la lista -->
+        <li class="header">
+          <p>N°</p>
+          <p>Nombre</p>
+          <p>Código</p>
+          <p>Estado</p>
+          <p>Fecha creación</p>
+          <p>Usuario</p>
+          <p>Acciones</p>
+        </li>
+      <!-- Iteración de tareas -->
+      <li *ngFor="let tarea of tareas">
+        <p>{{tarea.id}}</p>
+        <p>{{tarea.nombre}}</p>
+        <p>{{tarea.codigo}}</p>
+        <p>{{tarea.estado}}</p>
+        <p>{{tarea.fecha_creacion | date}}</p>
+        <p>{{tarea.usuario_creacion}}</p>
+        <p class="acciones">
+          <button class="btn editar" >
+            <i class="fas fa-pencil-alt"></i>
+          </button>
+          <button class="btn eliminar">
+            <i class="fas fa-trash"></i>
+          </button>
+        </p>
+      </li>
+      </ol>
+    </div>
+  </div>
+  

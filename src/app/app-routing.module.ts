@@ -6,10 +6,12 @@ import { PerfilesComponent } from './perfiles/perfiles.component';
 import { RazonesSocialesComponent } from './razones-sociales/razones-sociales.component';
 import { ObrasComponent } from './obras/obras.component';
 import { EspecialidadesComponent } from './especialidades/especialidades.component';
+import { GestionTareaComponent } from './gestion-tarea/gestion-tarea.component';
 
 // componente crear usuario
 import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
 import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usuarios.component';
+
 
 
 
@@ -23,6 +25,7 @@ const routes: Routes = [
   {path: 'razonesSociales', component: RazonesSocialesComponent},
   {path: 'obras', component: ObrasComponent},
   {path: 'especialidades', component: EspecialidadesComponent},
+  {path: 'gestion-tarea', component: GestionTareaComponent},
   // crear usuario
   { path: 'crear-usuario', component: CrearUsuariosComponent },
   //Edicion de usuarios
