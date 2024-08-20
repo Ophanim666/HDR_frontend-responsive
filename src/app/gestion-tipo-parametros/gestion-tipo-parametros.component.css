@@ -1,151 +1,127 @@
+/* Estilo general para la tarjeta */
 .card {
   margin: 20px;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  max-width: 100%; /* Asegura que la tarjeta no se desborde */
 }
 
+/* Estilo para el encabezado de la tarjeta */
 .card-head {
   font-size: 1.2em;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap; /* Permite que el contenido se ajuste en pantallas pequeñas */
 }
 
-.tipo-parametro-card {
-  border: 1px solid #ddd;
-  padding: 15px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-}
-
-.tipo-parametro-card h5 {
-  margin: 0;
-  font-size: 1.2em;
-}
-
-.tipo-parametro-card p {
-  margin: 5px 0;
-}
-
-.tipo-parametro-actions {
-  margin-top: 10px;
-}
-
-.tipo-parametro-actions button {
-  margin-right: 10px;
-}
-
-.confirmation-dialog {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  border: 1px solid black;
-  padding: 20px;
-  z-index: 1000;
-}
-
-.confirmation-dialog button {
-  margin: 5px;
-}
-
-/* Estilos generales para los botones */
-.btn {
-  padding: 8px 16px; /* Tamaño ajustado para que no sean tan grandes */
+/* Estilo para el botón de crear tipo de parámetro */
+.btn-primary {
+  background-color: #77dd77; /* Verde pastel */
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.9em;
   border: none;
-  border-radius: 20px; /* Botones más redondos */
-  font-size: 0.9em; /* Tamaño de fuente similar al original */
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-/* Estilos de colores pastel */
-.btn-primary {
-  background-color: #77dd77; /* Verde pastel */
-  color: #fff;
-}
-
 .btn-primary:hover {
-  background-color: #66cc66; /* Verde pastel más oscuro al hacer hover */
+  background-color: #66cc66;
 }
 
-.btn-danger {
-  background-color: #ff6961; /* Rojo pastel */
-  color: #fff;
+/* Estilo para la tabla */
+.tipo-parametro-table {
+  width: 100%;
+  border-collapse: collapse;
 }
 
-.btn-danger:hover {
-  background-color: #ff5c5c; /* Rojo pastel más oscuro al hacer hover */
+.tipo-parametro-table th, .tipo-parametro-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.9em; /* Tamaño de fuente más pequeño en pantallas pequeñas */
 }
 
-.btn-warning {
-  background-color: #fdfd96; /* Amarillo pastel */
+.tipo-parametro-table thead {
+  background-color: #f5f5f5;
+}
+
+.tipo-parametro-table th {
+  font-weight: bold;
+  border-bottom: 2px solid #ddd;
+}
+
+.tipo-parametro-table tbody tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.tipo-parametro-table tbody tr:hover {
+  background-color: #f1f1f1;
+}
+
+/* Estilo para los botones en la tabla */
+.tipo-parametro-actions .btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.85em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.tipo-parametro-actions .btn-warning {
+  background-color: #fdfd96;
   color: #333;
 }
 
-.btn-warning:hover {
-  background-color: #fceb66; /* Amarillo pastel más oscuro al hacer hover */
+.tipo-parametro-actions .btn-warning:hover {
+  background-color: #fceb66;
 }
 
-/* Estilo específico para el botón de crear */
-.btn-primary.crear-btn {
-  padding: 6px 12px; /* Tamaño más pequeño */
-  font-size: 0.85em;
+.tipo-parametro-actions .btn-danger {
+  background-color: #ff6961;
+  color: #fff;
 }
 
-/* Estilos específicos para el modal */
-.confirmation-dialog button {
-  margin: 5px;
+.tipo-parametro-actions .btn-danger:hover {
+  background-color: #ff5c5c;
 }
 
-
-
-/* Estilos para el modal */
+/* Estilos para los modales */
 .modal {
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
   z-index: 1000;
 }
 
 .modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 80%;
+  max-width: 600px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
   position: relative;
-  max-width: 500px;
-  width: 100%;
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin: 0 20px;
 }
 
-.tipo-parametro-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #fff;
-  padding: 20px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-h6 {
+.modal-content h6 {
   margin-top: 0;
-  font-size: 1.25em;
-  font-weight: bold;
-  color: #333;
 }
 
 .form-container {
-  display: flex;
-  flex-direction: column;
+  margin-top: 15px;
 }
 
 .form-group {
@@ -156,16 +132,13 @@ h6 {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
-  color: #333;
 }
 
 .form-group input {
   width: 100%;
-  padding: 10px;
+  padding: 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 1em;
-  box-sizing: border-box;
 }
 
 .form-actions {
@@ -174,90 +147,115 @@ h6 {
   gap: 10px;
 }
 
-/* Botones del modal */
-button.btn-update {
-  background-color: #28a745; /* Verde */
-  color: #fff;
+.btn-update, .volver-btn {
+  padding: 8px 16px;
   border: none;
-  padding: 12px 24px;
-  border-radius: 25px; /* Botón más redondo */
-  font-size: 1em;
-  cursor: pointer;
-  transition: background-color 0.3s ease; /* Solo transición del color de fondo */
-}
-
-button.btn-update:hover {
-  background-color: #218838; /* Verde más oscuro al hacer hover */
-}
-
-button.volver-btn {
-  background-color: #6c757d; /* Gris oscuro */
-  color: #fff;
-  border: none;
-  padding: 10px 20px;
   border-radius: 20px;
-  font-size: 1em;
+  font-size: 0.9em;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
-button.volver-btn:hover {
-  background-color: #5a6268; /* Gris más oscuro al hacer hover */
+.btn-update {
+  background-color: #77dd77; /* Verde pastel */
+  color: #fff;
 }
 
+.btn-update:hover {
+  background-color: #66cc66;
+}
 
-/* Estilo para el modal de confirmación */
-.modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
+.volver-btn {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.volver-btn:hover {
+  background-color: #ddd;
+}
+
+/* Estilos para los botones en el modal de confirmación de eliminación */
+.modal-content .form-actions {
   display: flex;
-  align-items: center;
   justify-content: center;
-  z-index: 1000; /* Asegura que el modal esté encima de otros elementos */
+  gap: 15px; /* Espacio entre los botones */
 }
 
-.modal-content {
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 20px;
-  width: 90%;
-  max-width: 500px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.form-actions {
-  display: flex;
-  justify-content: flex-end;
-  gap: 10px;
-}
-
-.btn-danger, .btn-secondary {
+.modal-content .form-actions .btn-danger {
+  background-color: #ff6961; /* Rojo */
+  color: #fff;
+  padding: 12px 24px; /* Tamaño mayor */
+  border-radius: 50px; /* Botones redondos */
+  font-size: 1em; /* Tamaño de fuente mayor */
   border: none;
-  padding: 10px 20px;
-  border-radius: 20px;
-  font-size: 1em;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
 
-.btn-danger {
-  background-color: #dc3545; /* Rojo */
-  color: #fff;
+.modal-content .form-actions .btn-danger:hover {
+  background-color: #ff5c5c; /* Rojo más oscuro al hacer hover */
 }
 
-.btn-danger:hover {
-  background-color: #c82333; /* Rojo oscuro */
+.modal-content .form-actions .btn-secondary {
+  background-color: #f0f0f0; /* Gris */
+  color: #333;
+  padding: 12px 24px; /* Tamaño mayor */
+  border-radius: 50px; /* Botones redondos */
+  font-size: 1em; /* Tamaño de fuente mayor */
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
-.btn-secondary {
-  background-color: #6c757d; /* Gris oscuro */
-  color: #fff;
+.modal-content .form-actions .btn-secondary:hover {
+  background-color: #ddd; /* Gris más oscuro al hacer hover */
 }
 
-.btn-secondary:hover {
-  background-color: #5a6268; /* Gris más oscuro */
+/* Estilos responsivos */
+@media (max-width: 768px) {
+  .card {
+    margin: 10px;
+    padding: 15px;
+  }
+
+  .card-head {
+    font-size: 1em;
+    flex-direction: column; /* Alinea el contenido verticalmente en pantallas pequeñas */
+    align-items: flex-start;
+  }
+
+  .tipo-parametro-table th, .tipo-parametro-table td {
+    font-size: 0.8em; /* Reduce el tamaño de fuente en pantallas pequeñas */
+    padding: 8px;
+  }
+
+  .modal-content {
+    width: 90%;
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  .form-actions {
+    flex-direction: column; /* Apila los botones verticalmente en pantallas pequeñas */
+    gap: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .btn-primary, .btn-update, .volver-btn {
+    font-size: 0.8em; /* Tamaño de fuente menor en pantallas muy pequeñas */
+    padding: 6px 12px;
+  }
+
+  .tipo-parametro-actions .btn {
+    font-size: 0.75em;
+    padding: 5px 10px;
+  }
+
+  .modal-content {
+    padding: 10px;
+  }
+
+  .form-group input {
+    padding: 6px;
+  }
 }

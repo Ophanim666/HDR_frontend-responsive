@@ -15,6 +15,7 @@ export class GestionTipoParametrosComponent implements OnInit {
   newTipoParametro: any = {};
   tipoParametroToDelete: number | null = null;
 
+
   private apiUrl = 'https://localhost:7125/api/TipoParametro';
 
   constructor(private http: HttpClient) {}
@@ -130,4 +131,6 @@ export class GestionTipoParametrosComponent implements OnInit {
     this.showConfirmationDialog = false;
     this.tipoParametroToDelete = null;
   }
+
+
 }
