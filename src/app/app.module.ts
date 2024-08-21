@@ -9,6 +9,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { BodyComponent } from './body/body.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { FormsModule } from '@angular/forms';
 //eliminar esto solo es de ejmplo
 // import { ProductsComponent } from './products/products.component';
 // import { StatisticsComponent } from './statistics/statistics.component';
@@ -69,7 +70,8 @@ import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usu
     BrowserAnimationsModule,
     AppRoutingModule,
     //HTTPclient
-    HttpClientModule
+    HttpClientModule,
+    FormsModule 
   ],
   providers: [
     provideAnimationsAsync()
