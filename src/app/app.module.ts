@@ -34,19 +34,14 @@ import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usu
 import { GestionEspecialidadComponent } from './gestion-especialidad/gestion-especialidad.component';
 import { HeaderComponent } from './header/header.component';
 
-
-
-
-
-
-
 @NgModule({
   declarations: [
     AppComponent,
     BodyComponent,
     SidenavComponent,
     DashboardComponent,
-    //estas se usaran pero no estan definidas al 100%
+
+    // Estas se usarán pero no están definidas al 100%
     ActasComponent,
     PerfilesComponent,
     RazonesSocialesComponent,
@@ -57,16 +52,8 @@ import { HeaderComponent } from './header/header.component';
     EdicionDeUsuariosComponent,
     GestionEspecialidadComponent,
     HeaderComponent,
-    
-
-    //Eliminar esto solo es de ejemplo
-    // ProductsComponent,
-    // StatisticsComponent,
-    // CoupnesComponent,
-    // PagesComponent,
-    // MediaComponent,
-    // SettingsComponent
   ],
+
   imports: [
     BrowserModule,
     //animations
@@ -76,9 +63,12 @@ import { HeaderComponent } from './header/header.component';
     HttpClientModule,
     FormsModule
   ],
+
   providers: [
     provideAnimationsAsync()
   ],
+
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule {}

@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit,} from '@angular/core';
 import { EspecialidadService } from '../services/especialidad.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-gestion-especialidad',
@@ -9,9 +10,13 @@ import { EspecialidadService } from '../services/especialidad.service';
 export class GestionEspecialidadComponent implements OnInit {
   especialidades: any[] = [];
   nuevaEspecialidad = {
-    nombre: '',
-    // Agrega más campos según sea necesario
+    ID: 0, // Cambiado a 0, ya que el backend espera un int
+    NOMBRE: '',
+    ESTADO: 0, // Cambiado a 0, ya que el backend espera un int
+    USUARIO_CREACION: '',
+    FECHA_CREACION: new Date().toISOString()// Asegúrate de que este formato es aceptable
   };
+
 
   constructor(private especialidadService: EspecialidadService) {}
 

@@ -48,10 +48,17 @@
       <div class="modal-body">
         <form>
           <div class="form-group">
+            <label for="nombre">Código</label>
+            <input type="text" class="form-control input-style" id="id" [(ngModel)]="nuevaEspecialidad.ID" name="id">
             <label for="nombre">Nombre</label>
-            <input type="text" class="form-control input-style" id="nombre" [(ngModel)]="nuevaEspecialidad.nombre" name="nombre">
+            <input type="text" class="form-control input-style" id="nombre" [(ngModel)]="nuevaEspecialidad.NOMBRE" name="nombre">
+            <label for="estado">Estado</label>
+            <input type="text" class="form-control input-style" id="estado" [(ngModel)]="nuevaEspecialidad.ESTADO" name="estado">
+            <label for="usuario_creacion">Usuario</label>
+            <input type="text" class="form-control input-style" id="usuario_creacion" [(ngModel)]="nuevaEspecialidad.USUARIO_CREACION" name="usuario_creacion">
+            <label for="fecha_creacion">Fecha</label>
+            <input type="text" class="form-control input-style" id="fecha_creacion" [(ngModel)]="nuevaEspecialidad.FECHA_CREACION" name="fecha_creacion">
           </div>
-          <!-- Agrega más campos según sea necesario -->
         </form>
       </div>
       <div class="modal-footer">

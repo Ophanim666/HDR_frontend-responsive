@@ -9,7 +9,7 @@ export class EspecialidadService {
 
   private apiUrl = 'https://localhost:7125/api/Especialidad'; // URL de tu API
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getEspecialidad(): Observable<any> {
     return this.http.get<any>(`${this.apiUrl}`);
