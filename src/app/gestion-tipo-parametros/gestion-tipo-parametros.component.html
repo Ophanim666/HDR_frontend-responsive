@@ -1,0 +1,180 @@
+<!-- Incluye Font Awesome en tu <head> -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <div class="card">
+    <div class="card-head">
+      Listado de tipos de parámetros - dashboard
+      <!-- Crear tipo de parámetro -->
+      <button (click)="openCreateModal()" class="btn btn-primary">Crear Tipo de Parámetro</button>
+    </div>
+    <div class="card-body">
+      <table class="tipo-parametro-table">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Tipo de Parámetro</th>
+            <th>Estado</th>
+            <th>Usuario de Creación</th>
+            <th>Fecha de Creación</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tipoParametro of tipoParametros">
+            <td>{{tipoParametro.id}}</td>
+            <td>{{tipoParametro.tipO_PARAMETRO}}</td>
+            <td>{{tipoParametro.estado}}</td>
+            <td>{{tipoParametro.usuariO_CREACION}}</td>
+            <td>{{tipoParametro.fechA_CREACION | date}}</td>
+            <td class="tipo-parametro-actions">
+              <button (click)="openEditModal(tipoParametro)" class="btn btn-warning">
+                <i class="fas fa-edit"></i>
+              </button>
+              <button (click)="confirmDelete(tipoParametro.id)" class="btn btn-danger">
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+    <!-- Modal para crear tipo de parámetro -->
+  <div *ngIf="showCreateModal" class="modal">
+    <div class="modal-content tipo-parametro-card">
+      <h6>Crear Tipo de Parámetro</h6>
+      <div class="form-container">
+        <form (ngSubmit)="createTipoParametro()" #tipoParametroForm="ngForm">
+          <div class="form-group">
+            <label for="tipO_PARAMETRO">Tipo de Parámetro</label>
+            <input
+              type="text"
+              id="tipO_PARAMETRO"
+              [(ngModel)]="newTipoParametro.tipO_PARAMETRO"
+              name="tipO_PARAMETRO"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="estado">Estado</label>
+            <input
+              type="number"
+              id="estado"
+              [(ngModel)]="newTipoParametro.estado"
+              name="estado"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="usuariO_CREACION">Usuario de Creación</label>
+            <input
+              type="text"
+              id="usuariO_CREACION"
+              [(ngModel)]="newTipoParametro.usuariO_CREACION"
+              name="usuariO_CREACION"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="fechA_CREACION">Fecha de Creación</label>
+            <input
+              type="datetime-local"
+              id="fechA_CREACION"
+              [(ngModel)]="newTipoParametro.fechA_CREACION"
+              name="fechA_CREACION"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-update">Crear</button>
+            <button type="button" (click)="closeCreateModal()" class="volver-btn">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para editar tipo de parámetro -->
+  <div *ngIf="showEditModal" class="modal">
+    <div class="modal-content tipo-parametro-card">
+      <h6>Editar Tipo de Parámetro</h6>
+      <div class="form-container">
+        <form (ngSubmit)="updateTipoParametro()" #editTipoParametroForm="ngForm">
+          <div class="form-group">
+            <label for="edit-tipO_PARAMETRO">Tipo de Parámetro</label>
+            <input
+              type="text"
+              id="edit-tipO_PARAMETRO"
+              [(ngModel)]="currentTipoParametro.tipO_PARAMETRO"
+              name="edit-tipO_PARAMETRO"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="edit-estado">Estado</label>
+            <input
+              type="number"
+              id="edit-estado"
+              [(ngModel)]="currentTipoParametro.estado"
+              name="edit-estado"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="edit-usuariO_CREACION">Usuario de Creación</label>
+            <input
+              type="text"
+              id="edit-usuariO_CREACION"
+              [(ngModel)]="currentTipoParametro.usuariO_CREACION"
+              name="edit-usuariO_CREACION"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="edit-fechA_CREACION">Fecha de Creación</label>
+            <input
+              type="datetime-local"
+              id="edit-fechA_CREACION"
+              [(ngModel)]="currentTipoParametro.fechA_CREACION"
+              name="edit-fechA_CREACION"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-update">Actualizar</button>
+            <button type="button" (click)="closeEditModal()" class="volver-btn">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de confirmación de eliminación -->
+  <div *ngIf="showConfirmationDialog" class="modal">
+    <div class="modal-content tipo-parametro-card">
+      <h6>Confirmación de Eliminación</h6>
+      <p>¿Está seguro de que desea eliminar este tipo de parámetro?</p>
+      <div class="form-actions">
+        <button (click)="deleteTipoParametro()" class="btn btn-danger">Sí</button>
+        <button (click)="closeConfirmationDialog()" class="btn btn-secondary">No</button>
+      </div>
+    </div>
+  </div>

@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 //agregaremos animaciones wajajajaja
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//necesaria para editar parametros ALVARO
+import { FormsModule } from '@angular/forms'; // Importar FormsModule
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -25,14 +27,13 @@ import { EspecialidadesComponent } from './especialidades/especialidades.compone
 
 //HTTPclient
 import { HttpClientModule } from '@angular/common/http';
-import { FooterComponent } from './footer/footer.component';
+
 //crear usuarios
 import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
 //editar usuarios
 import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usuarios.component';
-
-
-
+//rama que esta trbajando alvaro para el crud tipo de parametro
+import { GestionTipoParametrosComponent } from './gestion-tipo-parametros/gestion-tipo-parametros.component';
 
 
 
@@ -49,9 +50,11 @@ import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usu
     RazonesSocialesComponent,
     ObrasComponent,
     EspecialidadesComponent,
-    FooterComponent,
     CrearUsuariosComponent,
     EdicionDeUsuariosComponent,
+    //gestion de tipo parametro - Alvaro
+    GestionTipoParametrosComponent,
+
 
     //Eliminar esto solo es de ejemplo
     // ProductsComponent,
@@ -63,6 +66,7 @@ import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usu
   ],
   imports: [
     BrowserModule,
+    FormsModule, // Asegúrate de que FormsModule está importado aquí
     //animations
     BrowserAnimationsModule,
     AppRoutingModule,
