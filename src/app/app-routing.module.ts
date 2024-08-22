@@ -12,6 +12,13 @@ import { GestionEspecialidadComponent } from './gestion-especialidad/gestion-esp
 import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
 import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usuarios.component';
 
+//componente gestion tipo de parametro Alvaro
+import { GestionTipoParametrosComponent } from './gestion-tipo-parametros/gestion-tipo-parametros.component';
+
+
+
+//Gestión parametros
+import { ParametrosComponent } from './parametros/parametros.component';
 
 
 const routes: Routes = [
@@ -30,7 +37,10 @@ const routes: Routes = [
   { path: 'edicion-de-usuarios', component: EdicionDeUsuariosComponent },
   //Gestión de especialidad
   { path: 'gestion-especialidad', component: GestionEspecialidadComponent },
-
+  //Gestion tipo de parametro ALVARO
+  { path: 'gestion-tipo-parametros', component: GestionTipoParametrosComponent },
+  //Gestión parámetros
+  { path: 'parametros', component: ParametrosComponent },
 ];
 
 @NgModule({

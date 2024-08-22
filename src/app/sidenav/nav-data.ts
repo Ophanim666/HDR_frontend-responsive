@@ -72,6 +72,20 @@ export const navbarData = [
     label: 'Especialidades'
   },
 
+  //Gestion de tipo de parametos
+  // los iconos se ven aqui : https://fontawesome.com/search?q=para&o=r&m=free&s=solid
+  {
+    RouterLink: 'gestion-tipo-parametros',
+    icon: 'fa-solid fa-hat-cowboy',
+    label: 'Gestion tipo parametros'
+  },
 
+  //Gestión parametos
+  {
+    RouterLink: 'parametros',
+    icon: 'fa-solid fa-gear',
+    label: 'Parámetros'
+  },
 
 ];
+

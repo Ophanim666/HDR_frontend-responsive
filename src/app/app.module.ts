@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 //agregaremos animaciones wajajajaja
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+//necesaria para editar parametros ALVARO
+import { FormsModule } from '@angular/forms'; // Importar FormsModule
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,6 +11,12 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { BodyComponent } from './body/body.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+
+//para crear modal dialogs
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+
+
 //eliminar esto solo es de ejmplo
 // import { ProductsComponent } from './products/products.component';
 // import { StatisticsComponent } from './statistics/statistics.component';
@@ -27,12 +35,18 @@ import { EspecialidadesComponent } from './especialidades/especialidades.compone
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { FooterComponent } from './footer/footer.component';
+
 //crear usuarios
 import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
 //editar usuarios
 import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usuarios.component';
 import { GestionEspecialidadComponent } from './gestion-especialidad/gestion-especialidad.component';
 import { HeaderComponent } from './header/header.component';
+//rama que esta trbajando alvaro para el crud tipo de parametro
+import { GestionTipoParametrosComponent } from './gestion-tipo-parametros/gestion-tipo-parametros.component';
+
+import { ParametrosComponent } from './parametros/parametros.component';
+import { CrearParametroComponent } from './crear-parametro/crear-parametro.component';
 
 @NgModule({
   declarations: [
@@ -47,21 +61,34 @@ import { HeaderComponent } from './header/header.component';
     RazonesSocialesComponent,
     ObrasComponent,
     EspecialidadesComponent,
-    FooterComponent,
     CrearUsuariosComponent,
     EdicionDeUsuariosComponent,
     GestionEspecialidadComponent,
     HeaderComponent,
+    //gestion de tipo parametro - Alvaro
+    GestionTipoParametrosComponent,
+    ParametrosComponent,
+    CrearParametroComponent,
+
+    //Eliminar esto solo es de ejemplo
+    // ProductsComponent,
+    // StatisticsComponent,
+    // CoupnesComponent,
+    // PagesComponent,
+    // MediaComponent,
+    // SettingsComponent
   ],
 
   imports: [
     BrowserModule,
+    FormsModule, // Asegúrate de que FormsModule está importado aquí
     //animations
     BrowserAnimationsModule,
     AppRoutingModule,
     //HTTPclient
     HttpClientModule,
-    FormsModule
+    MatDialogModule,
+    MatButtonModule
   ],
 
   providers: [
