@@ -19,8 +19,9 @@ export class EspecialidadService {
     return this.http.post<any>(`${this.apiUrl}`, especialidad);
   }
 
-  updateEspecialidad(id: number, especialidad: any): Observable<any> {
-    return this.http.put<any>(`${this.apiUrl}/${id}`, especialidad);
+  updateEspecialidad(especialidad: any): Observable<any> {
+    const url = `${this.apiUrl}/${especialidad.ID}`; // Asegúrate de que esta URL apunte correctamente a tu API de actualización
+    return this.http.put(url, especialidad, { responseType: 'text' }); // Si la API devuelve un texto, sino ajusta el responseType
   }
 
   deleteEspecialidad(id: number): Observable<string> {

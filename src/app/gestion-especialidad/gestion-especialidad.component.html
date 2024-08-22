@@ -24,9 +24,7 @@
           <td>{{ especialidad.nombre }}</td>
           <td class="actions-column">
             <div class="button-container">
-            <button class="btn-primary" (click)="updateEspecialidad(especialidad.id)">
-              <i class="fa-solid fa-pen"></i>
-            </button>
+            <button class="btn-primary" (click)="abrirModalUpdate()"><i class="fa-solid fa-pen"></i></button>
             <button class="btn-danger" (click)="deleteEspecialidad(especialidad.id)">
               <i class="fa-solid fa-trash-can"></i>
             </button>
@@ -38,7 +36,7 @@
   </div>
 </div>
 
-<!-- Modal -->
+<!-- Modal ADD -->
 <div id="modalAddEspecialidad" class="modal" tabindex="-1" role="dialog">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -64,6 +62,37 @@
       <div class="modal-footer">
         <button type="button" class="btn-success" (click)="addEspecialidad()">Crear especialidad</button>
         <button type="button" class="btn-nigg" (click)="cerrarModal()">Volver</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal UPDATE -->
+<div id="modalUpdateEspecialidad" class="modal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Edición de especialidad</h5>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+            <label for="nombre">Código</label>
+            <input type="text" class="form-control input-style" id="id" [(ngModel)]="nuevaEspecialidad.ID" name="id">
+            <label for="nombre">Nombre</label>
+            <input type="text" class="form-control input-style" id="nombre" [(ngModel)]="nuevaEspecialidad.NOMBRE" name="nombre">
+            <label for="estado">Estado</label>
+            <input type="text" class="form-control input-style" id="estado" [(ngModel)]="nuevaEspecialidad.ESTADO" name="estado">
+            <label for="usuario_creacion">Usuario</label>
+            <input type="text" class="form-control input-style" id="usuario_creacion" [(ngModel)]="nuevaEspecialidad.USUARIO_CREACION" name="usuario_creacion">
+            <label for="fecha_creacion">Fecha</label>
+            <input type="text" class="form-control input-style" id="fecha_creacion" [(ngModel)]="nuevaEspecialidad.FECHA_CREACION" name="fecha_creacion">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-primary" (click)="updateEspecialidad()">Guardar cambios</button>
+        <button type="button" class="btn-nigg" (click)="cerrarModalUpdate()">Volver</button>
       </div>
     </div>
   </div>

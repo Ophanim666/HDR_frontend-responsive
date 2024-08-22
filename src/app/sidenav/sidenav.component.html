@@ -1,7 +1,7 @@
 <div class="sidenav" [ngClass]="collapsed ?  'sidenav-collapsed': ''">
   <div class="logo-container">
     <button class="logo" (click)="toggleColapse()">
-      <img src="/src/assets/images/logo.jpg" style="width: 100%; height: auto;"/>
+      <img src="/assets/logo.jpg"/>
     </button><!-- Cambiar por foto -->
     <div class="logo-text" *ngIf="collapsed">BRAVO IZQUIERDO</div>
     <button class="btn-close" @rotate *ngIf="collapsed" (click)="closeSidenav()">

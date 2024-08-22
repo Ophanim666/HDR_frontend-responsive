@@ -33,9 +33,16 @@
             "assets": [
               {
                 "glob": "**/*",
-                "input": "public"
-              }
+                "input": "public",
+                "output": "/"
+              },
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "/assets"
+               }
             ],
+
             "styles": [
               "@angular/material/prebuilt-themes/rose-red.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css",

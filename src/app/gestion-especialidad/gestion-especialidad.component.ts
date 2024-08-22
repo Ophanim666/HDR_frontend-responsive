@@ -17,9 +17,9 @@ export class GestionEspecialidadComponent implements OnInit {
     FECHA_CREACION: new Date().toISOString()// Asegúrate de que este formato es aceptable
   };
 
-
   constructor(private especialidadService: EspecialidadService) {}
 
+  // LISTAR
   ngOnInit(): void {
     this.especialidadService.getEspecialidad().subscribe(data => {
       this.especialidades = data;
@@ -42,7 +42,6 @@ export class GestionEspecialidadComponent implements OnInit {
     }
   }
 
-  
   addEspecialidad() {
     // Aquí iría la lógica para crear la especialidad, llamando al servicio adecuado
     this.especialidadService.addEspecialidad(this.nuevaEspecialidad).subscribe(() => {
@@ -54,8 +53,33 @@ export class GestionEspecialidadComponent implements OnInit {
     });
   }
 
-  updateEspecialidad(id: number) {
-    // Aquí va la lógica para actualizar la especialidad
+  // EDITAR ESPECIALIDAD
+  abrirModalUpdate() {
+    const modal = document.getElementById('modalUpdateEspecialidad');
+    if (modal) {
+      modal.style.display = 'block';
+    }
+  }
+
+  cerrarModalUpdate() {
+    const modal = document.getElementById('modalUpdateEspecialidad');
+    if (modal) {
+      modal.style.display = 'none';
+    }
+  }
+
+  updateEspecialidad() {
+    this.especialidadService.updateEspecialidad(this.nuevaEspecialidad).subscribe(
+      (response) => {
+        this.cerrarModal(); // Cierra el modal después de editar la especialidad
+        this.ngOnInit(); // Actualiza la lista de especialidades
+        alert('Especialidad actualizada exitosamente.'); // O muestra un mensaje de éxito personalizado
+      },
+      (error) => {
+        console.error('Error al actualizar la especialidad:', error);
+        alert(`Error: ${error.message || 'No se pudo actualizar la especialidad'}`);
+      }
+    );
   }
 
   deleteEspecialidad(id: number): void {
