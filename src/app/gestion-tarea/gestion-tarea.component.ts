@@ -1,19 +1,24 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
+import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'app-tarea',
+  selector: 'app-gestion-tareas',
   templateUrl: './gestion-tarea.component.html',
   styleUrls: ['./gestion-tarea.component.css']
 })
 export class GestionTareaComponent implements OnInit {
   tareas: any[] = [];
-  searchTerm: string = '';
-  isModalOpen: boolean = false;
-  isEditMode: boolean = false; // Para determinar si está en modo de edición
-  selectedTarea: any = {}; // Objeto para la tarea seleccionada
+  showCreateModal = false;
+  showEditModal = false;
+  showConfirmationDialog = false;
+  currentTarea: any = {};
+  newTarea: any = {};
+  tareaToDelete: number | null = null;
+  searchText: string = ''; // Variable para el texto del buscador
 
-  private apiUrl = 'https://localhost:7125/api/Tarea';
+  private apiUrl = 'https://localhost:7125/api/Tarea'; // Actualiza la URL según tu configuración
 
   constructor(private http: HttpClient) {}
 
@@ -21,79 +26,112 @@ export class GestionTareaComponent implements OnInit {
     this.loadTareas();
   }
 
-  // Cargar todas las tareas
+  // Listar todas las tareas
   loadTareas(): void {
     this.http.get<any[]>(this.apiUrl).subscribe({
       next: response => this.tareas = response,
-      error: error => console.error('Error al cargar tareas:', error),
+      error: error => console.error('Error al cargar las tareas:', error),
       complete: () => console.log('Carga de tareas completa')
     });
   }
 
-  // Agregar una nueva tarea
-  addTarea(): void {
-    if (!this.selectedTarea.nombre || !this.selectedTarea.codigo) {
-      console.warn('Nombre y código son obligatorios');
-      return;
-    }
-
-    this.http.post(this.apiUrl, this.selectedTarea).subscribe({
-      next: () => {
-        this.loadTareas(); // Recargar la lista de tareas
-        this.closeModal(); // Cerrar el modal
-      },
-      error: error => console.error('Error al agregar tarea:', error),
-    });
-  }
-
-  // Actualizar una tarea existente
-  updateTarea(): void {
-    if (!this.selectedTarea.nombre || !this.selectedTarea.codigo) {
-      console.warn('Nombre y código son obligatorios');
-      return;
-    }
-
-    this.http.put(`${this.apiUrl}`, this.selectedTarea).subscribe({
-      next: () => {
-        this.loadTareas(); // Recargar la lista de tareas
-        this.closeModal(); // Cerrar el modal
-      },
-      error: error => console.error('Error al actualizar tarea:', error),
-    });
-  }
-
-  // Eliminar una tarea por ID
-  deleteTarea(id: number): void {
-    this.http.delete(`${this.apiUrl}/${id}`).subscribe({
-      next: () => this.loadTareas(), // Recargar la lista de tareas
-      error: error => console.error('Error al eliminar tarea:', error),
-    });
-  }
-
-  // Preparar para la edición de una tarea
-  editTarea(tarea: any): void {
-    this.selectedTarea = { ...tarea }; // Clonar la tarea para edición
-    this.isEditMode = true; // Cambiar a modo de edición
-    this.openModal(); // Mostrar el modal
-  }
-
-  // Filtros de búsqueda
-  get filteredTareas() {
+  filteredTareas() {
     return this.tareas.filter(tarea =>
-      tarea.nombre.toLowerCase().includes(this.searchTerm.toLowerCase())
+      tarea.nombre.toLowerCase().includes(this.searchText.toLowerCase())
     );
   }
 
-  // Mostrar el modal para agregar/editar tarea
-  openModal(): void {
-    this.isModalOpen = true;
+  // Abrir el modal de creación
+  openCreateModal(): void {
+    this.newTarea = {
+      id: 0,
+      nombre: '',
+      codigo: '',
+      estado: 1,
+      usuario_Creacion: '',
+      fecha_Creacion: ''
+    };
+    this.showCreateModal = true;
   }
 
-  // Cerrar el modal
-  closeModal(): void {
-    this.isModalOpen = false;
-    this.selectedTarea = {}; // Limpia los campos al cerrar el modal
-    this.isEditMode = false; // Restablecer el modo de edición
+  // Cerrar el modal de creación
+  closeCreateModal(): void {
+    this.showCreateModal = false;
+  }
+
+  // Crear una nueva tarea
+  createTarea(): void {
+    this.http.post(this.apiUrl, this.newTarea, { responseType: 'text' })
+      .subscribe({
+        next: response => {
+          console.log('Tarea creada:', response);
+          alert('Tarea creada exitosamente.');
+          this.loadTareas(); // Actualizar la lista
+          this.closeCreateModal();
+        },
+        error: error => {
+          console.error('Error al crear la tarea:', error);
+          alert('Error al crear la tarea.');
+        }
+      });
+  }
+
+  // Abrir el modal de edición
+  openEditModal(tarea: any): void {
+    this.currentTarea = { ...tarea }; // Copiar los datos para edición
+    this.showEditModal = true;
+  }
+
+  // Cerrar el modal de edición
+  closeEditModal(): void {
+    this.showEditModal = false;
+  }
+
+  // Actualizar la tarea
+updateTarea(): void {
+  this.http.put(this.apiUrl, this.currentTarea, { responseType: 'text' }).subscribe({
+    next: response => {
+      console.log('Tarea actualizada:', response);
+      alert('Tarea actualizada exitosamente.');
+      this.loadTareas(); // Actualizar la lista
+      this.closeEditModal();
+    },
+    error: error => {
+      console.error('Error al actualizar la tarea:', error);
+      alert('Error al actualizar la tarea.');
+    }
+  });
+}
+
+  // Abrir el modal de confirmación de eliminación
+  confirmDelete(id: number): void {
+    this.tareaToDelete = id;
+    this.showConfirmationDialog = true;
+  }
+
+  // Eliminar la tarea
+  deleteTarea(): void {
+    if (this.tareaToDelete !== null) {
+      this.http.delete(`${this.apiUrl}/${this.tareaToDelete}`, { responseType: 'text' }).subscribe({
+        next: response => {
+          console.log('Tarea eliminada:', response);
+          alert('Tarea eliminada exitosamente.');
+          this.loadTareas(); // Actualizar la lista
+          this.closeConfirmationDialog();
+        },
+        error: error => {
+          console.error('Error al eliminar la tarea:', error);
+          alert('Error al eliminar la tarea.');
+        }
+      });
+    }
+  }
+
+  // Cerrar el modal de confirmación
+  closeConfirmationDialog(): void {
+    this.showConfirmationDialog = false;
+    this.tareaToDelete = null;
   }
 }
+
 
