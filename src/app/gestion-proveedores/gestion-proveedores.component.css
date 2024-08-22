@@ -82,13 +82,13 @@
   padding: 10px;
 }
 
-/* .card-body {
+.card-body {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
-}
+} 
 
-.proveedor-card {
+ .proveedor-card {
   border: 1px solid #ddd;
   border-radius: 8px;
   padding: 15px;
@@ -96,7 +96,7 @@
   width: calc(33.333% - 40px);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
-
+/*
 .proveedor-card p {
   margin: 5px 0;
   font-size: 0.9em;
@@ -128,7 +128,7 @@
   margin-top: 20px;
   display: flex;
   justify-content: flex-end;
-} */
+}  */
 
 .modal {
   position: fixed;

@@ -33,8 +33,7 @@
             
             <td class="actions-column">
               <div class="button-container">
-                <!-- Este Boton aun no tiene funcionalidad -->
-                <button (click)="openCreateModal()" class="btn btn-warning"><i class="fa-solid fa-pen"></i></button> 
+                <button (click)="openEditModal(proveedor)" class="btn btn-warning"><i class="fa-solid fa-pen"></i></button> 
                 <button (click)="confirmDelete(proveedor.id)" class="btn btn-danger"><i class="fa-solid fa-trash-can"></i></button>
               </div>
             </td>
@@ -45,33 +44,9 @@
     </div>
 
 
-    <!-- <div class="card-body">
-      <div class="proveedor-card" *ngFor="let proveedor of proveedores">
-        <p><strong>Id:</strong> {{proveedor.id}}</p>
-        <p><strong>Nombre:</strong> {{proveedor.nombre}}</p>
-        <p><strong>Razón Social:</strong> {{proveedor.razoN_SOCIAL}}</p>
-        <p><strong>RUT:</strong> {{proveedor.rut}}</p>
-        <p><strong>DV:</strong> {{proveedor.dv}}</p>
-        <p><strong>Nombre Contacto Principal:</strong> {{proveedor.nombrE_CONTACTO_PRINCIPAL}}</p>
-        <p><strong>Número Contacto Principal:</strong> {{proveedor.numerO_CONTACTO_PRINCIPAL}}</p>
-        <p><strong>Nombre Contacto Secundario:</strong> {{proveedor.nombrE_CONTACTO_SECUNDARIO}}</p>
-        <p><strong>Número Contacto Secundario:</strong> {{proveedor.numerO_CONTACTO_SECUNDARIO}}</p>
-        <p><strong>Estado:</strong> {{proveedor.estado}}</p>
-        <p><strong>Usuario de Creación:</strong> {{proveedor.usuariO_CREACION}}</p>
-        <p><strong>Fecha de Creación:</strong> {{proveedor.fechA_CREACION | date}}</p>
 
   
-        <div class="proveedor-actions">
-          <button routerLink="/editar-proveedor" class="btn btn-warning">Editar</button>
-          <button (click)="confirmDelete(proveedor.id)" class="btn btn-danger">Eliminar</button>
-          <button (click)="deleteProveedor()" class="btn btn-danger">Eliminar</button> -->
-        <!-- </div>
-      </div>
-    </div>
-  </div> --> 
-
-  
-  <!-- Modal de confirmación -->
+  <!-- Modal de confirmación de Eliminacion -->
   <div *ngIf="showConfirmationDialog" class="confirmation-dialog">
     <div class="modal-content">
       <p>¿Está seguro de que desea eliminar este proveedor?</p>
@@ -79,6 +54,157 @@
       <button (click)="cancelDelete()" class="btn btn-">No</button>
     </div>
   </div>
+
+
+  <!-- Modal de Edicion -->
+  <div *ngIf="showEditModal" class="modal">
+    <div class="modal-content proveedor-card">
+      <h6>Editar Proveedor</h6>
+      <div class="form-container">
+        <form (ngSubmit)="updateProveedor()" #editproveedorForm="ngForm"> 
+
+          <div class="form-group">
+            <label for="edit-nombre">Nombre del Proveedor</label>
+            <input
+              type="text"
+              id="edit-nombre"
+              [(ngModel)]="currentProveedor.nombre"
+              name="edit-nombre"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="edit-razoN_SOCIAL">Razón Social</label>
+            <input
+              type="text"
+              id="edit-razoN_SOCIAL"
+              [(ngModel)]="currentProveedor.razoN_SOCIAL"
+              name="edit-razoN_SOCIAL"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="edit-rut">RUT</label>
+            <input
+              type="text"
+              id="edit-rut"
+              [(ngModel)]="currentProveedor.rut"
+              name="edit-rut"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="edit-dv">dv</label>
+            <input
+              type="text"
+              id="edit-dv"
+              [(ngModel)]="currentProveedor.dv"
+              name="edit-dv"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="edit-nombrE_CONTACTO_PRINCIPAL">Nombre Contacto Principal</label>
+            <input
+              type="text"
+              id="edit-nombrE_CONTACTO_PRINCIPAL"
+              [(ngModel)]="currentProveedor.nombrE_CONTACTO_PRINCIPAL"
+              name="edit-nombrE_CONTACTO_PRINCIPAL"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="edit-numerO_CONTACTO_PRINCIPAL">Número Contacto Principal</label>
+            <input
+              type="number"
+              id="edit-numerO_CONTACTO_PRINCIPAL"
+              [(ngModel)]="currentProveedor.numerO_CONTACTO_PRINCIPAL"
+              name="edit-numerO_CONTACTO_PRINCIPAL"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="edit-nombrE_CONTACTO_SECUNDARIO">Nombre Contacto Secundario</label>
+            <input
+              type="text"
+              id="edit-nombrE_CONTACTO_SECUNDARIO"
+              [(ngModel)]="currentProveedor.nombrE_CONTACTO_SECUNDARIO"
+              name="edit-nombrE_CONTACTO_SECUNDARIO"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="edit-numerO_CONTACTO_SECUNDARIO">Número Contacto Secundario</label>
+            <input
+              type="number"
+              id="edit-numerO_CONTACTO_SECUNDARIO"
+              [(ngModel)]="currentProveedor.numerO_CONTACTO_SECUNDARIO"
+              name="edit-numerO_CONTACTO_SECUNDARIO"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="edit-estado">Estado</label>
+            <input
+              type="number"
+              id="edit-estado"
+              [(ngModel)]="currentProveedor.estado"
+              name="edit-estado"
+              class="form-control"
+              required
+            />
+        </div>
+
+          <div class="form-group">
+            <label for="edit-usuariO_CREACION">Usuario de Creación</label>
+            <input
+              type="text"
+              id="edit-usuariO_CREACION"
+              [(ngModel)]="currentProveedor.usuariO_CREACION"
+              name="edit-usuariO_CREACION"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="edit-fechA_CREACION">Fecha de Creación</label>
+            <input
+              type="datetime-local"
+              id="edit-fechA_CREACION"
+              [(ngModel)]="currentProveedor.fechA_CREACION"
+              name="edit-fechA_CREACION"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-update">Actualizar</button>
+            <button type="button" (click)="closeEditModal()" class="volver-btn">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+
 
   <!-- Modal de Insertar Proveedores  -->
   <div *ngIf="showCreateModal" class="modal">

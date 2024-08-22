@@ -15,6 +15,8 @@ export class GestionProveedoresComponent implements OnInit {
   nuevoProveedor: any = {};
   showCreateModal = false;
   proveedorToEdit: any = null;
+  currentProveedor: any = {};
+  showEditModal = false;
 
   private apiUrl = 'https://localhost:7125/api/Proveedor';
 
@@ -41,24 +43,17 @@ export class GestionProveedoresComponent implements OnInit {
     this.showCreateModal = false;
   }
 
+  // Abrir el modal de edición
+  openEditModal(proveedores: any): void {
+    this.currentProveedor = { ...proveedores }; 
+    this.showEditModal = true;
+  }
 
-  // //Modal de Edicion
-  // openCreateModal(): void {
-  //   this.nuevoProveedor = {
-  //       nombre: '',
-  //       razoN_SOCIAL: '',
-  //       rut: '',
-  //       dv: '',
-  //       nombrE_CONTACTO_PRINCIPAL: '',
-  //       numerO_CONTACTO_PRINCIPAL: '',
-  //       nombrE_CONTACTO_SECUNDARIO: '',
-  //       numerO_CONTACTO_SECUNDARIO: '',
-  //       estado: '',
-  //       usuariO_CREACION: '',
-  //       fechA_CREACION: ''
-  //   };
-  //   this.showCreateModal = true;
-  // }
+  // Cerrar el modal de edición
+  closeEditModal(): void {
+    this.showEditModal = false;
+  }
+
 
 
   constructor(private http: HttpClient, private router: Router) {}
@@ -90,6 +85,36 @@ loadProveedores(): void {
    });
  }
 
+ // Editar Proveedor
+ updateProveedor(): void{
+  const url = `${this.apiUrl}/${this.currentProveedor.id}`;
+  const updatedData = {
+        nombre: this.currentProveedor.nombre,
+        razoN_SOCIAL: this.currentProveedor.razoN_SOCIAL,
+        rut: this.currentProveedor.rut,
+        dv: this.currentProveedor.dv,
+        nombrE_CONTACTO_PRINCIPAL: this.currentProveedor.nombrE_CONTACTO_PRINCIPAL,
+        numerO_CONTACTO_PRINCIPAL: this.currentProveedor.numerO_CONTACTO_PRINCIPAL,
+        nombrE_CONTACTO_SECUNDARIO: this.currentProveedor.nombrE_CONTACTO_SECUNDARIO,
+        numerO_CONTACTO_SECUNDARIO: this.currentProveedor.numerO_CONTACTO_SECUNDARIO,
+        estado: this.currentProveedor.estado,
+        usuariO_CREACION: this.currentProveedor.usuariO_CREACION,
+        fechA_CREACION: this.currentProveedor.fechA_CREACION
+  };
+
+  this.http.put(url, updatedData, {responseType: 'text'}).subscribe({
+    next: response => {
+      console.log('Proveedor Actualizado',response);
+      alert('Proveedor Actualizado Exitosamente');
+      this.loadProveedores();
+      this.closeEditModal();
+    },
+    error: error => {
+      console.error ('Error al actualizar el Proveedor');
+      alert ('Error al actualizar el Proveedor');
+    }
+  });
+ }
 
   // Confirmar eliminación
   confirmDelete(id: number): void {
