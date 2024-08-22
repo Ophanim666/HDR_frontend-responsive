@@ -1,0 +1,40 @@
+<div class="report-container">
+    <div class="report-header">
+      Parámetros
+      <!-- Crear tipo de parámetro -->
+      <button routerLink="/crear-tipo-parametro" class="btn btn-primary crear-btn">Crear Parámetro</button>
+      <button mat-raised-button color="primary" (click)="abrirModal()">Crear Parámetro</button>
+    </div>
+    <div class="report-body">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>Parámetro</th>
+            <th>Valor</th>
+            <th>Tipo de Parámetro</th>
+            <th>Estado</th>
+            <th>Usuario de Creación</th>
+            <th>Fecha de Creación</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let parametro of parametros">
+            <td>{{parametro.id}}</td>
+            <td>{{parametro.parametro}}</td>
+            <td>{{parametro.valor}}</td>
+            <td>{{parametro.iD_TIPO_PARAMETRO}}</td>
+            <td>{{parametro.estado}}</td>
+            <td>{{parametro.usuariO_CREACION}}</td>
+            <td>{{parametro.fechA_CREACION | date}}</td>
+            <td>
+              <button routerLink="/editar-tipo-parametro" class="btn btn-warning">Editar</button>
+              <!--<button </button>(click)="confirmDelete(parametro.id)" class="btn btn-danger">Eliminar</button>-->
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

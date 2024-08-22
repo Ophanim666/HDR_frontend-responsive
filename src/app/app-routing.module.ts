@@ -6,12 +6,18 @@ import { PerfilesComponent } from './perfiles/perfiles.component';
 import { RazonesSocialesComponent } from './razones-sociales/razones-sociales.component';
 import { ObrasComponent } from './obras/obras.component';
 import { EspecialidadesComponent } from './especialidades/especialidades.component';
-
+import { GestionEspecialidadComponent } from './gestion-especialidad/gestion-especialidad.component';
 // componente crear usuario
 import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
 import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usuarios.component';
 // Gestion proveedores
 import { GestionProveedoresComponent } from './gestion-proveedores/gestion-proveedores.component';
+//componente gestion tipo de parametro Alvaro
+import { GestionTipoParametrosComponent } from './gestion-tipo-parametros/gestion-tipo-parametros.component';
+//Gestión parametros
+import { ParametrosComponent } from './parametros/parametros.component';
+
+
 
 const routes: Routes = [
   //Aqui agregaremos las rutas de las paginas la sacaremos de nav-data
@@ -29,6 +35,13 @@ const routes: Routes = [
   { path: 'edicion-de-usuarios', component: EdicionDeUsuariosComponent },
   //Gestion de Proveedores
   { path: 'gestion-proveedores', component: GestionProveedoresComponent },
+  //Gestión de especialidad
+  { path: 'gestion-especialidad', component: GestionEspecialidadComponent },
+  //Gestion tipo de parametro ALVARO
+  { path: 'gestion-tipo-parametros', component: GestionTipoParametrosComponent },
+  //Gestión parámetros
+  { path: 'parametros', component: ParametrosComponent },
+
 ];
 
 @NgModule({

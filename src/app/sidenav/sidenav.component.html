@@ -1,7 +1,9 @@
 <div class="sidenav" [ngClass]="collapsed ?  'sidenav-collapsed': ''">
   <div class="logo-container">
-    <button class="logo" (click)="toggleColapse()">BI</button> <!-- Cambiar por foto -->
-    <div class="logo-text" *ngIf="collapsed">Bravo Izquierdo</div>
+    <button class="logo" (click)="toggleColapse()">
+      <img src="/assets/logo.jpg"/>
+    </button><!-- Cambiar por foto -->
+    <div class="logo-text" *ngIf="collapsed">BRAVO IZQUIERDO</div>
     <button class="btn-close" @rotate *ngIf="collapsed" (click)="closeSidenav()">
       <!-- No se muestra el boton de cerrar -->
       <!-- fa-times se llamara en CSS ojo -->
