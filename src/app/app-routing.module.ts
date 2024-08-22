@@ -10,8 +10,8 @@ import { EspecialidadesComponent } from './especialidades/especialidades.compone
 // componente crear usuario
 import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
 import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usuarios.component';
-
-
+// Gestion proveedores
+import { GestionProveedoresComponent } from './gestion-proveedores/gestion-proveedores.component';
 
 const routes: Routes = [
   //Aqui agregaremos las rutas de las paginas la sacaremos de nav-data
@@ -27,6 +27,8 @@ const routes: Routes = [
   { path: 'crear-usuario', component: CrearUsuariosComponent },
   //Edicion de usuarios
   { path: 'edicion-de-usuarios', component: EdicionDeUsuariosComponent },
+  //Gestion de Proveedores
+  { path: 'gestion-proveedores', component: GestionProveedoresComponent },
 ];
 
 @NgModule({

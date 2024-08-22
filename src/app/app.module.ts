@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-//agregaremos animaciones wajajajaja
+// NECESARIO para la edicion de parametros
+import { FormsModule } from '@angular/forms';
+//agregaremos animaciones
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -30,6 +32,8 @@ import { FooterComponent } from './footer/footer.component';
 import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
 //editar usuarios
 import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usuarios.component';
+// Gestion proveedores
+import { GestionProveedoresComponent } from './gestion-proveedores/gestion-proveedores.component';
 
 
 
@@ -52,6 +56,7 @@ import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usu
     FooterComponent,
     CrearUsuariosComponent,
     EdicionDeUsuariosComponent,
+    GestionProveedoresComponent,
 
     //Eliminar esto solo es de ejemplo
     // ProductsComponent,
@@ -63,6 +68,7 @@ import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usu
   ],
   imports: [
     BrowserModule,
+    FormsModule,
     //animations
     BrowserAnimationsModule,
     AppRoutingModule,
