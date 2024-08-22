@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-//agregaremos animaciones wajajajaja
+// NECESARIO para la edicion de parametros
+import { FormsModule } from '@angular/forms';
+//agregaremos animaciones
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //necesaria para editar parametros ALVARO
 import { FormsModule } from '@angular/forms'; // Importar FormsModule
@@ -40,10 +42,13 @@ import { FooterComponent } from './footer/footer.component';
 import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
 //editar usuarios
 import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usuarios.component';
+// Gestion proveedores
+import { GestionProveedoresComponent } from './gestion-proveedores/gestion-proveedores.component';
 import { GestionEspecialidadComponent } from './gestion-especialidad/gestion-especialidad.component';
 import { HeaderComponent } from './header/header.component';
 //rama que esta trbajando alvaro para el crud tipo de parametro
 import { GestionTipoParametrosComponent } from './gestion-tipo-parametros/gestion-tipo-parametros.component';
+
 
 import { ParametrosComponent } from './parametros/parametros.component';
 import { CrearParametroComponent } from './crear-parametro/crear-parametro.component';
@@ -63,12 +68,14 @@ import { CrearParametroComponent } from './crear-parametro/crear-parametro.compo
     EspecialidadesComponent,
     CrearUsuariosComponent,
     EdicionDeUsuariosComponent,
+    GestionProveedoresComponent,
     GestionEspecialidadComponent,
     HeaderComponent,
     //gestion de tipo parametro - Alvaro
     GestionTipoParametrosComponent,
     ParametrosComponent,
     CrearParametroComponent,
+
 
     //Eliminar esto solo es de ejemplo
     // ProductsComponent,

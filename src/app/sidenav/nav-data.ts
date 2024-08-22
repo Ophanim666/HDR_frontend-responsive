@@ -71,6 +71,11 @@ export const navbarData = [
     icon: 'fa-solid fa-briefcase',
     label: 'Especialidades'
   },
+  {
+    RouterLink: 'gestion-proveedores',
+    icon: 'fa-solid fa-briefcase',
+    label: 'Proveedores'
+  },
 
   //Gestion de tipo de parametos
   // los iconos se ven aqui : https://fontawesome.com/search?q=para&o=r&m=free&s=solid
