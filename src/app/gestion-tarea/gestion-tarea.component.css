@@ -1,0 +1,312 @@
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f5f5f5;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.card-head {
+  font-size: 24px;
+  font-weight: bold;
+  color: #000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.card-head .btn {
+  background-color: #28a745;
+  color: #fff;
+  padding: 6px 13px;
+  font-size: 14px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+}
+
+.card-head .btn:hover {
+  opacity: 0.9;
+}
+
+.table-container {
+  overflow-x: auto;
+}
+
+table.tarea-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table.tarea-table th,
+table.tarea-table td {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ccc;
+}
+
+table.tarea-table th {
+  background-color: #f0f0f0;
+  font-weight: bold;
+}
+
+table.tarea-table td {
+  white-space: normal;
+  word-break: break-word;
+}
+
+.tarea-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.tarea-actions .btn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  color: #fff;
+}
+
+.tarea-actions .btn-warning {
+  background-color: #165bf0;
+}
+
+.tarea-actions .btn-danger {
+  background-color: #dc3545;
+}
+
+.tarea-actions .btn:hover {
+  opacity: 0.8;
+}
+
+/* Modal styles */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  max-width: 90%;
+  position: relative;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content h6 {
+  text-align: center;
+  margin-top: 0;
+  margin-bottom: 20px;
+  color: #007bff;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-container .form-group {
+  margin-bottom: 15px;
+}
+
+.form-container label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-container input[type="text"],
+.form-container input[type="number"],
+.form-container input[type="datetime-local"] {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.btn-update {
+  background-color: #28a745;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+  width: 100%;
+  font-size: 16px;
+  text-align: center;
+}
+
+.btn-update:hover {
+  opacity: 0.9;
+}
+
+.volver-btn {
+  background-color: #6c757d;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  color: white;
+  width: 100%;
+  font-size: 16px;
+  text-align: center;
+}
+
+.volver-btn:hover {
+  opacity: 0.9;
+}
+
+/* Estilo para el contenedor del buscador */
+.card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Estilo para el contenedor del buscador y botón */
+.buscador-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.buscador {
+  flex: 1; /* Ocupa todo el espacio disponible */
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  font-size: 14px;
+  outline: none;
+  transition: all 0.3s ease;
+  margin-right: 10px; /* Espacio entre el buscador y el botón */
+}
+
+.buscador:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.btn-primary {
+  background-color: #28a745;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #218838;
+}
+
+/* Asegurar que la tabla y el buscador tengan el mismo ancho */
+.card-body {
+  margin-top: 20px;
+}
+
+.table-container,
+.buscador-container {
+  width: 100%;
+  max-width: 100%;
+}
+
+
+/* Estilo para el botón "Sí" */
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+  transform: scale(1.05);
+}
+
+/* Estilo para el botón "No" */
+.btn-secondary {
+  background-color: #6c757d;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: #5a6268;
+  transform: scale(1.05);
+}
+
+/* Estilo para alinear los botones en el modal */
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px; /* Espacio entre los botones */
+  margin-top: 20px;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .card-head {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .table-container {
+    overflow-x: auto;
+  }
+
+  table.tarea-table th,
+  table.tarea-table td {
+    font-size: 12px;
+  }
+
+  .tarea-actions {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+}

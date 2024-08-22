@@ -32,6 +32,7 @@ import { PerfilesComponent } from './perfiles/perfiles.component';
 import { RazonesSocialesComponent } from './razones-sociales/razones-sociales.component';
 import { ObrasComponent } from './obras/obras.component';
 import { EspecialidadesComponent } from './especialidades/especialidades.component';
+import { GestionTareaComponent } from './gestion-tarea/gestion-tarea.component';
 
 //HTTPclient
 import { HttpClientModule } from '@angular/common/http';
@@ -68,6 +69,7 @@ import { CrearParametroComponent } from './crear-parametro/crear-parametro.compo
     EspecialidadesComponent,
     CrearUsuariosComponent,
     EdicionDeUsuariosComponent,
+    GestionTareaComponent,
     GestionProveedoresComponent,
     GestionEspecialidadComponent,
     HeaderComponent,

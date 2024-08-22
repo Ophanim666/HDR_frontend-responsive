@@ -1,0 +1,190 @@
+<!-- Incluye Font Awesome en tu <head> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<div class="card">
+  <div class="card-head">
+    Listado de Tareas 
+    <!-- Botón para crear tarea -->
+  </div>
+  
+  <!-- Buscador de tareas -->
+  <div class="buscador-container">
+    <input
+      type="text"
+      placeholder="Buscar por nombre..."
+      [(ngModel)]="searchText"
+      class="buscador"
+    /> 
+    <button (click)="openCreateModal()" class="btn btn-primary">Crear Tarea</button>
+  </div>
+  
+  <div class="card-body">
+    <table class="tarea-table">
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>Nombre de Tarea</th>
+          <th>Codigo</th>
+          <th>Estado</th>
+          <th>Fecha de Creación</th>
+          <th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let tarea of filteredTareas()">
+          <td>{{ tarea.id }}</td>
+          <td>{{ tarea.nombre }}</td>
+          <td>{{ tarea.codigo }}</td>
+          <td>{{ tarea.estado }}</td>
+          <td>{{ tarea.fecha_creacion | date}}</td>
+          <td class="tarea-actions">
+            <button (click)="openEditModal(tarea)" class="btn btn-warning">
+              <i class="fas fa-edit"></i>
+            </button>
+            <button (click)="confirmDelete(tarea.id)" class="btn btn-danger">
+              <i class="fas fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal de confirmación de eliminación -->
+<div *ngIf="showConfirmationDialog" class="modal">
+  <div class="modal-content tarea-card">
+    <h6>Confirmación de Eliminación</h6>
+    <p>¿Está seguro de que desea eliminar esta tarea?</p>
+    <div class="form-actions">
+      <button (click)="deleteTarea()" class="btn btn-danger">Sí</button>
+      <button (click)="closeConfirmationDialog()" class="btn btn-secondary">No</button>
+    </div>
+  </div>
+</div>
+
+<!--Modal para crear tarea-->
+<div *ngIf="showCreateModal" class="modal">
+  <div class="modal-content tarea-card">
+    <h6>Crear Tarea</h6>
+    <div class="form-container">
+      <form (ngSubmit)="createTarea()" #tareaForm="ngForm">
+        <div class="form-group">
+          <label for="nombre">Nombre de Tarea</label>
+          <input
+            type="text"
+            id="nombre"
+            [(ngModel)]="newTarea.nombre"
+            name="nombre"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="codigo">Codigo</label>
+          <input
+            type="text"
+            id="codigo"
+            [(ngModel)]="newTarea.codigo"
+            name="codigo"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="estado">Estado</label>
+          <input
+            type="number"
+            id="estado"
+            [(ngModel)]="newTarea.estado"
+            name="estado"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="fecha_Creacion">Fecha de Creación</label>
+          <input
+            type="datetime-local"
+            id="fecha_Creacion"
+            [(ngModel)]="newTarea.fecha_Creacion"
+            name="fecha_Creacion"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-update">Crear</button>
+          <button type="button" (click)="closeCreateModal()" class="volver-btn">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para editar tarea -->
+<div *ngIf="showEditModal" class="modal">
+  <div class="modal-content tarea-card">
+    <h6>Editar Tarea</h6>
+    <div class="form-container">
+      <form (ngSubmit)="updateTarea()" #editTareaForm="ngForm">
+        <div class="form-group">
+          <label for="edit-nombre">Nombre de Tarea</label>
+          <input
+            type="text"
+            id="edit-nombre"
+            [(ngModel)]="currentTarea.nombre"
+            name="edit-nombre"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="edit-codigo">Codigo</label>
+          <input
+            type="text"
+            id="edit-codigo"
+            [(ngModel)]="currentTarea.codigo"
+            name="edit-codigo"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="edit-estado">Estado</label>
+          <input
+            type="number"
+            id="edit-estado"
+            [(ngModel)]="currentTarea.estado"
+            name="edit-estado"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="edit-fecha_Creacion">Fecha de Creación</label>
+          <input
+            type="datetime-local"
+            id="edit-fecha_Creacion"
+            [(ngModel)]="currentTarea.fecha_Creacion"
+            name="edit-fecha_Creacion"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-update">Actualizar</button>
+          <button type="button" (click)="closeEditModal()" class="volver-btn">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

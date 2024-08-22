@@ -72,6 +72,11 @@ export const navbarData = [
     label: 'Especialidades'
   },
   {
+    RouterLink: 'gestion-tarea',
+    icon: 'fa-solid fa-tasks',
+    label: 'Tareas'
+  },
+  {
     RouterLink: 'gestion-proveedores',
     icon: 'fa-solid fa-briefcase',
     label: 'Proveedores'
