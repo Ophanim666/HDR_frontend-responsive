@@ -74,5 +74,12 @@ export const navbarData = [
     label: 'Gestion tipo parametros'
   },
 
+  //Gestión parametos
+  {
+    RouterLink: 'parametros',
+    icon: 'fa-solid fa-gear',
+    label: 'Parámetros'
+  },
+
 ];
 

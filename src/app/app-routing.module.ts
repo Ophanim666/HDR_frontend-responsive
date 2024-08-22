@@ -16,6 +16,8 @@ import { GestionTipoParametrosComponent } from './gestion-tipo-parametros/gestio
 
 
 
+//Gestión parametros
+import { ParametrosComponent } from './parametros/parametros.component';
 
 
 const routes: Routes = [
@@ -34,8 +36,10 @@ const routes: Routes = [
   { path: 'edicion-de-usuarios', component: EdicionDeUsuariosComponent },
   //Gestion tipo de parametro ALVARO
   { path: 'gestion-tipo-parametros', component: GestionTipoParametrosComponent },
+  //Gestión parámetros
+  { path: 'parametros', component: ParametrosComponent },
 
-
+  
 ];
 
 @NgModule({
