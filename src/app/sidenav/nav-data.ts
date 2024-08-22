@@ -46,25 +46,31 @@ export const navbarData = [
   {
     RouterLink: 'perfiles',
     icon: 'fa-solid fa-user',
-    label: 'Perfiles'
+    label: 'Usuarios'
   },
   {
     RouterLink: 'razonesSociales',
     icon: 'fa-solid fa-box-archive',
-    label: 'Razones Sociales'
+    label: 'Proveedores'
   },
   {
     RouterLink: 'obras',
     icon: 'fa-solid fa-person-digging',
     label: 'Obras'
   },
+
+  // {
+  //   //buscar un icono mas bonito
+  //   RouterLink: 'especialidades',
+  //   icon: 'fa-solid fa-user-plus',
+  //   label: 'Especialidades'
+  // },
+
   {
-    //buscar un icono mas bonito
-    RouterLink: 'especialidades',
-    icon: 'fa-solid fa-user-plus',
+    RouterLink: 'gestion-especialidad',
+    icon: 'fa-solid fa-briefcase',
     label: 'Especialidades'
   },
-
 
   //Gestion de tipo de parametos
   // los iconos se ven aqui : https://fontawesome.com/search?q=para&o=r&m=free&s=solid

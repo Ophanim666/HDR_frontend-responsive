@@ -33,17 +33,20 @@ import { EspecialidadesComponent } from './especialidades/especialidades.compone
 
 //HTTPclient
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { FooterComponent } from './footer/footer.component';
 
 //crear usuarios
 import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
 //editar usuarios
 import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usuarios.component';
+import { GestionEspecialidadComponent } from './gestion-especialidad/gestion-especialidad.component';
+import { HeaderComponent } from './header/header.component';
 //rama que esta trbajando alvaro para el crud tipo de parametro
 import { GestionTipoParametrosComponent } from './gestion-tipo-parametros/gestion-tipo-parametros.component';
 
 import { ParametrosComponent } from './parametros/parametros.component';
 import { CrearParametroComponent } from './crear-parametro/crear-parametro.component';
-
 
 @NgModule({
   declarations: [
@@ -51,7 +54,8 @@ import { CrearParametroComponent } from './crear-parametro/crear-parametro.compo
     BodyComponent,
     SidenavComponent,
     DashboardComponent,
-    //estas se usaran pero no estan definidas al 100%
+
+    // Estas se usarán pero no están definidas al 100%
     ActasComponent,
     PerfilesComponent,
     RazonesSocialesComponent,
@@ -59,6 +63,8 @@ import { CrearParametroComponent } from './crear-parametro/crear-parametro.compo
     EspecialidadesComponent,
     CrearUsuariosComponent,
     EdicionDeUsuariosComponent,
+    GestionEspecialidadComponent,
+    HeaderComponent,
     //gestion de tipo parametro - Alvaro
     GestionTipoParametrosComponent,
     ParametrosComponent,
@@ -72,6 +78,7 @@ import { CrearParametroComponent } from './crear-parametro/crear-parametro.compo
     // MediaComponent,
     // SettingsComponent
   ],
+
   imports: [
     BrowserModule,
     FormsModule, // Asegúrate de que FormsModule está importado aquí
@@ -83,9 +90,12 @@ import { CrearParametroComponent } from './crear-parametro/crear-parametro.compo
     MatDialogModule,
     MatButtonModule
   ],
+
   providers: [
     provideAnimationsAsync()
   ],
+
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule {}
