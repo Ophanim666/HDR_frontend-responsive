@@ -40,19 +40,8 @@
     </div>
   </div>
 
-  <!-- Modal de confirmación de eliminación -->
-  <div *ngIf="showConfirmationDialog" class="modal">
-    <div class="modal-content tipo-parametro-card">
-      <h6>Confirmación de Eliminación</h6>
-      <p>¿Está seguro de que desea eliminar este tipo de parámetro?</p>
-      <div class="form-actions">
-        <button (click)="deleteTipoParametro()" class="btn btn-danger">Sí</button>
-        <button (click)="closeConfirmationDialog()" class="btn btn-secondary">No</button>
-      </div>
-    </div>
-  </div>
 
-  <!-- Modal para crear tipo de parámetro -->
+    <!-- Modal para crear tipo de parámetro -->
   <div *ngIf="showCreateModal" class="modal">
     <div class="modal-content tipo-parametro-card">
       <h6>Crear Tipo de Parámetro</h6>
@@ -174,6 +163,18 @@
             <button type="button" (click)="closeEditModal()" class="volver-btn">Cancelar</button>
           </div>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de confirmación de eliminación -->
+  <div *ngIf="showConfirmationDialog" class="modal">
+    <div class="modal-content tipo-parametro-card">
+      <h6>Confirmación de Eliminación</h6>
+      <p>¿Está seguro de que desea eliminar este tipo de parámetro?</p>
+      <div class="form-actions">
+        <button (click)="deleteTipoParametro()" class="btn btn-danger">Sí</button>
+        <button (click)="closeConfirmationDialog()" class="btn btn-secondary">No</button>
       </div>
     </div>
   </div>

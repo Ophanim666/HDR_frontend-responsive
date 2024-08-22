@@ -24,6 +24,7 @@ export class GestionTipoParametrosComponent implements OnInit {
   ngOnInit(): void {
     this.loadTipoParametros();
   }
+//--------------------------------------------------------LISTAR--------------------------------------------------------
 
   // Listar datos de tipo de parámetro
   loadTipoParametros(): void {
@@ -33,6 +34,8 @@ export class GestionTipoParametrosComponent implements OnInit {
       complete: () => console.log('Carga de tipos de parámetros completa')
     });
   }
+
+//--------------------------------------------------------MODAL DE CREACION--------------------------------------------------------
 
   // Abrir el modal de creación
   openCreateModal(): void {
@@ -68,6 +71,8 @@ export class GestionTipoParametrosComponent implements OnInit {
       });
   }
 
+//--------------------------------------------------------MODAL DE EDICION--------------------------------------------------------
+
   // Abrir el modal de edición
   openEditModal(tipoParametro: any): void {
     this.currentTipoParametro = { ...tipoParametro }; // Copiar los datos para edición
@@ -102,6 +107,8 @@ export class GestionTipoParametrosComponent implements OnInit {
       }
     });
   }
+
+  //--------------------------------------------------------MODAL DE ELIMINACION--------------------------------------------------------
 
   // Abrir el modal de confirmación de eliminación
   confirmDelete(id: number): void {
