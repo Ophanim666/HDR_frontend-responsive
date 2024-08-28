@@ -32,11 +32,28 @@ body{
 }
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: Poppins;}
+
+/* Estilos para los iconos dentro de los botones */
+.mat-flat-button.editar {
+  margin: 0; /* Elimina márgenes adicionales si es necesario */
+}
+
+.mat-flat-button.editar{
+  width: 40px; /* Define un ancho fijo */
+  height: 40px; /* Define un alto fijo */
+  align-items: center;
+}
+
+.mat-flat-button.eliminar{
+  width: 40px; /* Define un ancho fijo */
+  height: 40px; /* Define un alto fijo */
+  align-items: center;
+}
 
 /* Estilos generales para los botones */
 /* BOTÓN GENERAL */
-.flat-button {
+/* .flat-button {
   font-family: sans-serif;
   font-size: 14px;
   font-weight: bold;
@@ -48,7 +65,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   transition: background-color 0.3s, color 0.3s;
 }
 
-/* BOTÓN AGREGAR */
+BOTÓN AGREGAR
 .flat-button.agregar {
   background-color: #56b85c;
   color: white;
@@ -58,14 +75,14 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background-color: #3ca041;
 }
 
-/* BOTÓN DESHABILITADO */
+BOTÓN DESHABILITADO
 .flat-button.disabled {
   background-color: #E0E0E0;
   color: #9E9E9E;
   cursor: not-allowed;
 }
 
-/* BOTÓN ENLACE */
+BOTÓN ENLACE
 .custom-button.link {
   background-color: transparent;
   color: #C2185B;
@@ -74,4 +91,4 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 .custom-button.link:hover {
   background-color: rgba(194, 24, 91, 0.1);
-}
+} */

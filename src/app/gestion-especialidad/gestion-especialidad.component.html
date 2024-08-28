@@ -1,36 +1,31 @@
 <app-header
-  [title]="'Especialidades'"
+  [title]="'Gestión de especialidades'"
   [buttonText]="'Agregar'"
   (buttonClick)="openCreateModalEspecialidad()">
 </app-header>
 
-<!-- Encapsulamos la tabla dentro de una tarjeta (FOR)-->
-<div class="card">
-  <div class="card-body">
-    <table class="table-elegant">
-      <thead>
-        <tr>
-          <th>Código</th>
-          <th>Especialidades</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let especialidad of especialidades">
-          <!-- Para traer los datos al editar -->
-          <td>{{ especialidad.id }}</td>
-          <td>{{ especialidad.nombre }}</td>
-          <td class="actions-column">
-            <div class="button-container">
-            <button class="btn-primary" (click)="openEditModalEspecialidad(especialidad)"><i class="fa-solid fa-pen"></i></button>
-            <button class="btn-danger" (click)="confirmDelete(especialidad.id)"><i class="fa-solid fa-trash-can"></i></button>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-</div>
+<table class="table-elegant">
+  <thead>
+    <tr>
+      <th>Código</th>
+      <th>Especialidades</th>
+      <th>Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let especialidad of especialidades">
+      <!-- Para traer los datos al editar -->
+      <td>{{ especialidad.id }}</td>
+      <td>{{ especialidad.nombre }}</td>
+      <td class="actions-column">
+        <div class="button-container">
+          <button mat-flat-button color="primary" class="mat-flat-button editar" (click)="openEditModalEspecialidad(especialidad)"><mat-icon>edit_square</mat-icon></button>
+          <button mat-flat-button color="warn" class="mat-flat-button eliminar" (click)="confirmDelete(especialidad.id)"><mat-icon>delete</mat-icon></button>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
 
 <!-- MODAL (C)RUD Create -->
 <div *ngIf="showCreateModalEspecialidad" class="modal">
@@ -39,99 +34,120 @@
 
       <!-- Header -->
       <div class="modal-header">
-        <h5 class="modal-title">Creación de especialidad</h5>
+        <h2 class="modal-title">Creación de especialidad</h2>
       </div>
-        
+
       <!-- Body -->
       <div class="modal-body">
-        <form (ngSubmit)="createEspecialidad()" #EspecialidadForm="ngForm">
-            
+        <form (ngSubmit)="createEspecialidad()" #EspecialidadForm="ngForm" class="form-container">
+
           <!-- Campo para nombre de especialidad -->
-          <div class="form-group">
-            <label for="especialidad">Nombre</label>
+          <mat-form-field class="mat-form-field">
+            <mat-label>Nombre</mat-label>
             <input
-              type="text"
-              id="especialidad"
+              matInput
+              placeholder=""
               [(ngModel)]="nuevaEspecialidad.nombre"
               name="especialidad"
-              class="form-control"
-              required/>
-          </div>
-
-          <!-- Campo para estado -->
-          <div class="form-group">
-            <label for="estado">Estado</label>
-            <input
-              type="text"
-              id="estado"
-              [(ngModel)]="nuevaEspecialidad.estado"
-              name="estado"
-              class="form-control"
               required
             />
-          </div>
+          </mat-form-field>
 
-          <!-- Footer para los botones del modal -->
-          <div class="modal-footer">
-            <button type="button" class="btn-success" (click)="createEspecialidad()">Crear especialidad</button>
-            <button type="button" class="btn-nigg" (click)="closeCreateModalEspecialidad()">Volver</button>
+          <!-- Campo para estado (slide toggle) -->
+          <!-- PENDIENTE DE REVISAR QUE FUNCIONE AL AGREGAR INACTIVO -->
+          <div class="form-group">
+            <label>Estado</label>
+            <mat-slide-toggle
+              [(ngModel)]="nuevaEspecialidad.estado"
+              name="estado"
+              labelPosition="before">
+            </mat-slide-toggle>
           </div>
-
         </form>
       </div>
-      
+
+      <!-- Footer para los botones del modal -->
+      <div class="modal-footer">
+        <button mat-flat-button color="neutral" class="mat-flat-button agregar" (click)="createEspecialidad()" type="submit">Crear especialidad</button>
+        <button mat-flat-button color="warn" (click)="closeCreateModalEspecialidad()" type="button">Volver</button>
+      </div>
+
     </div>
   </div>
 </div>
+
 
 <!-- MODAL CR(U)D Update -->
 <div *ngIf="showEditModalEspecialidad" class="modal">
-  <div class="modal-content especialidad-card">
-    <h6>Editar especialidad</h6>
-    <div class="form-container">
-      <form (ngSubmit)="updateEspecialidad()" #editEspecialidadForm="ngForm">
+  <div class="modal-dialog">
+    <div class="modal-content">
 
-        <div class="form-group">
-          <label for="edit-especialidad">Especialidad</label>
-          <input
-            type="text"
-            id="edit-especialidad"
-            [(ngModel)]="currentEspecialidad.nombre"
-            name="edit-especialidad"
-            class="form-control"
-            required
-          />
+      <!-- Header -->
+      <div class="modal-header">
+        <h2 class="modal-title">Edición de especialidad</h2>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <form (ngSubmit)="updateEspecialidad()" #editEspecialidadForm="ngForm" class="form-container">
+
+          <!-- Campo para nombre de especialidad -->
+          <mat-form-field class="mat-form-field">
+            <mat-label>Nombre</mat-label>
+            <input
+              matInput
+              placeholder=""
+              [(ngModel)]="currentEspecialidad.nombre"
+              name="especialidad"
+              required
+            />
+          </mat-form-field>
+
+          <!-- Campo para estado (slide toggle) -->
+          <div class="form-group">
+            <label>Estado</label>
+            <mat-slide-toggle
+              [(ngModel)]="currentEspecialidad.estado"
+              name="estado"
+              labelPosition="before">
+            </mat-slide-toggle>
+          </div>
+        </form>
+
         </div>
 
-        <div class="form-group">
-          <label for="edit-estado">Estado</label>
-          <input
-            type="number"
-            id="edit-estado"
-            [(ngModel)]="currentEspecialidad.estado"
-            name="edit-estado"
-            class="form-control"
-            required
-          />
-        </div>
+          <!-- Footer para los botones del modal -->
+          <div class="modal-footer">
+            <button mat-flat-button color="neutral" class="mat-flat-button actualizar" (click)="updateEspecialidad()"  type="submit">Actualizar</button>
+            <button mat-flat-button color="warn" (click)="closeEditModalEspecialidad()" type="button">Cancelar</button>
+          </div>
 
-        <div class="form-actions">
-          <button type="submit" class="btn-update">Actualizar</button>
-          <button type="button" (click)="closeEditModalEspecialidad()" class="volver-btn">Cancelar</button>
-        </div>
-      </form>
     </div>
   </div>
 </div>
 
-  <!-- Modal de confirmación de eliminación -->
-  <div *ngIf="showConfirmationDeleteEspecialidad" class="modal">
-    <div class="modal-content tipo-parametro-card">
-      <h6>Confirmación de Eliminación</h6>
-      <p>¿Está seguro de que desea eliminar este tipo de parámetro?</p>
-      <div class="form-actions">
-        <button (click)="deleteEspecialidad()" class="btn btn-danger">Sí</button>
-        <button (click)="closeConfirmationDialog()" class="btn btn-secondary">No</button>
+
+<!-- Modal de confirmación de eliminación -->
+<div *ngIf="showConfirmationDeleteEspecialidad" class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <h6>Confirmación de eliminación</h6>
       </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <p>¿Está seguro de que desea eliminar esta especialidad?</p>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button mat-flat-button color="primary" class="mat-flat-button confirmareliminar" (click)="deleteEspecialidad()">Sí</button>
+        <button mat-flat-button color="warn" class="mat-flat-button volver" (click)="closeConfirmationDialog()">No</button>
+      </div>
+
     </div>
   </div>
+</div>

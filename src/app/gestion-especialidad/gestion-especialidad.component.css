@@ -1,288 +1,143 @@
 /* Estilos generales */
 body {
-  font-family: 'Arial', sans-serif;
-  background-color: #f8f9fa;
-  color: #333;
-  margin: 0;
-  padding: 0;
+  background-color: #f8f9fa; /* Color de fondo de la página */
+  color: #333; /* Color del texto */
+  margin: 0; /* Elimina el margen por defecto */
+  padding: 0; /* Elimina el padding por defecto */
 }
 
 /* Card */
 .card {
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  padding: 20px;
+  border-radius: 8px; /* Esquinas redondeadas */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil alrededor de la tarjeta */
+  background-color: #fff; /* Color de fondo de la tarjeta */
+  padding: 20px; /* Espaciado interno de la tarjeta */
 }
 
 .card-head {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  font-size: 18px; /* Tamaño de fuente del encabezado de la tarjeta */
+  font-weight: bold; /* Negrita para el encabezado */
+  margin-bottom: 20px; /* Espaciado debajo del encabezado */
+  display: flex; /* Usa flexbox para el diseño */
+  justify-content: space-between; /* Espacia los elementos de manera equitativa */
+  align-items: center; /* Alinea los elementos verticalmente al centro */
 }
 
 .card-body {
-  overflow-x: auto;
+  overflow-x: auto; /* Permite el desplazamiento horizontal si el contenido es demasiado ancho */
 }
 
-table {
-  width: 100%;
-  border-collapse: collapse;
+/* MODALES */
+.example-form {
+  min-width: 150px; /* Ancho mínimo del formulario */
+  max-width: 500px; /* Ancho máximo del formulario */
+  width: 100%; /* Ancho completo disponible */
 }
 
-th, td {
-  text-align: left;
-  padding: 12px;
+.form-container {
+  display: flex; /* Usa flexbox para el diseño del formulario */
+  flex-direction: column; /* Apila los elementos en una columna */
+  gap: 16px; /* Espaciado entre inputs */
 }
 
-th {
-  background-color: #007bff;
-  color: #fff;
-}
-
-tr:nth-child(even) {
-  background-color: #f2f2f2;
-}
-
-.actions-column {
-  width: 150px;
-}
-
-/* Botones */
-button {
-  border: none;
-  border-radius: 4px;
-  padding: 10px 20px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s;
-}
-
-.btn-primary {
-  background-color: #007bff;
-  color: #fff;
-}
-
-.btn-primary:hover {
-  background-color: #0056b3;
-}
-
-.btn-danger {
-  background-color: #dc3545;
-  color: #fff;
-}
-
-.btn-danger:hover {
-  background-color: #c82333;
-}
-
-.btn-nigg {
-  background-color: #6c757d;
-  color: #fff;
-}
-
-.btn-nigg:hover {
-  background-color: #5a6268;
-}
-
-.btn-success {
-  background-color: #28a745;
-  color: #fff;
-}
-
-.btn-success:hover {
-  background-color: #218838;
-}
-
-/* Modales */
 .modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  position: fixed; /* Fija el modal en la pantalla */
+  top: 0; /* Alinea el modal en la parte superior */
+  left: 0; /* Alinea el modal a la izquierda */
+  width: 100%; /* Ancho completo de la pantalla */
+  height: 100%; /* Altura completa de la pantalla */
+  background: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente para el modal */
+  display: flex; /* Usa flexbox para centrar el contenido */
+  justify-content: center; /* Centra el contenido horizontalmente */
+  align-items: center; /* Centra el contenido verticalmente */
 }
 
 .modal-dialog {
-  background: #fff;
-  border-radius: 8px;
-  width: 500px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background: #fff; /* Color de fondo del diálogo del modal */
+  border-radius: 8px; /* Esquinas redondeadas */
+  width: 500px; /* Ancho del diálogo del modal */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil alrededor del diálogo */
 }
 
 .modal-header {
-  padding: 15px;
-  border-bottom: 1px solid #dee2e6;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  padding: 10px; /* Espaciado interno del encabezado del modal */
+  border-bottom: 1px solid #dee2e6; /* Línea divisoria inferior del encabezado */
+  align-items: center; /* Alinea los elementos verticalmente al centro */
+  text-align: center;
 }
 
 .modal-title {
-  font-size: 18px;
-  margin: 0;
+  font-size: 20px; /* Tamaño de fuente del título del modal */
+  font-weight: 500;
+  margin: 5px; /* Elimina el margen alrededor del título */
+  text-align: center; /* Centra el texto del título */
 }
 
 .modal-body {
-  padding: 20px;
+  padding: 20px; /* Espaciado interno del cuerpo del modal */
 }
 
 .modal-footer {
-  padding: 15px;
-  border-top: 1px solid #dee2e6;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.input-style {
-  width: 100%;
-  padding: 10px;
-  border-radius: 4px;
-  border: 1px solid #ced4da;
-}
-
-/* Modal de confirmación de eliminación */
-.modal-success {
-  background-color: #d4edda;
-  border-color: #c3e6cb;
-  padding: 15px;
-  border-radius: 4px;
-  text-align: center;
-  width: 300px;
-}
-
-.modal-success p {
-  margin: 0 0 15px;
-  color: #155724;
-  font-weight: bold;
-}
-
-/* Estilos personalizados para el modal de éxito */
-.modal-success button {
-  width: 100%;
-  padding: 10px;
-  background-color: #28a745;
-  color: #fff;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: background-color 0.3s;
-}
-
-.modal-success button:hover {
-  background-color: #218838;
+  padding: 20px; /* Espaciado interno del pie del modal */
+  border-top: 1px solid #dee2e6; /* Línea divisoria superior del pie del modal */
+  display: flex; /* Usa flexbox para el diseño del pie del modal */
+  justify-content: space-between; /* Espacia los elementos de manera equitativa */
+  align-items: center; /* Alinea los elementos verticalmente al centro */
 }
 
 /* TABLA */
 .table-elegant {
-  width: 100%;
-  border-collapse: separate;
-  border-spacing: 0;
-  border-radius: 10px;
-  border: 1px solid #d1d1d1;
-  overflow: hidden;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-  margin-top: 20px;
-  background-color: white;
+  width: 100%; /* Ancho completo de la tabla */
+  border-collapse: separate; /* Separa los bordes de las celdas */
+  border-spacing: 0; /* Elimina el espaciado entre las celdas */
+  border-radius: 10px; /* Esquinas redondeadas de la tabla */
+  border: 1px solid #d1d1d1; /* Borde alrededor de la tabla */
+  overflow: hidden; /* Oculta el contenido desbordante */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra sutil alrededor de la tabla */
+  margin-top: 20px; /* Espaciado superior de la tabla */
+  background-color: white; /* Color de fondo de la tabla */
 }
 
 .table-elegant .table-title {
-  background-color: white;
-  color: #333;
-  font-weight: bold;
-  text-align: left;
-  padding: 15px 20px;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.table-elegant thead tr:nth-child(2) {
-  background-color: #8e44ad; /* Color morado para el encabezado de columnas */
-  color: white;
+  background-color: #333; /* Color de fondo del título de la tabla */
+  color: white; /* Color del texto del título */
+  font-weight: bold; /* Negrita para el texto del título */
+  text-align: left; /* Alinea el texto a la izquierda */
+  padding: 15px 20px; /* Espaciado interno del título de la tabla */
+  border-bottom: 1px solid #e0e0e0; /* Línea divisoria inferior del título */
 }
 
 .table-elegant th,
-.table-elegant td {
-  padding: 15px 20px;
-  text-align: left;
+.table-elegant td { 
+  padding: 15px 20px; /* Espaciado interno de las celdas */
+  text-align: left; /* Alinea el texto a la izquierda en celdas */
 }
 
 .table-elegant th {
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  font-weight: 500; /* Negrita para los encabezados de columna */
+  letter-spacing: 0.5px; /* Espaciado entre letras */
+  background-color: #333; /* Color de fondo de los encabezados de columna */
+  color: white; /* Color del texto en los encabezados de columna */
 }
 
 .table-elegant td {
-  border-bottom: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0; /* Línea divisoria inferior en las celdas */
 }
 
 .table-elegant tbody tr {
-  background-color: white; /* Todas las filas blancas */
+  background-color: white; /* Color de fondo de las filas de la tabla */
 }
 
 .table-elegant tbody tr:last-child td {
-  border-bottom: none;
+  border-bottom: none; /* Elimina el borde inferior de la última fila */
 }
 
 .table-elegant tbody tr:hover {
-  background-color: #f8f9fa; /* Hover suave */
-  transition: background-color 0.3s ease;
+  background-color: #f8f9fa; /* Color de fondo cuando se pasa el cursor sobre la fila */
+  transition: background-color 0.3s ease; /* Transición suave del color de fondo */
 }
 
 .table-elegant .actions-column {
-  text-align: right;
-}
-
-.table-elegant .btn-primary,
-.table-elegant .btn-danger {
-  padding: 8px 12px;
-  border: none;
-  border-radius: 5px;
-  margin: 0 3px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.table-elegant .btn-primary {
-  background-color: #3498db;
-  color: white;
-}
-
-.table-elegant .btn-danger {
-  background-color: #e74c3c;
-  color: white;
-}
-
-.table-elegant .btn-primary:hover,
-.table-elegant .btn-danger:hover {
-  opacity: 0.9;
-}
-
-/* Ajuste para asegurar esquinas redondeadas */
-.table-elegant thead tr:first-child th:first-child {
-  border-top-left-radius: 9px;
-}
-
-.table-elegant thead tr:first-child th:last-child {
-  border-top-right-radius: 9px;
-}
-
-.table-elegant tbody tr:last-child td:first-child {
-  border-bottom-left-radius: 9px;
-}
-
-.table-elegant tbody tr:last-child td:last-child {
-  border-bottom-right-radius: 9px;
+  text-align: left; /* Alinea el contenido de la columna de acciones a la izquierda */
+  width: 200px; /* Ancho fijo para la columna de acciones */
 }

@@ -9,12 +9,13 @@
     border-radius: .5rem;
 }
 
-/* Estilos para el título del header
+/* Estilos para el título del header */
 .header-left h1 {
     margin: 0;
     font-size: 24px;
     color: #000000;
-} */
+    font-weight: 500; 
+}
 
 /* Estilo para el contenedor del buscador y botón */
 .buscador-container {

@@ -16,6 +16,14 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MatButtonModule } from '@angular/material/button';
 // Crear modal dialogs
 import { MatDialogModule } from '@angular/material/dialog';
+// Usar inputs Angular
+import {MatInputModule} from '@angular/material/input';
+// Forms Angular
+import {MatFormFieldModule} from '@angular/material/form-field';
+// Switch ANGULAR
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+
+import {MatIconModule} from '@angular/material/icon';
 
 import { ActasComponent } from './actas/actas.component';
 import { PerfilesComponent } from './perfiles/perfiles.component';
@@ -79,7 +87,11 @@ import { CrearParametroComponent } from './crear-parametro/crear-parametro.compo
     //HTTPclient
     HttpClientModule,
     MatDialogModule,
-    MatButtonModule
+    MatButtonModule,
+    MatInputModule,
+    MatFormFieldModule,
+    MatSlideToggleModule,
+    MatIconModule
   ],
 
   providers: [
