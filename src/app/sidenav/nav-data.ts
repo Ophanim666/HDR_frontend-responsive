@@ -7,37 +7,6 @@ export const navbarData = [
     label: 'Dashboard'
   },
 
-  //Paginas de prueba eliminar despues
-  // {
-  //   RouterLink: 'products',
-  //   icon: 'fa-solid fa-boxes-stacked',
-  //   label: 'Products'
-  // },
-  // {
-  //   RouterLink: 'statistics',
-  //   icon: 'fa-solid fa-chart-simple',
-  //   label: 'statistics'
-  // },
-  // {
-  //   RouterLink: 'coupnes',
-  //   icon: 'fa-solid fa-tags',
-  //   label: 'Coupnes'
-  // },
-  // {
-  //   RouterLink: 'pages',
-  //   icon: 'fa-solid fa-file',
-  //   label: 'Pages'
-  // },
-  // {
-  //   RouterLink: 'media',
-  //   icon: 'fa-solid fa-camera',
-  //   label: 'Media'
-  // },
-  // {
-  //   RouterLink: 'settings',
-  //   icon: 'fa-solid fa-gear',
-  //   label: 'Settings'
-  // },
   {
     RouterLink: 'actas',
     icon: 'fa-solid fa-file',
@@ -58,13 +27,6 @@ export const navbarData = [
     icon: 'fa-solid fa-person-digging',
     label: 'Obras'
   },
-
-  // {
-  //   //buscar un icono mas bonito
-  //   RouterLink: 'especialidades',
-  //   icon: 'fa-solid fa-user-plus',
-  //   label: 'Especialidades'
-  // },
 
   {
     RouterLink: 'gestion-especialidad',

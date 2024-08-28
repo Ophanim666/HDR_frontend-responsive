@@ -5,7 +5,6 @@ import { ActasComponent } from './actas/actas.component';
 import { PerfilesComponent } from './perfiles/perfiles.component';
 import { RazonesSocialesComponent } from './razones-sociales/razones-sociales.component';
 import { ObrasComponent } from './obras/obras.component';
-import { EspecialidadesComponent } from './especialidades/especialidades.component';
 import { GestionTareaComponent } from './gestion-tarea/gestion-tarea.component';
 import { GestionEspecialidadComponent } from './gestion-especialidad/gestion-especialidad.component';
 // componente crear usuario
@@ -30,7 +29,6 @@ const routes: Routes = [
   {path: 'perfiles', component: PerfilesComponent},
   {path: 'razonesSociales', component: RazonesSocialesComponent},
   {path: 'obras', component: ObrasComponent},
-  {path: 'especialidades', component: EspecialidadesComponent},
   {path: 'gestion-tarea', component: GestionTareaComponent},
   // crear usuario
   { path: 'crear-usuario', component: CrearUsuariosComponent },

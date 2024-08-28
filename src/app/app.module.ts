@@ -12,15 +12,15 @@ import { BodyComponent } from './body/body.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 
-// Crear modal dialogs
+// Usar botones de Angular
 import { MatButtonModule } from '@angular/material/button';
+// Crear modal dialogs
 import { MatDialogModule } from '@angular/material/dialog';
 
 import { ActasComponent } from './actas/actas.component';
 import { PerfilesComponent } from './perfiles/perfiles.component';
 import { RazonesSocialesComponent } from './razones-sociales/razones-sociales.component';
 import { ObrasComponent } from './obras/obras.component';
-import { EspecialidadesComponent } from './especialidades/especialidades.component';
 import { GestionTareaComponent } from './gestion-tarea/gestion-tarea.component';
 
 // HTTPclient
@@ -55,7 +55,6 @@ import { CrearParametroComponent } from './crear-parametro/crear-parametro.compo
     PerfilesComponent,
     RazonesSocialesComponent,
     ObrasComponent,
-    EspecialidadesComponent,
     CrearUsuariosComponent,
     EdicionDeUsuariosComponent,
     GestionTareaComponent,

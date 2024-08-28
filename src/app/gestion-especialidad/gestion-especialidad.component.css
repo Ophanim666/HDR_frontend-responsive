@@ -1,101 +1,288 @@
-/* gestion-especialidad.component.css */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    border-radius: .5rem;
-  }
-  
-  th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-  }
-  
-  th {
-    background-color: #f2f2f2;
-    text-align: left;
-  }
-
-/* Espacio para botones de las listas */
-  .button-container {
-    display: flex;
-    min-width: 40px; /* Ancho mínimo para los botones */
-    gap: 5px; /* Espacio entre botones */
-  }  
-
-  /* Estilo específico para la columna de acciones */
-.actions-column {
-  width: 120px; /* Ajusta este valor según el tamaño deseado */
-  text-align: center; /* Centra el contenido de la columna */
+/* Estilos generales */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  margin: 0;
+  padding: 0;
 }
 
-.modal-title{
-  text-align: center;
-}
-
-/* Estilo general para el modal */
-.modal-content {
+/* Card */
+.card {
   border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #fff;
+  padding: 20px;
+}
+
+.card-head {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.card-body {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  text-align: left;
+  padding: 12px;
+}
+
+th {
+  background-color: #007bff;
+  color: #fff;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+.actions-column {
+  width: 150px;
+}
+
+/* Botones */
+button {
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.btn-danger {
+  background-color: #dc3545;
+  color: #fff;
+}
+
+.btn-danger:hover {
+  background-color: #c82333;
+}
+
+.btn-nigg {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.btn-nigg:hover {
+  background-color: #5a6268;
+}
+
+.btn-success {
+  background-color: #28a745;
+  color: #fff;
+}
+
+.btn-success:hover {
+  background-color: #218838;
+}
+
+/* Modales */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-dialog {
+  background: #fff;
+  border-radius: 8px;
+  width: 500px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Espacio adicional en el modal */
+.modal-header {
+  padding: 15px;
+  border-bottom: 1px solid #dee2e6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-title {
+  font-size: 18px;
+  margin: 0;
+}
+
 .modal-body {
   padding: 20px;
 }
 
-/* Estilo para el input */
-.input-style {
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  padding: 10px;
-  font-size: 14px;
-  width: 100%; /* Ocupa todo el ancho disponible */
-  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-
-.input-style:focus {
-  border-color: #ccc; /* Color del borde al enfocar */
-  box-shadow: 0 0 8px #ccc; /* Sombra más intensa al enfocar */
-  outline: none;
-}
-
-/* Estilos para el modal */
 .modal-footer {
+  padding: 15px;
+  border-top: 1px solid #dee2e6;
   display: flex;
-  justify-content: space-between; /* Alinea los botones a los extremos */
-  padding: 20px;
+  justify-content: space-between;
+  align-items: center;
 }
 
-/* Estilos para el modal de ÉXITO AL ELIMINAR */
-/* Modal Container */
+.form-group {
+  margin-bottom: 15px;
+}
+
+.input-style {
+  width: 100%;
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+}
+
+/* Modal de confirmación de eliminación */
 .modal-success {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  z-index: 1000;
-  width: 300px; /* Ajusta el ancho según lo necesites */
-  display: none; /* Oculto por defecto */
-}
-
-/* Modal Text */
-.modal-success p {
-  margin: 0;
-  font-size: 16px;
+  background-color: #d4edda;
+  border-color: #c3e6cb;
+  padding: 15px;
+  border-radius: 4px;
   text-align: center;
+  width: 300px;
 }
 
-/* Modal Button */
+.modal-success p {
+  margin: 0 0 15px;
+  color: #155724;
+  font-weight: bold;
+}
+
+/* Estilos personalizados para el modal de éxito */
 .modal-success button {
-  display: block;
-  margin: 20px auto 0;
-  padding: 10px 20px;
+  width: 100%;
+  padding: 10px;
+  background-color: #28a745;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
   font-size: 14px;
+  transition: background-color 0.3s;
 }
 
+.modal-success button:hover {
+  background-color: #218838;
+}
 
+/* TABLA */
+.table-elegant {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border-radius: 10px;
+  border: 1px solid #d1d1d1;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin-top: 20px;
+  background-color: white;
+}
+
+.table-elegant .table-title {
+  background-color: white;
+  color: #333;
+  font-weight: bold;
+  text-align: left;
+  padding: 15px 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.table-elegant thead tr:nth-child(2) {
+  background-color: #8e44ad; /* Color morado para el encabezado de columnas */
+  color: white;
+}
+
+.table-elegant th,
+.table-elegant td {
+  padding: 15px 20px;
+  text-align: left;
+}
+
+.table-elegant th {
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.table-elegant td {
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.table-elegant tbody tr {
+  background-color: white; /* Todas las filas blancas */
+}
+
+.table-elegant tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table-elegant tbody tr:hover {
+  background-color: #f8f9fa; /* Hover suave */
+  transition: background-color 0.3s ease;
+}
+
+.table-elegant .actions-column {
+  text-align: right;
+}
+
+.table-elegant .btn-primary,
+.table-elegant .btn-danger {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  margin: 0 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.table-elegant .btn-primary {
+  background-color: #3498db;
+  color: white;
+}
+
+.table-elegant .btn-danger {
+  background-color: #e74c3c;
+  color: white;
+}
+
+.table-elegant .btn-primary:hover,
+.table-elegant .btn-danger:hover {
+  opacity: 0.9;
+}
+
+/* Ajuste para asegurar esquinas redondeadas */
+.table-elegant thead tr:first-child th:first-child {
+  border-top-left-radius: 9px;
+}
+
+.table-elegant thead tr:first-child th:last-child {
+  border-top-right-radius: 9px;
+}
+
+.table-elegant tbody tr:last-child td:first-child {
+  border-bottom-left-radius: 9px;
+}
+
+.table-elegant tbody tr:last-child td:last-child {
+  border-bottom-right-radius: 9px;
+}

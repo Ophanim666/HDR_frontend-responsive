@@ -1,3 +1,4 @@
+/* MENÚ en general*/
 .sidenav {
   background: #262626;
   transition: all .5s ease;
@@ -9,6 +10,7 @@
   box-shadow: 0.063rem 0 1.25rem 0 #a6a6a6;
 }
 
+/* CONTENEDOR PARA EL LOGO Y EL TEXTO */
 .logo-container {
   display: flex;
   align-items: center;
@@ -16,44 +18,35 @@
   width: 100%;
 }
 
+/* LOGO */
 .logo {
-  text-align: center;
-  width: 3rem;
-  min-width: 3rem;
-  height: 3rem; /* Ajustar la altura del botón */
-  border-radius: 0.313rem;
-  cursor: pointer;
-  border: none;
+  border: none; /* Puede ser innecesario si el logo no tiene un borde por defecto */
+  border-radius: 5px; /* Esto es relevante si quieres que las esquinas sean redondeadas */
+  overflow: hidden; /* Útil si quieres que cualquier contenido que desborde se recorte */
+  width: 3rem; /* Importante para definir el tamaño del logo */
+  min-width: 3rem; /* Relevante si quieres mantener un tamaño mínimo */
+  height: 3rem; /* Ajustar la altura del logo */
   padding: 0; /* Eliminar el padding adicional */
-  background: none; /* Eliminar el fondo para que solo se vea la imagen */
+  cursor: pointer; /* Cambiar tipo de cursor */
 }
 
+/* Texto al lado de logo */
 .logo-text {
-  margin-left: 1.5rem;
-  font-size: 24px;
-  font-weight: 600;
+  margin-left: 1.5rem; /* Posicionamiento y espacio */
+  
+  /* Estilo de texto */
+  font-size: 24px; 
+  font-weight: 600; 
   color: #f2f2f2;
+  font-family: 'Arial';
 }
 
-.btn-close {
-  margin-left: auto;
-  cursor: pointer;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 50%;
-  background-color: transparent;
-  border: none;
-}
-
-.btn-close .fa-regular {
-  color: #f2f2f2;
-  font-size: 24px;
-}
-
+/* MENÚ CERRADO */
 .sidenav-collapsed {
   width: 16.5625rem;
 }
 
+/* MARGENES LATERALES DE MENÚ */
 .sidenav-nav {
   list-style: none;
   padding: 0.938rem;
@@ -65,11 +58,13 @@
   cursor: pointer;
 }
 
+/* ALINEACIÓN DE LOS ITEMS HACÍA LA IZQUIERDA EN MENÚ ABIERTO */
 .sidenav-nav-item {
   width: 100%;
   margin-bottom: 0.625rem;
 }
 
+/* ICONOS */
 .sidenav-nav-link {
   display: flex;
   align-items: center;
@@ -80,6 +75,7 @@
   transition: all .3s ease;
 }
 
+/* TAMAÑO DE ICONOS Y ALINEACIÓN AL CENTRO */
 .sidenav-link-icon {
   font-size: 22px;
   width: 2rem;
@@ -88,24 +84,29 @@
   text-align: center;
 }
 
+/* MARGEN PARA EL TEXTO EN CADA ITEM*/
 .sidenav-link-text {
   margin-left: 1.5rem;
 }
 
+/* HOVER PARA CADA ITEM */
 .sidenav-nav-item:hover .sidenav-nav-link {
   background-color: #f2f2f2;
   color: #262626;
 }
 
+/* Pendiente, no hace cambios... No estoy segura. */
 .sidenav-nav-item:hover .sidenav-link-icon,
 .sidenav-nav-item:hover .sidenav-link-text {
   color: #262626;
 }
 
+/* AL SELECCIONAR UN ITEM, ESTE SE ACTIVA... */
 .active {
   background-color: #fff;
 }
 
+/* COLORES PARA EL ICONO Y EL TEXTO AL ESTAR ACTIVO EL ITEM */
 .active .sidenav-link-icon,
 .active .sidenav-link-text {
   color: #262626;

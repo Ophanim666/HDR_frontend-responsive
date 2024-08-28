@@ -1,16 +1,13 @@
 <app-header
   [title]="'Especialidades'"
   [buttonText]="'Agregar'"
-  (buttonClick)="abrirModal()">
+  (buttonClick)="openCreateModalEspecialidad()">
 </app-header>
 
-<!-- Encapsulamos la tabla dentro de una tarjeta -->
+<!-- Encapsulamos la tabla dentro de una tarjeta (FOR)-->
 <div class="card">
-  <div class="card-head">
-    Listado
-  </div>
   <div class="card-body">
-    <table>
+    <table class="table-elegant">
       <thead>
         <tr>
           <th>Código</th>
@@ -20,14 +17,13 @@
       </thead>
       <tbody>
         <tr *ngFor="let especialidad of especialidades">
+          <!-- Para traer los datos al editar -->
           <td>{{ especialidad.id }}</td>
           <td>{{ especialidad.nombre }}</td>
           <td class="actions-column">
             <div class="button-container">
-            <button class="btn-primary" (click)="abrirModalUpdate()"><i class="fa-solid fa-pen"></i></button>
-            <button class="btn-danger" (click)="deleteEspecialidad(especialidad.id)">
-              <i class="fa-solid fa-trash-can"></i>
-            </button>
+            <button class="btn-primary" (click)="openEditModalEspecialidad(especialidad)"><i class="fa-solid fa-pen"></i></button>
+            <button class="btn-danger" (click)="confirmDelete(especialidad.id)"><i class="fa-solid fa-trash-can"></i></button>
             </div>
           </td>
         </tr>
@@ -36,72 +32,106 @@
   </div>
 </div>
 
-<!-- Modal ADD -->
-<div id="modalAddEspecialidad" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
+<!-- MODAL (C)RUD Create -->
+<div *ngIf="showCreateModalEspecialidad" class="modal">
+  <div class="modal-dialog">
     <div class="modal-content">
+
+      <!-- Header -->
       <div class="modal-header">
         <h5 class="modal-title">Creación de especialidad</h5>
       </div>
+        
+      <!-- Body -->
       <div class="modal-body">
-        <form>
+        <form (ngSubmit)="createEspecialidad()" #EspecialidadForm="ngForm">
+            
+          <!-- Campo para nombre de especialidad -->
           <div class="form-group">
-            <label for="nombre">Código</label>
-            <input type="text" class="form-control input-style" id="id" [(ngModel)]="nuevaEspecialidad.ID" name="id">
-            <label for="nombre">Nombre</label>
-            <input type="text" class="form-control input-style" id="nombre" [(ngModel)]="nuevaEspecialidad.NOMBRE" name="nombre">
-            <label for="estado">Estado</label>
-            <input type="text" class="form-control input-style" id="estado" [(ngModel)]="nuevaEspecialidad.ESTADO" name="estado">
-            <label for="usuario_creacion">Usuario</label>
-            <input type="text" class="form-control input-style" id="usuario_creacion" [(ngModel)]="nuevaEspecialidad.USUARIO_CREACION" name="usuario_creacion">
-            <label for="fecha_creacion">Fecha</label>
-            <input type="text" class="form-control input-style" id="fecha_creacion" [(ngModel)]="nuevaEspecialidad.FECHA_CREACION" name="fecha_creacion">
+            <label for="especialidad">Nombre</label>
+            <input
+              type="text"
+              id="especialidad"
+              [(ngModel)]="nuevaEspecialidad.nombre"
+              name="especialidad"
+              class="form-control"
+              required/>
           </div>
+
+          <!-- Campo para estado -->
+          <div class="form-group">
+            <label for="estado">Estado</label>
+            <input
+              type="text"
+              id="estado"
+              [(ngModel)]="nuevaEspecialidad.estado"
+              name="estado"
+              class="form-control"
+              required
+            />
+          </div>
+
+          <!-- Footer para los botones del modal -->
+          <div class="modal-footer">
+            <button type="button" class="btn-success" (click)="createEspecialidad()">Crear especialidad</button>
+            <button type="button" class="btn-nigg" (click)="closeCreateModalEspecialidad()">Volver</button>
+          </div>
+
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn-success" (click)="addEspecialidad()">Crear especialidad</button>
-        <button type="button" class="btn-nigg" (click)="cerrarModal()">Volver</button>
-      </div>
+      
     </div>
   </div>
 </div>
 
-<!-- Modal UPDATE -->
-<div id="modalUpdateEspecialidad" class="modal" tabindex="-1" role="dialog">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Edición de especialidad</h5>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="nombre">Código</label>
-            <input type="text" class="form-control input-style" id="id" [(ngModel)]="nuevaEspecialidad.ID" name="id">
-            <label for="nombre">Nombre</label>
-            <input type="text" class="form-control input-style" id="nombre" [(ngModel)]="nuevaEspecialidad.NOMBRE" name="nombre">
-            <label for="estado">Estado</label>
-            <input type="text" class="form-control input-style" id="estado" [(ngModel)]="nuevaEspecialidad.ESTADO" name="estado">
-            <label for="usuario_creacion">Usuario</label>
-            <input type="text" class="form-control input-style" id="usuario_creacion" [(ngModel)]="nuevaEspecialidad.USUARIO_CREACION" name="usuario_creacion">
-            <label for="fecha_creacion">Fecha</label>
-            <input type="text" class="form-control input-style" id="fecha_creacion" [(ngModel)]="nuevaEspecialidad.FECHA_CREACION" name="fecha_creacion">
-          </div>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn-primary" (click)="updateEspecialidad()">Guardar cambios</button>
-        <button type="button" class="btn-nigg" (click)="cerrarModalUpdate()">Volver</button>
-      </div>
+<!-- MODAL CR(U)D Update -->
+<div *ngIf="showEditModalEspecialidad" class="modal">
+  <div class="modal-content especialidad-card">
+    <h6>Editar especialidad</h6>
+    <div class="form-container">
+      <form (ngSubmit)="updateEspecialidad()" #editEspecialidadForm="ngForm">
+
+        <div class="form-group">
+          <label for="edit-especialidad">Especialidad</label>
+          <input
+            type="text"
+            id="edit-especialidad"
+            [(ngModel)]="currentEspecialidad.nombre"
+            name="edit-especialidad"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="edit-estado">Estado</label>
+          <input
+            type="number"
+            id="edit-estado"
+            [(ngModel)]="currentEspecialidad.estado"
+            name="edit-estado"
+            class="form-control"
+            required
+          />
+        </div>
+
+        <div class="form-actions">
+          <button type="submit" class="btn-update">Actualizar</button>
+          <button type="button" (click)="closeEditModalEspecialidad()" class="volver-btn">Cancelar</button>
+        </div>
+      </form>
     </div>
   </div>
 </div>
 
-<!-- Modal de confirmación de eliminación -->
-<div id="modalSuccess" class="modal-success" style="display: none;">
-  <p>¡Especialidad eliminada con éxito!</p>
-  <button class="btn-nigg" (click)="cerrarModalSuccess()">Aceptar</button>
-</div>
-
-
+  <!-- Modal de confirmación de eliminación -->
+  <div *ngIf="showConfirmationDeleteEspecialidad" class="modal">
+    <div class="modal-content tipo-parametro-card">
+      <h6>Confirmación de Eliminación</h6>
+      <p>¿Está seguro de que desea eliminar este tipo de parámetro?</p>
+      <div class="form-actions">
+        <button (click)="deleteEspecialidad()" class="btn btn-danger">Sí</button>
+        <button (click)="closeConfirmationDialog()" class="btn btn-secondary">No</button>
+      </div>
+    </div>
+  </div>
