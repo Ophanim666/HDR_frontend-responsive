@@ -35,21 +35,38 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Poppins;}
 
 /* Estilos para los iconos dentro de los botones */
-.mat-flat-button.editar {
-  margin: 0; /* Elimina márgenes adicionales si es necesario */
-}
-
 .mat-flat-button.editar{
-  width: 40px; /* Define un ancho fijo */
-  height: 40px; /* Define un alto fijo */
-  align-items: center;
+  background: linear-gradient(90deg, skyblue, blue); /* Ajusta los colores y ángulo del gradiente según sea necesario */
+  padding-right: 10px;
 }
 
-.mat-flat-button.eliminar{
-  width: 40px; /* Define un ancho fijo */
-  height: 40px; /* Define un alto fijo */
-  align-items: center;
+.mat-flat-button.eliminar {
+  background: linear-gradient(90deg, red, brown); /* Ajusta los colores y ángulo del gradiente según sea necesario */
+  padding-right: 10px;
 }
+
+.mat-flat-button.agregar {
+  background: linear-gradient(90deg, lightgreen, green); /* Ajusta los colores y ángulo del gradiente según sea necesario */
+  color: #fff;
+
+  
+}
+
+.mat-flat-button.actualizar{
+  background: linear-gradient(90deg, skyblue, blue); /* Ajusta los colores y ángulo del gradiente según sea necesario */
+}
+
+.mat-flat-button.cancelar{
+  background: linear-gradient(90deg, gray, black); /* Ajusta los colores y ángulo del gradiente según sea necesario */
+}
+
+
+
+
+
+
+
+
 
 /* Estilos generales para los botones */
 /* BOTÓN GENERAL */

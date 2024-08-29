@@ -22,6 +22,7 @@ export class GestionEspecialidadComponent implements OnInit {
   showEditModalEspecialidad = false;
   showConfirmationDeleteEspecialidad = false;
   currentEspecialidad: any = {};
+  searchText: string = ''; // Variable para el texto del buscador
 
   private apiUrl = 'https://localhost:7125/api/Especialidad';
 
@@ -32,6 +33,12 @@ export class GestionEspecialidadComponent implements OnInit {
   // Recargar datos para visualizar cambios...
   ngOnInit(): void {
     this.loadEspecialidad();
+  }
+
+  filteredEspecialidades() {
+    return this.especialidades.filter(especialidad =>
+      especialidad.nombre.toLowerCase().includes(this.searchText.toLowerCase())
+    );
   }
 
   // Función de listar
@@ -64,7 +71,7 @@ export class GestionEspecialidadComponent implements OnInit {
     this.showCreateModalEspecialidad = false;
   }
 
-  // Crear tipo de parámetro
+  // Crear Especialidad
   createEspecialidad(): void {
     this.http.post(this.apiUrl, this.nuevaEspecialidad, { responseType: 'text' })
       .subscribe({

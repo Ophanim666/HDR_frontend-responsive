@@ -300,3 +300,37 @@ th {
 width: 120px; /* Ajusta este valor según el tamaño deseado */
 text-align: center; /* Centra el contenido de la columna */
 }
+
+  /* Estilo para el contenedor del buscador y botón */
+.buscador-container {
+  align-items: center; /* Alinea verticalmente el contenido */
+  justify-content: center; /* Centra horizontalmente el contenido si es necesario */
+  margin-bottom: 20px;
+  padding: 20px; /* Espacio interno para el contenedor */
+  background-color: #000000; /* Fondo ligero para el contenedor */
+  border-radius: 20px;
+}
+  
+  /* Estilo para el campo de búsqueda */
+  .buscador {
+    flex-grow: 1; /* Permite que el campo de búsqueda ocupe todo el espacio disponible */
+    padding: 10px 20px; /* Espaciado interno para mejorar la usabilidad */
+    border: 1px solid #ccc;
+    border-radius: 20px; /* Bordes redondeados para el campo de búsqueda */
+    outline: none;
+    transition: all 0.3s ease;
+    margin-right: 60px; /* Espacio entre el campo de búsqueda y el botón */
+    width: 90%;
+  }
+  
+  /* Estilo para el campo de búsqueda cuando está en foco */
+  .buscador:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  }
+  
+  .mat-flat-button.agregar{
+    background-color: #56b85c;
+    color: #fff;
+  }
+  

@@ -16,26 +16,3 @@
     color: #000000;
     font-weight: 500; 
 }
-
-/* Estilo para el contenedor del buscador y botón */
-.buscador-container {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-  
-  .buscador {
-    flex: 1; /* Ocupa todo el espacio disponible */
-    padding: 8px 12px;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    font-size: 14px;
-    outline: none;
-    transition: all 0.3s ease;
-    margin-right: 10px; /* Espacio entre el buscador y el botón */
-  }
-  
-  .buscador:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-  }

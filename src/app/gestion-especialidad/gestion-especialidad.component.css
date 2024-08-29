@@ -79,10 +79,16 @@ body {
 
 .modal-footer {
   padding: 20px; /* Espaciado interno del pie del modal */
+  padding-left: 120px;
   border-top: 1px solid #dee2e6; /* Línea divisoria superior del pie del modal */
   display: flex; /* Usa flexbox para el diseño del pie del modal */
-  justify-content: space-between; /* Espacia los elementos de manera equitativa */
+  justify-content: flex-start; /* Alinea los elementos al inicio (a la izquierda) */
   align-items: center; /* Alinea los elementos verticalmente al centro */
+  gap: 30px; /* Espacio entre los botones, puedes ajustar este valor */
+}
+
+.Eliminar.container{
+  padding-left: 20px;
 }
 
 /* TABLA */
@@ -141,3 +147,35 @@ body {
   text-align: left; /* Alinea el contenido de la columna de acciones a la izquierda */
   width: 200px; /* Ancho fijo para la columna de acciones */
 }
+
+  /* Estilo para el contenedor del buscador y botón */
+  .buscador-container {
+    align-items: center; /* Alinea verticalmente el contenido */
+    justify-content: center; /* Centra horizontalmente el contenido si es necesario */
+    margin-bottom: 20px;
+    padding: 20px; /* Espacio interno para el contenedor */
+    background-color: #333; /* Fondo ligero para el contenedor */
+    border-radius: .5rem;
+    margin-top: 20px; /* Ajusta el valor según sea necesario */
+    display: flex;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Eliminar la sombra para evitar el efecto de cuadro */
+  }
+  
+  /* Estilo para el campo de búsqueda */
+  .buscador {
+    flex-grow: 1; /* Permite que el campo de búsqueda ocupe todo el espacio disponible */
+    padding: 10px 20px; /* Espaciado interno para mejorar la usabilidad */
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    outline: none;
+    transition: all 0.3s ease;
+    margin-right: 30px; /* Espacio entre el campo de búsqueda y el botón */
+    width: 90%;
+  }
+  
+  /* Estilo para el campo de búsqueda cuando está en foco */
+  .buscador:focus {
+    border-color: white;
+    box-shadow: 0 0 5px whitesmoke;
+  }
