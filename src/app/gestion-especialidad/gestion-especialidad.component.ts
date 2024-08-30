@@ -1,12 +1,14 @@
-import { Component, OnInit,} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-gestion-especialidad',
   templateUrl: './gestion-especialidad.component.html',
-  styleUrls: ['./gestion-especialidad.component.css']
+  styleUrls: ['./gestion-especialidad.component.css'],
 })
+
 
 export class GestionEspecialidadComponent implements OnInit {
   especialidades: any[] = [];
@@ -24,7 +26,13 @@ export class GestionEspecialidadComponent implements OnInit {
   currentEspecialidad: any = {};
   searchText: string = ''; // Variable para el texto del buscador
 
+  //Paginacion
+  pagedEspecialidades: any[] = [];
+
+
   private apiUrl = 'https://localhost:7125/api/Especialidad';
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;// para la paginacion
 
   constructor(private http: HttpClient) {}
 
@@ -156,4 +164,13 @@ updateEspecialidad(): void {
       });
     }
   }
+
+  onPageChange(event: PageEvent) {
+    const startIndex = event.pageIndex * event.pageSize;
+    const endIndex = startIndex + event.pageSize;
+    this.pagedEspecialidades = this.especialidades.slice(startIndex, endIndex);
+  }
 };
+
+
+

@@ -26,70 +26,87 @@ body {
 .card-body {
   overflow-x: auto; /* Permite el desplazamiento horizontal si el contenido es demasiado ancho */
 }
-
-/* MODALES */
-.example-form {
-  min-width: 150px; /* Ancho mínimo del formulario */
-  max-width: 500px; /* Ancho máximo del formulario */
-  width: 100%; /* Ancho completo disponible */
-}
-
-.form-container {
-  display: flex; /* Usa flexbox para el diseño del formulario */
-  flex-direction: column; /* Apila los elementos en una columna */
-  gap: 16px; /* Espaciado entre inputs */
-}
-
+/* Estilos existentes (sin cambios) */
 .modal {
-  position: fixed; /* Fija el modal en la pantalla */
-  top: 0; /* Alinea el modal en la parte superior */
-  left: 0; /* Alinea el modal a la izquierda */
-  width: 100%; /* Ancho completo de la pantalla */
-  height: 100%; /* Altura completa de la pantalla */
-  background: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente para el modal */
-  display: flex; /* Usa flexbox para centrar el contenido */
-  justify-content: center; /* Centra el contenido horizontalmente */
-  align-items: center; /* Centra el contenido verticalmente */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .modal-dialog {
-  background: #fff; /* Color de fondo del diálogo del modal */
-  border-radius: 8px; /* Esquinas redondeadas */
-  width: 500px; /* Ancho del diálogo del modal */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil alrededor del diálogo */
+  background: #fff;
+  border-radius: 8px;
+  width: 600px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .modal-header {
-  padding: 10px; /* Espaciado interno del encabezado del modal */
-  border-bottom: 1px solid #dee2e6; /* Línea divisoria inferior del encabezado */
-  align-items: center; /* Alinea los elementos verticalmente al centro */
+  padding: 10px;
+  border-bottom: 1px solid #dee2e6;
+  align-items: center;
   text-align: center;
 }
 
 .modal-title {
-  font-size: 20px; /* Tamaño de fuente del título del modal */
+  font-size: 20px;
   font-weight: 500;
-  margin: 5px; /* Elimina el margen alrededor del título */
-  text-align: center; /* Centra el texto del título */
+  margin: 5px;
+  text-align: center;
 }
 
 .modal-body {
-  padding: 20px; /* Espaciado interno del cuerpo del modal */
+  padding: 30px;
 }
 
 .modal-footer {
-  padding: 20px; /* Espaciado interno del pie del modal */
-  padding-left: 120px;
-  border-top: 1px solid #dee2e6; /* Línea divisoria superior del pie del modal */
-  display: flex; /* Usa flexbox para el diseño del pie del modal */
-  justify-content: flex-start; /* Alinea los elementos al inicio (a la izquierda) */
-  align-items: center; /* Alinea los elementos verticalmente al centro */
-  gap: 30px; /* Espacio entre los botones, puedes ajustar este valor */
+  padding: 20px;
+  border-top: 1px solid #dee2e6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.Eliminar.container{
-  padding-left: 20px;
+.button-group-left {
+  display: flex;
+  gap: 10px;
 }
+
+/* Estilos actualizados y nuevos */
+.form-container {
+  width: 100%;
+}
+
+.form-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: -20px;
+}
+
+.mat-form-field {
+  flex-grow: 1;
+  margin-right: 20px;
+}
+
+.toggle-wrapper {
+  display: flex;
+  align-items: center;
+  width: 120px; /* Ancho fijo para el contenedor del toggle */
+  justify-content: flex-end; /* Alinea el toggle a la derecha */
+}
+
+.toggle-label {
+  min-width: 50px; /* Ancho mínimo para el texto del toggle */
+  display: inline-block;
+  text-align: right;
+}
+
 
 /* TABLA */
 .table-elegant {
@@ -117,6 +134,10 @@ body {
 .table-elegant td { 
   padding: 15px 20px; /* Espaciado interno de las celdas */
   text-align: left; /* Alinea el texto a la izquierda en celdas */
+  max-width: 150px; /* Ancho máximo para evitar que el texto sobresalga */
+  white-space: nowrap; /* Evita que el texto se divida en varias líneas */
+  overflow: hidden; /* Oculta el texto que sobresale */
+  text-overflow: ellipsis; /* Agrega "..." al final del texto que sobresale */
 }
 
 .table-elegant th {
@@ -179,3 +200,42 @@ body {
     border-color: white;
     box-shadow: 0 0 5px whitesmoke;
   }
+
+  .mat-form-field{
+    width: 200px;
+    /* background-color: #ccc; */
+  }
+
+  /*Paginacion*/
+  ::ng-deep .mat-paginator {
+    display: flex;
+    justify-content: center; /* Centra el paginador */
+    margin-top: 20px; /* Espacio superior entre la tabla y el paginador */
+  }
+  
+  ::ng-deep .mat-paginator-page-size {
+    margin-left: 10px; /* Espaciado para selector de tamaño de página */
+  }
+  
+  ::ng-deep .mat-paginator-range-label {
+    margin-left: 10px; /* Espaciado para etiqueta de rango */
+  }
+  
+  ::ng-deep .mat-paginator-icon {
+    color: #007bff; /* Cambia el color de los iconos de navegación */
+  }
+  
+  ::ng-deep .mat-paginator .mat-button-base {
+    border-radius: 50%; /* Esquinas redondeadas para botones de navegación */
+    margin: 0 5px; /* Espacio entre botones de navegación */
+  }
+  
+  ::ng-deep .mat-paginator .mat-button-base.mat-primary {
+    background-color: #333; /* Color de fondo personalizado para botones */
+    color: white; /* Color del texto de los botones */
+  }
+  
+  ::ng-deep .mat-paginator .mat-button-base:hover {
+    background-color: #555; /* Color de fondo al pasar el ratón por los botones */
+  }
+  

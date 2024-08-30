@@ -1,6 +1,6 @@
-<app-header
+<!-- <app-header
   [title]="'Gestión de especialidades'">
-</app-header>
+</app-header> -->
 
   <!-- Buscador de tareas -->
   <div class="buscador-container">
@@ -10,7 +10,7 @@
       [(ngModel)]="searchText"
       class="buscador"
     /> 
-    <button mat-flat-button color="primary" class="mat-flat-button agregar" (click)="openCreateModalEspecialidad()"><mat-icon>add</mat-icon>Agregar</button>
+    <button mat-flat-button color="primary" class="mat-flat-button agregar" (click)="openCreateModalEspecialidad()"><mat-icon>add_circle</mat-icon>Agregar</button>
   </div>
 
 <table class="table-elegant">
@@ -44,6 +44,15 @@
 
 </table>
 
+<!-- Paginador de Angular Material -->
+<div class="paginador-container">
+<mat-paginator [length]="especialidades.length"
+               [pageSize]="5"
+               [pageSizeOptions]="[5, 10, 20]"
+               (page)="onPageChange($event)">
+</mat-paginator>
+</div>
+
 <!-- MODAL (C)RUD Create -->
 <div *ngIf="showCreateModalEspecialidad" class="modal">
   <div class="modal-dialog">
@@ -58,9 +67,10 @@
       <div class="modal-body">
         <form (ngSubmit)="createEspecialidad()" #EspecialidadForm="ngForm" class="form-container">
 
+          <div class="form-row">
           <!-- Campo para nombre de especialidad -->
           <mat-form-field class="mat-form-field">
-            <mat-label>Nombre</mat-label>
+            <mat-label>Especialidad</mat-label>
             <input
               matInput
               placeholder=""
@@ -71,14 +81,14 @@
           </mat-form-field>
 
           <!-- Campo para estado (slide toggle) -->
-          <!-- PENDIENTE DE REVISAR QUE FUNCIONE AL AGREGAR INACTIVO -->
-          <div class="form-group">
-            <label>Estado</label>
+          <div class="toggle-wrapper">
             <mat-slide-toggle
               [(ngModel)]="nuevaEspecialidad.estado"
               name="estado"
               labelPosition="before">
+              <span class="toggle-label">{{ nuevaEspecialidad.estado ? 'Activo' : 'Inactivo' }}</span>
             </mat-slide-toggle>
+          </div>
           </div>
         </form>
       </div>
@@ -86,7 +96,7 @@
       <!-- Footer para los botones del modal -->
       <div class="modal-footer">
         <button mat-flat-button class="mat-flat-button cancelar"  (click)="closeCreateModalEspecialidad()" type="button">Cancelar</button>
-        <button mat-flat-button color="neutral" class="mat-flat-button agregar" (click)="createEspecialidad()" type="submit">Agregar</button>
+        <button mat-flat-button color="neutral" class="mat-flat-button agregar" (click)="createEspecialidad()" type="submit"><mat-icon>add_circle</mat-icon>Agregar</button>
       </div>
 
     </div>
@@ -103,51 +113,54 @@
         <h2 class="modal-title">Edición de especialidad</h2>
       </div>
 
-      <!-- Body -->
-      <div class="modal-body">
-        <form (ngSubmit)="updateEspecialidad()" #editEspecialidadForm="ngForm" class="form-container">
-
-          <!-- Campo para nombre de especialidad -->
-          <mat-form-field class="mat-form-field">
-            <mat-label>Nombre</mat-label>
-            <input
-              matInput
-              placeholder=""
-              [(ngModel)]="currentEspecialidad.nombre"
-              name="especialidad"
-              required
-            />
-          </mat-form-field>
-
-          <!-- Campo para estado (slide toggle) -->
-          <div class="form-group">
-            <label></label>
-            <mat-slide-toggle
-              [(ngModel)]="currentEspecialidad.estado"
-              name="estado"
-              labelPosition="before">
-              <span>{{ currentEspecialidad.estado ? 'Activo' : 'Inactivo' }}</span>
-            </mat-slide-toggle>
+      <div class="modal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <!-- Header -->
+            <div class="modal-header">
+              <h2 class="modal-title">Edición de especialidad</h2>
+            </div>
+      
+            <!-- Body -->
+            <div class="modal-body">
+              <form (ngSubmit)="updateEspecialidad()" #editEspecialidadForm="ngForm" class="form-container">
+                <div class="form-row">
+                  <!-- Campo para nombre de especialidad -->
+                  <mat-form-field class="mat-form-field">
+                    <mat-label>Especialidad</mat-label>
+                    <input
+                      matInput
+                      placeholder=""
+                      [(ngModel)]="currentEspecialidad.nombre"
+                      name="especialidad"
+                      required
+                    />
+                  </mat-form-field>
+      
+                  <!-- Campo para estado (slide toggle) -->
+                  <div class="toggle-wrapper">
+                    <mat-slide-toggle
+                      [(ngModel)]="currentEspecialidad.estado"
+                      name="estado"
+                      labelPosition="before">
+                      <span class="toggle-label">{{ currentEspecialidad.estado ? 'Activo' : 'Inactivo' }}</span>
+                    </mat-slide-toggle>
+                  </div>
+                </div>
+              </form>
+            </div>
+      
+            <!-- Footer para los botones del modal (sin cambios) -->
+            <div class="modal-footer">
+              <div class="button-group-left">
+                <button mat-flat-button class="mat-flat-button cancelar" (click)="closeEditModalEspecialidad()" type="button">Cancelar</button>
+                <button mat-flat-button color="warn" class="mat-flat-button eliminar" (click)="confirmDelete(currentEspecialidad.id)"><mat-icon>delete</mat-icon>Eliminar</button>
+              </div>
+              <button mat-flat-button class="mat-flat-button actualizar" (click)="updateEspecialidad()" type="submit"><mat-icon>save</mat-icon>Actualizar</button>
+            </div>
           </div>
-        </form>
-
         </div>
-        <br>
-        <div class="Eliminar container">
-          <button mat-flat-button color="warn" class="mat-flat-button eliminar" (click)="confirmDelete(currentEspecialidad.id)"><mat-icon>delete</mat-icon></button>
-        </div>
-        <br>
-
-          <!-- Footer para los botones del modal -->
-          <div class="modal-footer">
-            <button mat-flat-button class="mat-flat-button cancelar" (click)="closeEditModalEspecialidad()" type="button">Cancelar</button>
-            <button mat-flat-button class="mat-flat-button actualizar" (click)="updateEspecialidad()"  type="submit">Actualizar</button>
-          </div>
-
-    </div>
-  </div>
-</div>
-
+      </div>
 
 <!-- Modal de confirmación de eliminación -->
 <div *ngIf="showConfirmationDeleteEspecialidad" class="modal">
@@ -173,3 +186,7 @@
     </div>
   </div>
 </div>
+
+
+
+

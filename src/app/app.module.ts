@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 
+//pagination
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 // Animaciones
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
@@ -42,7 +45,7 @@ import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usu
 
 // Gestión de proveedores
 import { GestionProveedoresComponent } from './gestion-proveedores/gestion-proveedores.component';
-import { GestionEspecialidadComponent } from './gestion-especialidad/gestion-especialidad.component';
+import { GestionEspecialidadComponent } from './gestion-especialidad/gestion-especialidad.component'; 
 import { HeaderComponent } from './header/header.component';
 
 // Rama que está trbajando Álvaro para el CRUD tipo de parámetro
@@ -79,6 +82,9 @@ import { CrearParametroComponent } from './crear-parametro/crear-parametro.compo
   imports: [
     BrowserModule,
     FormsModule,
+
+    //paginacion
+    MatPaginatorModule,
 
     // Animaciones
     BrowserAnimationsModule,

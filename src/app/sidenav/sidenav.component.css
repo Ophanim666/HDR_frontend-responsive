@@ -21,13 +21,20 @@
 /* LOGO */
 .logo {
   border: none; /* Puede ser innecesario si el logo no tiene un borde por defecto */
-  border-radius: 5px; /* Esto es relevante si quieres que las esquinas sean redondeadas */
+  border-radius: 0px; /* Esto es relevante si quieres que las esquinas sean redondeadas */
   overflow: hidden; /* Útil si quieres que cualquier contenido que desborde se recorte */
   width: 3rem; /* Importante para definir el tamaño del logo */
   min-width: 3rem; /* Relevante si quieres mantener un tamaño mínimo */
   height: 3rem; /* Ajustar la altura del logo */
   padding: 0; /* Eliminar el padding adicional */
   cursor: pointer; /* Cambiar tipo de cursor */
+}
+
+.logo img {
+  width: 100%; /* Asegura que la imagen se ajuste al contenedor */
+  height: 100%; /* Asegura que la imagen se ajuste al contenedor */
+  object-fit: cover; /* Ajusta la imagen para cubrir el área del logo sin distorsionarla */
+  border-radius: 0px; /* Mantiene las esquinas redondeadas en la imagen */
 }
 
 /* Texto al lado de logo */

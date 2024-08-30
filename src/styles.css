@@ -42,7 +42,8 @@ body { margin: 0; font-family: Poppins;}
 
 .mat-flat-button.eliminar {
   background: linear-gradient(90deg, red, brown); /* Ajusta los colores y ángulo del gradiente según sea necesario */
-  padding-right: 10px;
+  padding: 0px 5px;
+  width: 120px;
 }
 
 .mat-flat-button.agregar {
