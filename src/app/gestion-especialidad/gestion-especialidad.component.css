@@ -26,7 +26,39 @@ body {
 .card-body {
   overflow-x: auto; /* Permite el desplazamiento horizontal si el contenido es demasiado ancho */
 }
+
 /* Estilos existentes (sin cambios) */
+body.modal-open {
+  overflow: hidden;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-open .modal-dialog {
+  animation: modalFadeIn 0.3s ease-out forwards;
+}
+
+@keyframes modalFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .modal {
   position: fixed;
   top: 0;

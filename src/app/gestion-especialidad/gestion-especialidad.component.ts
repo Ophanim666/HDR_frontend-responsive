@@ -2,43 +2,28 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @Component({
   selector: 'app-gestion-especialidad',
   templateUrl: './gestion-especialidad.component.html',
   styleUrls: ['./gestion-especialidad.component.css'],
 })
-
-
 export class GestionEspecialidadComponent implements OnInit {
   especialidades: any[] = [];
-  nuevaEspecialidad: any = {};
-  especialidadDelete: number | null = null;
-  // nuevaEspecialidad = {
-  //   ID: 0, // Cambiado a 0, ya que el backend espera un int
-  //   NOMBRE: '',
-  //   ESTADO: 0, // Cambiado a 0, ya que el backend espera un int
-  //   USUARIO_CREACION: '',
-  //   FECHA_CREACION: new Date().toISOString()// Asegúrate de que este formato es aceptable
-  showCreateModalEspecialidad= false;
-  showEditModalEspecialidad = false;
-  showConfirmationDeleteEspecialidad = false;
   currentEspecialidad: any = {};
-  searchText: string = ''; // Variable para el texto del buscador
-
-  //Paginacion
+  especialidadDelete: number | null = null;
+  showModalEspecialidad = false;
+  showConfirmationDeleteEspecialidad = false;
+  searchText: string = '';
+  isEditMode = false;
   pagedEspecialidades: any[] = [];
-
-
   private apiUrl = 'https://localhost:7125/api/Especialidad';
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;// para la paginacion
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   constructor(private http: HttpClient) {}
 
-  // C(R)UD Read
-
-  // Recargar datos para visualizar cambios...
   ngOnInit(): void {
     this.loadEspecialidad();
   }
@@ -49,7 +34,6 @@ export class GestionEspecialidadComponent implements OnInit {
     );
   }
 
-  // Función de listar
   loadEspecialidad(): void {
     this.http.get<any[]>(this.apiUrl).subscribe({
       next: response => this.especialidades = response,
@@ -58,36 +42,42 @@ export class GestionEspecialidadComponent implements OnInit {
     });
   }
 
-  // (C)RUD Create
-  
-  // Abrir el modal de creación
-  openCreateModalEspecialidad(): void {
-    this.nuevaEspecialidad = {
-    id: 0,
-    nombre: '',
-    estado: 1,
-    // SE ARREGLARÁ EN EL PROCEDIMIENTO ALMACENADO PARA QUE DEJE INGRESAR NULOS
-    // DESPUÉS REVISAR SI ASÍ ESTÁ BIEN.
-    // usuariO_CREACION: null,
-    // fechA_CREACION: null
+  openModalEspecialidad(especialidad?: any): void {
+    this.isEditMode = !!especialidad;
+    this.currentEspecialidad = especialidad ? { ...especialidad } : {
+      id: 0,
+      nombre: '',
+      estado: 1, // Por defecto, el estado es activo (1)
     };
-    this.showCreateModalEspecialidad = true;
+    this.showModalEspecialidad = true;
+    document.body.classList.add('modal-open');
   }
 
-  // Cerrar el modal de creación
-  closeCreateModalEspecialidad(): void {
-    this.showCreateModalEspecialidad = false;
+  onToggleChange(event: MatSlideToggleChange): void {
+    this.currentEspecialidad.estado = event.checked ? 1 : 0;
   }
 
-  // Crear Especialidad
+  closeModalEspecialidad(): void {
+    this.showModalEspecialidad = false;
+    document.body.classList.remove('modal-open');
+  }
+
+  saveEspecialidad(): void {
+    if (this.isEditMode) {
+      this.updateEspecialidad();
+    } else {
+      this.createEspecialidad();
+    }
+  }
+
   createEspecialidad(): void {
-    this.http.post(this.apiUrl, this.nuevaEspecialidad, { responseType: 'text' })
+    this.http.post(this.apiUrl, this.currentEspecialidad, { responseType: 'text' })
       .subscribe({
         next: response => {
           console.log('Especialidad creada:', response);
           alert('Especialidad creada exitosamente.');
-          this.loadEspecialidad(); // Actualizar la lista
-          this.closeCreateModalEspecialidad();
+          this.loadEspecialidad();
+          this.closeModalEspecialidad();
         },
         error: error => {
           console.error('Error al crear especialidad', error);
@@ -96,58 +86,41 @@ export class GestionEspecialidadComponent implements OnInit {
       });
   }
 
-// CR(U)D Update
+  updateEspecialidad(): void {
+    const url = `${this.apiUrl}/${this.currentEspecialidad.id}`;
+    const updatedData = {
+      nombre: this.currentEspecialidad.nombre,
+      estado: this.currentEspecialidad.estado,
+      usuariO_CREACION: this.currentEspecialidad.usuariO_CREACION,
+      fechA_creacion: this.currentEspecialidad.fechA_CREACION
+    };
 
-// Abrir el modal de edición
-openEditModalEspecialidad(especialidad: any): void {
-  this.currentEspecialidad = { ...especialidad };
-  this.showEditModalEspecialidad = true;
-}
+    this.http.put(url, updatedData, { responseType: 'text' }).subscribe({
+      next: response => {
+        console.log('Especialidad actualizada:', response);
+        alert('Especialidad actualizada exitosamente.');
+        this.loadEspecialidad();
+        this.closeModalEspecialidad();
+      },
+      error: error => {
+        console.error('Error al actualizar la especialidad:', error);
+        alert('Error al actualizar la especialidad.');
+      }
+    });
+  }
 
-// Cerrar el modal de edición
-closeEditModalEspecialidad(): void {
-  this.showEditModalEspecialidad = false;
-}
-
-// Actualizar el tipo de parámetro
-updateEspecialidad(): void {
-  const url = `${this.apiUrl}/${this.currentEspecialidad.id}`;
-  const updatedData = {
-    nombre: this.currentEspecialidad.nombre,
-    estado: this.currentEspecialidad.estado,
-    usuariO_CREACION: this.currentEspecialidad.usuariO_CREACION,
-    fechA_creacion: this.currentEspecialidad.fechA_CREACION
-  };
-
-  this.http.put(url, updatedData, { responseType: 'text' }).subscribe({
-    next: response => {
-      console.log('Especialidad actualizada:', response);
-      alert('Especialidad actualizada exitosamente.');
-      this.loadEspecialidad(); // Actualizar la lista
-      this.closeEditModalEspecialidad();
-    },
-    error: error => {
-      console.error('Error al actualizar la especialidad:', error);
-      alert('Error al actualizar la especialidad.');
-    }
-  });
-}
-
-// CRU(D) Delete
-
-  // Abrir el modal de confirmación de eliminación
   confirmDelete(id: number): void {
     this.especialidadDelete = id;
     this.showConfirmationDeleteEspecialidad = true;
+    document.body.classList.add('modal-open');
   }
 
-    // Cerrar el modal de confirmación
   closeConfirmationDialog(): void {
     this.showConfirmationDeleteEspecialidad = false;
     this.especialidadDelete = null;
+    document.body.classList.remove('modal-open');
   }
 
-  // Eliminar especialidad
   deleteEspecialidad(): void {
     if (this.especialidadDelete !== null) {
       this.http.delete(`${this.apiUrl}/${this.especialidadDelete}`, { responseType: 'text' }).subscribe({
@@ -156,6 +129,7 @@ updateEspecialidad(): void {
           alert('Especialidad eliminada exitosamente.');
           this.loadEspecialidad();
           this.closeConfirmationDialog();
+          this.closeModalEspecialidad();
         },
         error: error => {
           console.error('Error al eliminar especialidad:', error);
@@ -170,7 +144,4 @@ updateEspecialidad(): void {
     const endIndex = startIndex + event.pageSize;
     this.pagedEspecialidades = this.especialidades.slice(startIndex, endIndex);
   }
-};
-
-
-
+}

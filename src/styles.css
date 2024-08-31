@@ -19,7 +19,7 @@ body{
   margin: 1.25rem 0 1.25rem 0;
   box-shadow: 0 .25rem .5rem #e6edef;
 
-  .card-head{
+.card-head{
     padding: 1rem 1.5rem;
     border-bottom: 1px solid #edf1f7;
     font-size: 1rem;
@@ -49,8 +49,6 @@ body { margin: 0; font-family: Poppins;}
 .mat-flat-button.agregar {
   background: linear-gradient(90deg, lightgreen, green); /* Ajusta los colores y ángulo del gradiente según sea necesario */
   color: #fff;
-
-  
 }
 
 .mat-flat-button.actualizar{
@@ -60,14 +58,6 @@ body { margin: 0; font-family: Poppins;}
 .mat-flat-button.cancelar{
   background: linear-gradient(90deg, gray, black); /* Ajusta los colores y ángulo del gradiente según sea necesario */
 }
-
-
-
-
-
-
-
-
 
 /* Estilos generales para los botones */
 /* BOTÓN GENERAL */
