@@ -25,7 +25,7 @@
   </thead> 
 
   <tbody>
-    <tr *ngFor="let especialidad of filteredEspecialidades()">
+    <tr *ngFor="let especialidad of pagedEspecialidades">      
       <td>{{ especialidad.id }}</td>
       <td>{{ especialidad.nombre }}</td>
       <td>{{ especialidad.estado === 1 ? 'Activo' : 'Inactivo' }}</td>
@@ -44,11 +44,11 @@
 
 <!-- Paginador de Angular Material -->
 <div class="paginador-container">
-  <mat-paginator [length]="especialidades.length"
-                 [pageSize]="5"
-                 [pageSizeOptions]="[5, 10, 20]"
-                 (page)="onPageChange($event)">
-  </mat-paginator>
+  <mat-paginator [length]="filteredEspecialidades().length"
+              [pageSize]="5"
+              [pageSizeOptions]="[5, 10, 20]"
+              (page)="onPageChange($event)">
+</mat-paginator>
 </div>
 
 <!-- Modal combinado para CREAR y EDITAR especialidad -->
@@ -100,7 +100,7 @@
             <mat-icon>delete</mat-icon>Eliminar</button>
         </div>
 
-        <button mat-flat-button [color]="isEditMode ? 'agregar' : 'actualizar'" class="mat-flat-button" (click)="saveEspecialidad()" type="submit">
+        <button mat-flat-button [ngClass]="{'agregar': !isEditMode, 'actualizar': isEditMode}" class="mat-flat-button" (click)="saveEspecialidad()" type="submit">
           <mat-icon>{{ isEditMode ? 'save' : 'add_circle' }}</mat-icon>
           {{ isEditMode ? 'Actualizar' : 'Agregar' }}
         </button>

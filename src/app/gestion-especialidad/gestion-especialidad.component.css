@@ -139,6 +139,91 @@ body.modal-open {
   text-align: right;
 }
 
+/* Estilos generales */
+.card {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Estilos para la barra de búsqueda */
+.buscador-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.buscador {
+  flex-grow: 1;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  min-width: 200px;
+}
+
+.agregar {
+  white-space: nowrap;
+}
+
+/* Estilos para la tabla */
+.table-container {
+  overflow-x: auto;
+}
+
+.table-elegant {
+  min-width: 600px; /* Ajusta este valor según tus necesidades */
+}
+
+/* Estilos para el paginador */
+.paginador-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+/* Media queries para diferentes tamaños de pantalla */
+@media (max-width: 768px) {
+  .buscador-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .buscador, .agregar {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .table-elegant th,
+  .table-elegant td {
+    padding: 10px;
+  }
+
+  .actions-column .button-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .actions-column .button-container button {
+    margin-bottom: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .card {
+    padding: 10px;
+  }
+
+  .table-elegant th,
+  .table-elegant td {
+    padding: 8px;
+    font-size: 0.9em;
+  }
+}
+
 
 /* TABLA */
 .table-elegant {
@@ -239,35 +324,60 @@ body.modal-open {
   }
 
   /*Paginacion*/
-  ::ng-deep .mat-paginator {
-    display: flex;
-    justify-content: center; /* Centra el paginador */
-    margin-top: 20px; /* Espacio superior entre la tabla y el paginador */
-  }
-  
-  ::ng-deep .mat-paginator-page-size {
-    margin-left: 10px; /* Espaciado para selector de tamaño de página */
-  }
-  
-  ::ng-deep .mat-paginator-range-label {
-    margin-left: 10px; /* Espaciado para etiqueta de rango */
-  }
-  
-  ::ng-deep .mat-paginator-icon {
-    color: #007bff; /* Cambia el color de los iconos de navegación */
-  }
-  
-  ::ng-deep .mat-paginator .mat-button-base {
-    border-radius: 50%; /* Esquinas redondeadas para botones de navegación */
-    margin: 0 5px; /* Espacio entre botones de navegación */
-  }
-  
-  ::ng-deep .mat-paginator .mat-button-base.mat-primary {
-    background-color: #333; /* Color de fondo personalizado para botones */
-    color: white; /* Color del texto de los botones */
-  }
-  
-  ::ng-deep .mat-paginator .mat-button-base:hover {
-    background-color: #555; /* Color de fondo al pasar el ratón por los botones */
-  }
-  
+  /* Estilos para el contenedor del paginador */
+.paginador-container {
+  background-color: white;
+  border-radius: 0.5rem;
+  margin-top: 20px;
+  padding: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para el paginador dentro del contenedor */
+.paginador-container .mat-paginator {
+  background-color: transparent;
+  color: white;
+}
+
+/* Estilo para los botones del paginador */
+.paginador-container .mat-paginator .mat-icon-button {
+  color: white;
+}
+
+/* Estilo para el texto del paginador */
+.paginador-container .mat-paginator-range-label,
+.paginador-container .mat-paginator-page-size-label {
+  color: white;
+}
+
+/* Estilo para el selector de tamaño de página */
+.paginador-container .mat-paginator-page-size-select {
+  background-color: white;
+  border-radius: 20px;
+  margin-left: 10px;
+}
+
+.paginador-container .mat-paginator-page-size-select .mat-select-value {
+  color: #333;
+}
+
+/* Estilo para los botones de navegación cuando están deshabilitados */
+.paginador-container .mat-paginator-navigation-disabled .mat-icon-button {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Estilo para el hover de los botones */
+.paginador-container .mat-paginator .mat-icon-button:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Ajuste del espaciado interno del paginador */
+.paginador-container .mat-paginator-container {
+  justify-content: center;
+  padding: 0 16px;
+}
+
+/* Estilo para el desplegable de selección de tamaño de página */
+.paginador-container .mat-paginator-page-size-select.mat-select {
+  width: 56px;
+}

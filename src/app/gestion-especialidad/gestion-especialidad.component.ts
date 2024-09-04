@@ -36,10 +36,19 @@ export class GestionEspecialidadComponent implements OnInit {
 
   loadEspecialidad(): void {
     this.http.get<any[]>(this.apiUrl).subscribe({
-      next: response => this.especialidades = response,
+      next: response => {
+        this.especialidades = response;
+        this.updatePagedEspecialidades();
+      },
       error: error => console.error('Error al cargar los datos:', error),
       complete: () => console.log('Carga de especialidades completa')
     });
+  }
+
+  updatePagedEspecialidades(): void {
+    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+    const endIndex = startIndex + this.paginator.pageSize;
+    this.pagedEspecialidades = this.filteredEspecialidades().slice(startIndex, endIndex);
   }
 
   openModalEspecialidad(especialidad?: any): void {
@@ -140,8 +149,6 @@ export class GestionEspecialidadComponent implements OnInit {
   }
 
   onPageChange(event: PageEvent) {
-    const startIndex = event.pageIndex * event.pageSize;
-    const endIndex = startIndex + event.pageSize;
-    this.pagedEspecialidades = this.especialidades.slice(startIndex, endIndex);
+    this.updatePagedEspecialidades();
   }
 }
