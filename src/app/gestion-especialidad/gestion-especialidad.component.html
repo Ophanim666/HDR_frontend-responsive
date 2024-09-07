@@ -1,4 +1,4 @@
-<!-- Buscador de tareas -->
+<!-- Barra de búsqueda y botón de agregar -->
 <div class="buscador-container">
   <input
     type="text"
@@ -6,13 +6,12 @@
     [(ngModel)]="searchText"
     class="buscador"
   /> 
-  <button mat-flat-button class="mat-flat-button agregar" (click)="openModalEspecialidad()">
-    <mat-icon>add_circle</mat-icon>Agregar
-  </button>
+  <button mat-flat-button class="mat-flat-button agregar" (click)="openModalEspecialidad()"><mat-icon>add_circle</mat-icon>Agregar</button>
 </div>
 
 <!-- Tabla -->
 <table class="table-elegant">
+
   <thead>
     <tr>
       <th>Código</th>
@@ -40,9 +39,10 @@
       </td>
     </tr>
   </tbody>
+
 </table>
 
-<!-- Paginador de Angular Material -->
+<!-- Paginación -->
 <div class="paginador-container">
   <mat-paginator [length]="filteredEspecialidades().length"
               [pageSize]="5"
@@ -53,8 +53,10 @@
 
 <!-- Modal para CREAR y EDITAR especialidad -->
 <div *ngIf="showModalEspecialidad" class="modal">
+
   <div class="modal-dialog">
     <div class="modal-content">
+
       <!-- Header -->
       <div class="modal-header">
         <h2 class="modal-title">{{ isEditMode ? 'Edición' : 'Creación' }} de especialidad</h2>
@@ -64,6 +66,7 @@
       <div class="modal-body">
         <form (ngSubmit)="saveEspecialidad()" #especialidadForm="ngForm" class="form-container">
           <div class="form-row">
+            
             <!-- Campo para nombre de especialidad -->
             <mat-form-field class="mat-form-field">
               <mat-label>Especialidad</mat-label>
@@ -103,6 +106,7 @@
           <mat-icon>{{ isEditMode ? 'save' : 'add_circle' }}</mat-icon>
           {{ isEditMode ? 'Actualizar' : 'Agregar' }}
         </button>
+
       </div>
     </div>
   </div>
@@ -112,9 +116,10 @@
 <div *ngIf="showConfirmationDeleteEspecialidad" class="modal">
   <div class="modal-dialog">
     <div class="modal-content">
+
       <!-- Header -->
       <div class="modal-header">
-        <h6>Confirmación de eliminación</h6>
+        <h2 class="modal-title">Confirmación de eliminación</h2>
       </div>
 
       <!-- Body -->
@@ -127,23 +132,29 @@
         <button mat-flat-button class="mat-flat-button cancelar" (click)="closeConfirmationDialog()">No</button>
         <button mat-flat-button class="mat-flat-button confirmarEliminar" (click)="deleteEspecialidad()">Sí</button>
       </div>
+
     </div>
   </div>
 </div>
 
 <!-- Modal para mostrar errores -->
 <div *ngIf="showErrorModal" class="modal error-modal">
+
   <div class="modal-dialog">
     <div class="modal-content">
+
       <div class="modal-header error">
         <h6>{{ errorMessage.isError ? '¡Error!' : '¡Éxito!' }}</h6>
       </div>
+
       <div class="modal-body">
         <p>{{ errorMessage.message }}</p>
       </div>
+
       <div class="modal-footer">
         <button mat-flat-button class="mat-flat-button cerrar" (click)="closeErrorModal()">Cerrar</button>
       </div>
+      
     </div>
   </div>
 </div>
