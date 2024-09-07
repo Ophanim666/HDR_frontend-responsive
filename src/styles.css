@@ -55,48 +55,14 @@ body { margin: 0; font-family: Poppins;}
   background: linear-gradient(90deg, skyblue, blue); /* Ajusta los colores y ángulo del gradiente según sea necesario */
 }
 
+.mat-flat-button.cerrar{
+  background: linear-gradient(90deg, gray, black); /* Ajusta los colores y ángulo del gradiente según sea necesario */
+}
+
 .mat-flat-button.cancelar{
   background: linear-gradient(90deg, gray, black); /* Ajusta los colores y ángulo del gradiente según sea necesario */
 }
 
-/* Estilos generales para los botones */
-/* BOTÓN GENERAL */
-/* .flat-button {
-  font-family: sans-serif;
-  font-size: 14px;
-  font-weight: bold;
-  text-transform: none;
-  padding: 12px 18px;
-  border: none;
-  border-radius: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
+.mat-flat-button.confirmarEliminar{
+  background: linear-gradient(90deg, red, brown); /* Ajusta los colores y ángulo del gradiente según sea necesario */
 }
-
-BOTÓN AGREGAR
-.flat-button.agregar {
-  background-color: #56b85c;
-  color: white;
-}
-
-.flat-button.agregar:hover {
-  background-color: #3ca041;
-}
-
-BOTÓN DESHABILITADO
-.flat-button.disabled {
-  background-color: #E0E0E0;
-  color: #9E9E9E;
-  cursor: not-allowed;
-}
-
-BOTÓN ENLACE
-.custom-button.link {
-  background-color: transparent;
-  color: #C2185B;
-  text-decoration: none;
-}
-
-.custom-button.link:hover {
-  background-color: rgba(194, 24, 91, 0.1);
-} */

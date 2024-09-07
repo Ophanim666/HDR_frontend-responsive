@@ -296,3 +296,52 @@ body.modal-open {
 .paginador-container .mat-paginator-page-size-select.mat-select {
   width: 56px;
 }
+
+/* Estilos actualizados para el modal de error */
+.error-modal .modal-dialog {
+  background: #fff;
+  border-radius: 8px;
+  width: 400px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1200;
+}
+
+.error-modal .modal-content {
+  border: none;
+}
+
+.error-modal .modal-header {
+  padding: 10px;
+  border-bottom: 1px solid #dee2e6;
+  align-items: center;
+  text-align: center;
+  border-bottom: none;
+}
+
+.error-modal .modal-header h6 {
+  font-size: 18px;
+  font-weight: 500;
+  margin: 0;
+  color: #333;
+}
+
+.error-modal .modal-body {
+  text-align: center;
+  padding: 20px;
+}
+
+.error-modal .modal-footer {
+  padding: 20px;
+  border-top: none;
+  justify-content: center;
+}
+
+/* Estilos para el modal de confirmación de eliminación (sin cambios) */
+.confirmation-modal .modal-dialog {
+  z-index: 1100;
+}
+
+.error-modal .modal-body p {
+  margin: 0;
+  padding: 0;
+}
