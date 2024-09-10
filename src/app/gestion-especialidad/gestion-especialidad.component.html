@@ -1,11 +1,12 @@
 <!-- Barra de búsqueda y botón de agregar -->
 <div class="buscador-container">
   <input
-    type="text"
-    placeholder="Buscar por nombre..."
-    [(ngModel)]="searchText"
-    class="buscador"
-  /> 
+  type="text"
+  placeholder="Buscar por nombre..."
+  [(ngModel)]="searchText"
+  (ngModelChange)="onSearchChange()"
+  class="buscador"
+  />
   <button mat-flat-button class="mat-flat-button agregar" (click)="openModalEspecialidad()"><mat-icon>add_circle</mat-icon>Agregar</button>
 </div>
 

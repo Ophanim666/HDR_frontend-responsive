@@ -27,16 +27,19 @@ export class GestionEspecialidadComponent implements OnInit {
 
   constructor(private http: HttpClient) {}
 
+  // Cargar datos
   ngOnInit(): void {
     this.loadEspecialidad();
   }
 
+  // Filtrar especialidades
   filteredEspecialidades() {
     return this.especialidades.filter(especialidad =>
       especialidad.nombre.toLowerCase().includes(this.searchText.toLowerCase())
     );
   }
 
+  // Listar o cargar especialidades
   loadEspecialidad(): void {
     this.http.get<any>(this.apiUrl).subscribe({
       next: response => {
@@ -56,12 +59,22 @@ export class GestionEspecialidadComponent implements OnInit {
     });
   }
 
+  // Actualizar las especialidades paginadas
   updatePagedEspecialidades(): void {
+    const filtered = this.filteredEspecialidades();
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     const endIndex = startIndex + this.paginator.pageSize;
-    this.pagedEspecialidades = this.filteredEspecialidades().slice(startIndex, endIndex);
+    this.pagedEspecialidades = filtered.slice(startIndex, endIndex);
+    this.paginator.length = filtered.length;
   }
 
+   // Método que se llama cuando cambia el texto de búsqueda
+  onSearchChange(): void {
+    this.paginator.firstPage();
+    this.updatePagedEspecialidades();
+  }
+
+  // Abrir el modal de especialidad
   openModalEspecialidad(especialidad?: any): void {
     this.isEditMode = !!especialidad;
     this.currentEspecialidad = especialidad ? { ...especialidad } : {
@@ -73,23 +86,27 @@ export class GestionEspecialidadComponent implements OnInit {
     document.body.classList.add('modal-open');
   }
 
+  // Método que maneja el cambio en el toggle de estado de la especialidad
   onToggleChange(event: MatSlideToggleChange): void {
     this.currentEspecialidad.estado = event.checked ? 1 : 0;
   }
 
+  // Cerrar el modal de especialidad
   closeModalEspecialidad(): void {
     this.showModalEspecialidad = false;
     document.body.classList.remove('modal-open');
   }
 
+  // Método para guardar una especialidad
   saveEspecialidad(): void {
     if (this.isEditMode) {
-      this.updateEspecialidad();
+      this.updateEspecialidad();  // Si está en modo edición, llama a updateEspecialidad
     } else {
-      this.createEspecialidad();
+      this.createEspecialidad();  // Si no, llama a createEspecialidad
     }
   }
 
+  // Crear una nueva especialidad
   createEspecialidad(): void {
     this.http.post(`${this.apiUrl}`, this.currentEspecialidad).subscribe({
       next: (response: any) => {
@@ -109,6 +126,7 @@ export class GestionEspecialidadComponent implements OnInit {
     });
   }
 
+  // Editar una especialidad existente
   updateEspecialidad(): void {
     const url = `${this.apiUrl}/${this.currentEspecialidad.id}`;
     const updatedData = {
@@ -134,18 +152,21 @@ export class GestionEspecialidadComponent implements OnInit {
     });
   }
 
+  // Confirmar la eliminación de una especialidad
   confirmDelete(id: number): void {
     this.especialidadDelete = id;
-    this.showModalEspecialidad = false; // Oculta el modal de edición
-    this.showConfirmationDeleteEspecialidad = true; // Muestra el modal de confirmación
+    this.showModalEspecialidad = false;
+    this.showConfirmationDeleteEspecialidad = true;
   }
 
+  // Cerrar el diálogo de confirmación de eliminación
   closeConfirmationDialog(): void {
     this.showConfirmationDeleteEspecialidad = false;
-    this.showModalEspecialidad = true; // Vuelve a mostrar el modal de edición
+    this.showModalEspecialidad = true;
     this.especialidadDelete = null;
   }
 
+  // Eliminar especialidad
   deleteEspecialidad(): void {
     if (this.especialidadDelete !== null) {
       this.http.delete<any>(`${this.apiUrl}/${this.especialidadDelete}`).subscribe({
@@ -168,20 +189,20 @@ export class GestionEspecialidadComponent implements OnInit {
     }
   }
 
+  // Mostrar un mensaje de error o éxito
   showError(message: string, isError: boolean): void {
     this.errorMessage = { message, isError };
     this.showErrorModal = true;
-    // if (!isError) {
-    //   setTimeout(() => this.closeErrorModal(), 3000);
-    // }
   }
 
+  // Cerrar el modal de error
   closeErrorModal(): void {
     this.showErrorModal = false;
     this.errorMessage = { message: '', isError: true };
   }
 
+  // Método que se llama cuando cambia la página en el paginador
   onPageChange(event: PageEvent) {
-    this.updatePagedEspecialidades();
+    this.updatePagedEspecialidades();   // Actualiza las especialidades paginadas para mostrar la nueva página
   }
 }
