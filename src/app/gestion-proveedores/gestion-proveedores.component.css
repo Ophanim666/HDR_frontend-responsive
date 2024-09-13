@@ -1,336 +1,103 @@
-.card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 20px;
-  padding: 20px;
-  background-color: #fff;
-}
-
-.card-head {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 1.5em;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 15px;
-}
-
-
-/*------------------------ Boton de Agregar ------------------------*/
-.btn {
-  padding: 8px 16px;
-  font-size: 1em;
-  border-radius: 5px;
-  cursor: pointer;
-  border: none;
-}
-
-.btn-primary {
-  background-color: #77dd77; /* Verde pastel */
-  color: #fff;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 0.9em;
-  border: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.btn-primary:hover {
-  background-color: #66cc66;
-}
-/* ----------------------------------------------------------------- */
-
-/* Boton editar */
-.btn-warning {
-  background: linear-gradient(145deg, #485bbd, #4354a8); 
-  color: white;
-  border: 1px solid transparent;
-  width: 40px; 
-  height: 40px; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Boton de eliminar */
-.btn-danger {
-  background: linear-gradient(145deg, #dc3545, #dc3545); 
-  color: white;
-  border: 1px solid transparent;
-  width: 40px; 
-  height: 40px; 
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.btn-update {
-  background-color: #28a745;
-  color: #fff;
-  border-radius: 5px;
-  padding: 10px;
-  margin-right: 10px;
-}
-
-.volver-btn {
-  background-color: #6c757d;
-  color: #fff;
-  border-radius: 5px;
-  padding: 10px;
-}
-
-.card-body {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-} 
-
- .proveedor-card {
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 15px;
-  background-color: #f9f9f9;
-  width: calc(33.333% - 40px);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-/*
-.proveedor-card p {
-  margin: 5px 0;
-  font-size: 0.9em;
-  color: #555;
-}
-
-.form-container {
-  margin-top: 15px;
-}
-
-.form-group {
-  margin-bottom: 15px;
-}
-
-.form-group label {
-  font-weight: bold;
-  margin-bottom: 5px;
-  display: block;
-}
-
-.form-control {
-  width: 100%;
-  padding: 8px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-.form-actions {
-  margin-top: 20px;
-  display: flex;
-  justify-content: flex-end;
-}  */
-
+/* Estilo para el modal */
 .modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  z-index: 1000;
+}
+
+.modal-dialog {
+  width: 70%; /* Incrementa el ancho del modal */
+  max-width: 800px; /* Ajusta el tamaño máximo si es necesario */
 }
 
 .modal-content {
   background-color: #fff;
-  padding: 20px;
   border-radius: 8px;
-  width: 80%;
-  max-width: 600px; /* Ancho ajustado */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  padding: 20px;
 }
 
-.modal-content h6 {
-  margin-bottom: 20px;
-  font-size: 1.2em;
-  color: #333;
-}
-
-.confirmation-dialog {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 300px;
+.modal-header {
   text-align: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
-
-
-/* Tamaño de la ventana del modal de creación */
-.modal-content {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  width: 80%;
-  max-width: 600px; /* Ancho ajustado */
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+.modal-title {
+  font-size: 1.5em;
+  font-weight: bold;
 }
 
-.modal-content.wider-modal {
-  width: 600px; /* Ancho ajustado */
+.modal-body-prov {
   padding: 20px;
 }
 
-/* Alineación de los campos RUT y DV en la misma fila <------------------------  en proceso */ 
-.form-group.row {
+.modal-body-prov .form-group {
   display: flex;
   justify-content: space-between;
+  gap: 20px;
 }
 
-.form-group.row .col {
+.form-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.mat-form-field {
+  width: 48%;
+  display: flex;
   flex: 1;
-  margin-right: 10px;
 }
 
-.form-group.row .col:last-child {
-  margin-right: 0;
+.mat-form-field:nombre {
+  width: 50%;
+  padding: 0px 5px;
 }
 
-/* ------------------------ Modal de confirmacion de eliminacion ------------------------  */
-.confirmation-dialog {
-  position: fixed;
-  top: 0;
-  left: 0;
+.form-row .toggle-wrapper {
   width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.5); /* Fondo semi-transparente */
   display: flex;
-  justify-content: center;
   align-items: center;
-  z-index: 1000; /* Asegura que el modal esté por encima de otros elementos */
-}
-/* Botones de si o no  */
-.confirmation-dialog .btn-si {
-  background: #d9534f;
-  color: #fff;
+  margin-top: 10px;
 }
 
-.confirmation-dialog .btn-no{
-  background: #6c757d;
-  color: #fff;
+
+.mat-flat-button editar{
+  padding: 10px 0px;
 }
 
-.confirmation-dialog .btn-si:hover,
-.confirmation-dialog .btn-no:hover {
-  opacity: 0.9;
-}
-
-/* Contenedor del contenido del modal */
-.confirmation-dialog .modal-content {
-  background: #fff;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-  max-width: 400px;
-  width: 90%;
-  text-align: center;
-}
-
-/* Estilo del mensaje dentro del modal */
-.confirmation-dialog p {
-  margin-bottom: 20px;
-  font-size: 16px;
-  color: #333;
-}
-
-/* Estilo para los botones dentro del modal */
-.confirmation-dialog .btn {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
-  margin: 5px;
-}
-
-.confirmation-dialog .btn-danger {
-  background: #d9534f;
-  color: #fff;
-}
-
-.confirmation-dialog .btn-secondary {
-  background: #6c757d;
-  color: #fff;
-}
-
-.confirmation-dialog .btn-danger:hover,
-.confirmation-dialog .btn-secondary:hover {
-  opacity: 0.9;
-}
-
-/* -------------------------------------- CSS para los datos en forma de tablas -------------------------------------- */
-/* gestion-especialidad.component.css */
-table {
-  width: 100%;
-  border-collapse: collapse;
-  border-radius: .5rem;
-}
-
-th, td {
-  border: 1px solid #ddd;
-  padding: 8px;
-}
-
-th {
-  background-color: #f2f2f2;
-  text-align: left;
-}
-
-/* Espacio para botones de las listas */
-.button-container {
+/* Footer del modal */
+.modal-footer {
   display: flex;
-  min-width: 40px; /* Ancho mínimo para los botones */
-  gap: 5px; /* Espacio entre botones */
-}  
-
-/* Estilo específico para la columna de acciones */
-.actions-column {
-width: 120px; /* Ajusta este valor según el tamaño deseado */
-text-align: center; /* Centra el contenido de la columna */
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
 }
 
-  /* Estilo para el contenedor del buscador y botón */
-.buscador-container {
-  align-items: center; /* Alinea verticalmente el contenido */
-  justify-content: center; /* Centra horizontalmente el contenido si es necesario */
-  margin-bottom: 20px;
-  padding: 20px; /* Espacio interno para el contenedor */
-  background-color: #000000; /* Fondo ligero para el contenedor */
-  border-radius: 20px;
-}
-  
-  /* Estilo para el campo de búsqueda */
-  .buscador {
-    flex-grow: 1; /* Permite que el campo de búsqueda ocupe todo el espacio disponible */
-    padding: 10px 20px; /* Espaciado interno para mejorar la usabilidad */
-    border: 1px solid #ccc;
-    border-radius: 20px; /* Bordes redondeados para el campo de búsqueda */
-    outline: none;
-    transition: all 0.3s ease;
-    margin-right: 60px; /* Espacio entre el campo de búsqueda y el botón */
+/* Responsivo para pantallas pequeñas */
+@media (max-width: 768px) {
+  .modal-dialog {
     width: 90%;
   }
-  
-  /* Estilo para el campo de búsqueda cuando está en foco */
-  .buscador:focus {
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+
+  .mat-form-field {
+    width: 100%;
   }
-  
-  .mat-flat-button.agregar{
-    background-color: #56b85c;
-    color: #fff;
+
+  .form-group {
+    flex-direction: column;
   }
-  
+}

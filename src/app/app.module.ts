@@ -26,7 +26,11 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 // Switch ANGULAR
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
+// Esto es para el formulario del proveedores ya que es el que tiene mas inputs
 import {MatIconModule} from '@angular/material/icon';
+import {MatCardModule} from '@angular/material/card';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { ActasComponent } from './actas/actas.component';
 import { PerfilesComponent } from './perfiles/perfiles.component';
@@ -97,7 +101,10 @@ import { CrearParametroComponent } from './crear-parametro/crear-parametro.compo
     MatInputModule,
     MatFormFieldModule,
     MatSlideToggleModule,
-    MatIconModule
+    MatIconModule,
+    MatCardModule,
+    MatTooltipModule,
+    ReactiveFormsModule
   ],
 
   providers: [

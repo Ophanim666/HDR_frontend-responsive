@@ -39,8 +39,9 @@ export const navbarData = [
     label: 'Tareas'
   },
   {
+    // Proveedores
     RouterLink: 'gestion-proveedores',
-    icon: 'fa-solid fa-briefcase',
+    icon: 'fa-solid fa-building',
     label: 'Proveedores'
   },
 
