@@ -34,7 +34,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { ActasComponent } from './actas/actas.component';
 import { PerfilesComponent } from './perfiles/perfiles.component';
-import { RazonesSocialesComponent } from './razones-sociales/razones-sociales.component';
 import { ObrasComponent } from './obras/obras.component';
 import { GestionTareaComponent } from './gestion-tarea/gestion-tarea.component';
 
@@ -68,7 +67,6 @@ import { CrearParametroComponent } from './crear-parametro/crear-parametro.compo
     // Estas se usarán pero no están definidas al 100%
     ActasComponent,
     PerfilesComponent,
-    RazonesSocialesComponent,
     ObrasComponent,
     CrearUsuariosComponent,
     EdicionDeUsuariosComponent,

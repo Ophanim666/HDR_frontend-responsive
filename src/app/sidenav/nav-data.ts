@@ -18,11 +18,6 @@ export const navbarData = [
     label: 'Usuarios'
   },
   {
-    RouterLink: 'razonesSociales',
-    icon: 'fa-solid fa-box-archive',
-    label: 'Proveedores'
-  },
-  {
     RouterLink: 'obras',
     icon: 'fa-solid fa-person-digging',
     label: 'Obras'

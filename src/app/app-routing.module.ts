@@ -3,7 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { ActasComponent } from './actas/actas.component';
 import { PerfilesComponent } from './perfiles/perfiles.component';
-import { RazonesSocialesComponent } from './razones-sociales/razones-sociales.component';
 import { ObrasComponent } from './obras/obras.component';
 import { GestionTareaComponent } from './gestion-tarea/gestion-tarea.component';
 import { GestionEspecialidadComponent } from './gestion-especialidad/gestion-especialidad.component';
@@ -27,7 +26,6 @@ const routes: Routes = [
   // ejemplo {path: 'settings', component: SettingsComponent} //Recordar cambiar su el nombre de su component: por ejemplo SettingsComponent
   {path: 'actas', component: ActasComponent},
   {path: 'perfiles', component: PerfilesComponent},
-  {path: 'razonesSociales', component: RazonesSocialesComponent},
   {path: 'obras', component: ObrasComponent},
   {path: 'gestion-tarea', component: GestionTareaComponent},
   // crear usuario
