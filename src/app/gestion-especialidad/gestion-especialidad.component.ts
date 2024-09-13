@@ -18,6 +18,7 @@ export class GestionEspecialidadComponent implements OnInit {
   searchText: string = '';
   isEditMode = false;
   pagedEspecialidades: any[] = [];
+  
   private apiUrl = 'https://localhost:7125/api/Especialidad';
 
   showErrorModal = false;
@@ -108,7 +109,7 @@ export class GestionEspecialidadComponent implements OnInit {
 
   // Crear una nueva especialidad
   createEspecialidad(): void {
-    this.http.post(`${this.apiUrl}`, this.currentEspecialidad).subscribe({
+    this.http.post(`${this.apiUrl}/add`, this.currentEspecialidad).subscribe({
       next: (response: any) => {
         if (response.estado.ack) {
           console.log('Especialidad creada:', response);
