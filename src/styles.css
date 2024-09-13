@@ -231,7 +231,7 @@ body{
 
 /*----- Estilos para modales -----*/
 
-.modal {
+/* .modal {
   position: fixed;
   top: 0;
   left: 0;
@@ -274,7 +274,7 @@ body{
 .button-group-left {
   display: flex;
   gap: 10px;
-}
+} */
 
 /*----- Estilos para campos y toogle slide -----*/
 

@@ -109,7 +109,7 @@
               </mat-form-field>
 
               <!-- Campo para DV -->
-              <mat-form-field class="mat-form-field">
+              <mat-form-field class="mat-form-field dv">
                 <mat-label>DV</mat-label>
                 <input
                   matInput
@@ -198,6 +198,31 @@
           {{ isEditMode ? 'Actualizar' : 'Agregar' }}
         </button>
       </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de confirmación de eliminación -->
+<div *ngIf="showConfirmationDeleteProveedores" class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <h2 class="modal-title">Confirmación de eliminación</h2>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <p>¿Está seguro de que desea eliminar este proveedor?</p>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button mat-flat-button class="mat-flat-button cancelar" (click)="closeConfirmationDialog()">No</button>
+        <button mat-flat-button class="mat-flat-button confirmarEliminar" (click)="deleteProveedor()">Sí</button>
+      </div>
+
     </div>
   </div>
 </div>

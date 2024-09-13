@@ -25,7 +25,6 @@ export class GestionProveedoresComponent implements OnInit {
 
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
-
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
@@ -199,10 +198,8 @@ export class GestionProveedoresComponent implements OnInit {
     }
   }
 
-
-
    // Mostrar un mensaje de error o éxito
-   showError(message: string, isError: boolean): void {
+  showError(message: string, isError: boolean): void {
     this.errorMessage = { message, isError };
     this.showErrorModal = true;
   }

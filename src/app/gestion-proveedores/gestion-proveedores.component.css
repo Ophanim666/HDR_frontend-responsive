@@ -62,9 +62,10 @@
   flex: 1;
 }
 
-.mat-form-field:nombre {
-  width: 50%;
-  padding: 0px 5px;
+
+
+.mat-form-field.dv{
+  width: 10%;
 }
 
 .form-row .toggle-wrapper {
@@ -74,10 +75,6 @@
   margin-top: 10px;
 }
 
-
-.mat-flat-button editar{
-  padding: 10px 0px;
-}
 
 /* Footer del modal */
 .modal-footer {
