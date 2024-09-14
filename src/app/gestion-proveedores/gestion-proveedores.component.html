@@ -188,15 +188,16 @@
                 </mat-form-field>
               </div>
             </div>
-
-            <!-- <mat-form-field>
-              <mat-label>Toppings</mat-label>
+            
+            <span class="titulo-especialidades">Selección de especialidades</span>
+            <mat-form-field appearance="fill">
+              <mat-label>Especialidades</mat-label>
               <mat-select [formControl]="toppings" multiple>
-                @for (topping of toppingList; track topping) {
-                  <mat-option [value]="topping">{{topping}}</mat-option>
-                }
+                <mat-option *ngFor="let topping of toppingList" [value]="topping">
+                  {{ topping }}
+                </mat-option>
               </mat-select>
-            </mat-form-field> -->
+            </mat-form-field>
 
           </div>
         </form>

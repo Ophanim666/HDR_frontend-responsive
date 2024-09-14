@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-gestion-proveedores',
@@ -19,6 +20,11 @@ export class GestionProveedoresComponent implements OnInit {
   isEditMode = false;
   pagedProveedores: any[] = [];
   private apiUrl = 'https://localhost:7125/api/Proveedor';
+
+  // lista para especilidades
+  toppings = new FormControl();
+  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage'];
+
 
   showErrorModal = false;
   errorMessage: { message: string, isError: boolean } = { message: '', isError: true };

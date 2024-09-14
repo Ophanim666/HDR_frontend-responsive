@@ -32,6 +32,11 @@ import {MatCardModule} from '@angular/material/card';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { ReactiveFormsModule } from '@angular/forms';
 
+// para los item de especialidad
+import { MatSelectModule } from '@angular/material/select';
+import { MatOptionModule } from '@angular/material/core'; // Este módulo contiene mat-option
+
+
 import { ActasComponent } from './actas/actas.component';
 import { PerfilesComponent } from './perfiles/perfiles.component';
 import { ObrasComponent } from './obras/obras.component';
@@ -102,7 +107,9 @@ import { CrearParametroComponent } from './crear-parametro/crear-parametro.compo
     MatIconModule,
     MatCardModule,
     MatTooltipModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    MatSelectModule,
+    MatOptionModule, // Agrega este módulo
   ],
 
   providers: [

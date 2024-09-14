@@ -127,6 +127,22 @@
   border-top: 1px solid #ddd;
 }
 
+/* lista de item de especilidades */
+mat-form-field {
+  width: 100%; /* Ajusta el ancho para que ocupe todo el espacio del modal */
+  margin-bottom: 16px; /* Añadir un margen para separarlo de otros elementos */
+}
+
+.titulo-especialidades {
+  font-size: 20px; /* Ajusta el tamaño de la fuente */
+  font-weight: bold;
+  display: block;
+  margin-bottom: 8px;
+}
+
+
+
+
 /* Responsivo para pantallas pequeñas */
 @media (max-width: 768px) {
   .modal-dialog {
