@@ -22,8 +22,8 @@ export class GestionProveedoresComponent implements OnInit {
   private apiUrl = 'https://localhost:7125/api/Proveedor';
 
   // lista para especilidades
-  toppings = new FormControl();
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage'];
+  especialidades = new FormControl();
+  especialidadList: string[] = ['Diseño Interiores', 'Demolicion', 'Reconstruccion', 'Excavacion Masiva', 'Enfierradura','Postensado', 'Hormigon', 'Excavacion a mano', 'Electricidad', 'Pilas Quilche'];
 
 
   showErrorModal = false;

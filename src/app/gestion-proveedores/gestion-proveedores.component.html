@@ -192,9 +192,9 @@
             <span class="titulo-especialidades">Selección de especialidades</span>
             <mat-form-field appearance="fill">
               <mat-label>Especialidades</mat-label>
-              <mat-select [formControl]="toppings" multiple>
-                <mat-option *ngFor="let topping of toppingList" [value]="topping">
-                  {{ topping }}
+              <mat-select [formControl]="especialidades" multiple>
+                <mat-option *ngFor="let especialidad of especialidadList" [value]="especialidad">
+                  {{ especialidad }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
