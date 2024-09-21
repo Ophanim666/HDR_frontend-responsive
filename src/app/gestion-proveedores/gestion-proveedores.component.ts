@@ -47,8 +47,9 @@ export class GestionProveedoresComponent implements OnInit {
     );
   }
 
+  
   loadListEspecialidad(): void {
-    this.http.get<any>(this.apiUrl).subscribe({
+    this.http.get<any>(`${this.apiUrl2}/ListadoDeespecialidadesSimple`).subscribe({
       next: response => {
         // Verificamos que la respuesta sea exitosa
         if (response.estado.ack) {
@@ -68,6 +69,7 @@ export class GestionProveedoresComponent implements OnInit {
       complete: () => console.log('Carga de especialidades completa')
     });
   }
+
 
   // Listar datos de proveedores
   loadProveedores(): void {
