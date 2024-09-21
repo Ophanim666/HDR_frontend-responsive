@@ -20,10 +20,12 @@ export class GestionProveedoresComponent implements OnInit {
   isEditMode = false;
   pagedProveedores: any[] = [];
   private apiUrl = 'https://localhost:7125/api/Proveedor';
+  // URL de Especialidad 
+  private apiUrl2 = 'https://localhost:7125/api/Especialidad';
 
   // lista para especilidades
   especialidades = new FormControl();
-  especialidadList: string[] = ['Diseño Interiores', 'Demolicion', 'Reconstruccion', 'Excavacion Masiva', 'Enfierradura','Postensado', 'Hormigon', 'Excavacion a mano', 'Electricidad', 'Pilas Quilche'];
+  especialidadList: string[] = [];
 
 
   showErrorModal = false;
@@ -42,6 +44,17 @@ export class GestionProveedoresComponent implements OnInit {
     return this.proveedores.filter(proveedor =>
       proveedor.nombre.toLowerCase().includes(this.searchText.toLowerCase())
     );
+  }
+
+  loadListEspecialidad(): void {
+    this.http.get<any>(`${this.apiUrl2}/ListadoDeespecialidadesSimple`).subscribe(
+      (data: string[]) => {
+        this. especialidadList = data;
+      },
+    (error) => {
+      console.error('Error en la carga de esp',error);
+    }
+  );
   }
 
   // Listar datos de proveedores
