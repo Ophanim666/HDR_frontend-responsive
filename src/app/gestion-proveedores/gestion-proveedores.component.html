@@ -188,16 +188,20 @@
                 </mat-form-field>
               </div>
             </div>
-            
+
+            <!-- nueva logica -->
             <span class="titulo-especialidades">Selección de especialidades</span>
+            <!-- Campo de especialidades en el formulario -->
             <mat-form-field appearance="fill">
               <mat-label>Especialidades</mat-label>
               <mat-select [formControl]="especialidades" multiple>
-                <mat-option *ngFor="let especialidad of especialidadList" [value]="especialidad">
-                  {{ especialidad }}
+                <!-- Ahora usamos el id como valor de cada opción -->
+                <mat-option *ngFor="let especialidad of especialidadList" [value]="especialidad.id">
+                  {{ especialidad.nombre }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
+            <!-- nueva logica -->
 
           </div>
         </form>
@@ -263,7 +267,7 @@
       <div class="modal-footer">
         <button mat-flat-button class="mat-flat-button cerrar" (click)="closeErrorModal()">Cerrar</button>
       </div>
-      
+
     </div>
   </div>
 </div>

@@ -20,12 +20,13 @@ export class GestionProveedoresComponent implements OnInit {
   isEditMode = false;
   pagedProveedores: any[] = [];
   private apiUrl = 'https://localhost:7125/api/Proveedor';
-  // URL de Especialidad 
+  // URL de Especialidad
   private apiUrl2 = 'https://localhost:7125/api/Especialidad';
 
   // lista para especilidades
   especialidades = new FormControl();
-  especialidadList: string[] = [];
+  //no es string es any para que lleguen los nombres
+  especialidadList: any[] = [];
 
 
   showErrorModal = false;
@@ -47,28 +48,32 @@ export class GestionProveedoresComponent implements OnInit {
     );
   }
 
+  // Listado de especialidades
+  // En este método cargamos las especialidades y almacenamos tanto el nombre como el id.
+loadListEspecialidad(): void {
+  this.http.get<any>(`${this.apiUrl2}/ListadoDeespecialidadesSimple`).subscribe({
+    next: response => {
+      if (response.estado.ack) {
+        // Ahora almacenamos tanto el nombre como el id de cada especialidad
+        this.especialidadList = response.body.response.map((especialidad: any) => ({
+          id: especialidad.id,        // Capturamos el id de la especialidad
+          nombre: especialidad.nombre  // Y el nombre para mostrarlo en el formulario
+        }));
 
-  loadListEspecialidad(): void {
-    this.http.get<any>(`${this.apiUrl2}/ListadoDeespecialidadesSimple`).subscribe({
-      next: response => {
-        // Verificamos que la respuesta sea exitosa
-        if (response.estado.ack) {
-          // Asignamos los nombres de las especialidades a especialidadList
-          this.especialidadList = response.body.response.map((especialidad: any) => especialidad.nombre);
-  
-          // Imprimimos las especialidades cargadas para verificar en consola
-          console.log('Especialidades cargadas:', this.especialidadList);
-        } else {
-          this.showError(`Error al cargar las especialidades: ${response.estado.errDes}`, true);
-        }
-      },
-      error: error => {
-        console.error('Error al cargar los datos:', error);
-        this.showError('Error en la solicitud al cargar los datos.', true);
-      },
-      complete: () => console.log('Carga de especialidades completa')
-    });
-  }
+        console.log('Especialidades cargadas:', this.especialidadList);
+      } else {
+        this.showError(`Error al cargar las especialidades: ${response.estado.errDes}`, true);
+      }
+    },
+    error: error => {
+      console.error('Error al cargar los datos:', error);
+      this.showError('Error en la solicitud al cargar los datos.', true);
+    },
+    complete: () => console.log('Carga de especialidades completa')
+  });
+}
+//....
+
 
 
   // Listar datos de proveedores
@@ -124,7 +129,7 @@ export class GestionProveedoresComponent implements OnInit {
     document.body.classList.add('modal-open');
   }
 
-    // Método que maneja el cambio en el toggle 
+    // Método que maneja el cambio en el toggle
     onToggleChange(event: MatSlideToggleChange): void {
       this.currentProveedores.estado = event.checked ? 1 : 0;
     }
@@ -137,15 +142,19 @@ export class GestionProveedoresComponent implements OnInit {
 
   // Método para guardar una especialidad
   saveProveedor(): void {
+    // Aquí obtenemos los IDs de las especialidades seleccionadas en el formulario
+    this.currentProveedores.listaEspecialidades = this.especialidades.value;
+
     if (this.isEditMode) {
-      this.updateProveedor();  // Si está en modo edición, llama a updateEspecialidad
+      this.updateProveedor();
     } else {
-      this.createProveedor();  // Si no, llama a createEspecialidad
+      this.createProveedor();
     }
   }
+  //......
 
-  // Agregar Proveedor
- createProveedor(): void {
+//-----------------------------------------------------------
+createProveedor(): void {
   this.http.post(`${this.apiUrl}/add`, this.currentProveedores).subscribe({
     next: (response: any) => {
       if (response.estado.ack) {
@@ -163,6 +172,7 @@ export class GestionProveedoresComponent implements OnInit {
     }
   });
 }
+//....
 
  // Editar Proveedor
  updateProveedor(): void {
@@ -170,13 +180,13 @@ export class GestionProveedoresComponent implements OnInit {
   const updatedData = {
     id: this.currentProveedores.id,
     nombre: this.currentProveedores.nombre,
-    razoN_SOCIAL: this.currentProveedores.razoN_SOCIAL, 
+    razoN_SOCIAL: this.currentProveedores.razoN_SOCIAL,
     rut: this.currentProveedores.rut,
     dv: this.currentProveedores.dv,
-    nombrE_CONTACTO_PRINCIPAL: this.currentProveedores.nombrE_CONTACTO_PRINCIPAL, 
-    numerO_CONTACTO_PRINCIPAL: this.currentProveedores.numerO_CONTACTO_PRINCIPAL, 
-    nombrE_CONTACTO_SECUNDARIO: this.currentProveedores.nombrE_CONTACTO_SECUNDARIO, 
-    numerO_CONTACTO_SECUNDARIO: this.currentProveedores.numerO_CONTACTO_SECUNDARIO, 
+    nombrE_CONTACTO_PRINCIPAL: this.currentProveedores.nombrE_CONTACTO_PRINCIPAL,
+    numerO_CONTACTO_PRINCIPAL: this.currentProveedores.numerO_CONTACTO_PRINCIPAL,
+    nombrE_CONTACTO_SECUNDARIO: this.currentProveedores.nombrE_CONTACTO_SECUNDARIO,
+    numerO_CONTACTO_SECUNDARIO: this.currentProveedores.numerO_CONTACTO_SECUNDARIO,
     estado: this.currentProveedores.estado,
     listaEspecialidades: this.currentProveedores.listaEspecialidades
   };
@@ -205,7 +215,7 @@ export class GestionProveedoresComponent implements OnInit {
     this.showModalProveedores = false;
     this.showConfirmationDeleteProveedores = true;
   }
-  
+
 
    // Cerrar el diálogo de confirmación de eliminación
    closeConfirmationDialog(): void {
