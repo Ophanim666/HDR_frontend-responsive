@@ -37,6 +37,7 @@ export class GestionProveedoresComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadProveedores();
+    this.loadListEspecialidad();
   }
 
   // Filtrar proveedores
@@ -48,13 +49,14 @@ export class GestionProveedoresComponent implements OnInit {
 
   loadListEspecialidad(): void {
     this.http.get<any>(`${this.apiUrl2}/ListadoDeespecialidadesSimple`).subscribe(
-      (data: string[]) => {
-        this. especialidadList = data;
+      (data: any[]) => {
+        // Simplemente mapeamos los nombres de las especialidades
+        this.especialidadList = data.map((especialidad: any) => especialidad.nombre);
       },
-    (error) => {
-      console.error('Error en la carga de esp',error);
-    }
-  );
+      (error) => {
+        console.error('Error al cargar las especialidades:', error); 
+      }
+    );
   }
 
   // Listar datos de proveedores
