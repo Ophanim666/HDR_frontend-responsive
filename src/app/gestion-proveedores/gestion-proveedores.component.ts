@@ -48,15 +48,25 @@ export class GestionProveedoresComponent implements OnInit {
   }
 
   loadListEspecialidad(): void {
-    this.http.get<any>(`${this.apiUrl2}/ListadoDeespecialidadesSimple`).subscribe(
-      (data: any[]) => {
-        // Simplemente mapeamos los nombres de las especialidades
-        this.especialidadList = data.map((especialidad: any) => especialidad.nombre);
+    this.http.get<any>(this.apiUrl).subscribe({
+      next: response => {
+        // Verificamos que la respuesta sea exitosa
+        if (response.estado.ack) {
+          // Asignamos los nombres de las especialidades a especialidadList
+          this.especialidadList = response.body.response.map((especialidad: any) => especialidad.nombre);
+  
+          // Imprimimos las especialidades cargadas para verificar en consola
+          console.log('Especialidades cargadas:', this.especialidadList);
+        } else {
+          this.showError(`Error al cargar las especialidades: ${response.estado.errDes}`, true);
+        }
       },
-      (error) => {
-        console.error('Error al cargar las especialidades:', error); 
-      }
-    );
+      error: error => {
+        console.error('Error al cargar los datos:', error);
+        this.showError('Error en la solicitud al cargar los datos.', true);
+      },
+      complete: () => console.log('Carga de especialidades completa')
+    });
   }
 
   // Listar datos de proveedores
