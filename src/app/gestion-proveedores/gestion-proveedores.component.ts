@@ -47,7 +47,7 @@ export class GestionProveedoresComponent implements OnInit {
     );
   }
 
-  
+
   loadListEspecialidad(): void {
     this.http.get<any>(`${this.apiUrl2}/ListadoDeespecialidadesSimple`).subscribe({
       next: response => {
@@ -114,6 +114,11 @@ export class GestionProveedoresComponent implements OnInit {
       estado: 1,
       rut:'',
       dv: '',
+      nombrE_CONTACTO_PRINCIPAL: '',
+      numerO_CONTACTO_PRINCIPAL: '',
+      nombrE_CONTACTO_SECUNDARIO: '',
+      numerO_CONTACTO_SECUNDARIO: '',
+      listaEspecialidades: []
     };
     this.showModalProveedores = true;
     document.body.classList.add('modal-open');
@@ -165,14 +170,15 @@ export class GestionProveedoresComponent implements OnInit {
   const updatedData = {
     id: this.currentProveedores.id,
     nombre: this.currentProveedores.nombre,
-    razoN_SOCIAL: this.currentProveedores.razoN_SOCIAL, // Nota el cambio aquí
+    razoN_SOCIAL: this.currentProveedores.razoN_SOCIAL, 
     rut: this.currentProveedores.rut,
     dv: this.currentProveedores.dv,
-    nombrE_CONTACTO_PRINCIPAL: this.currentProveedores.nombrE_CONTACTO_PRINCIPAL, // Y aquí
-    numerO_CONTACTO_PRINCIPAL: this.currentProveedores.numerO_CONTACTO_PRINCIPAL, // Y aquí
-    nombrE_CONTACTO_SECUNDARIO: this.currentProveedores.nombrE_CONTACTO_SECUNDARIO, // Y aquí
-    numerO_CONTACTO_SECUNDARIO: this.currentProveedores.numerO_CONTACTO_SECUNDARIO, // Y aquí
-    estado: this.currentProveedores.estado
+    nombrE_CONTACTO_PRINCIPAL: this.currentProveedores.nombrE_CONTACTO_PRINCIPAL, 
+    numerO_CONTACTO_PRINCIPAL: this.currentProveedores.numerO_CONTACTO_PRINCIPAL, 
+    nombrE_CONTACTO_SECUNDARIO: this.currentProveedores.nombrE_CONTACTO_SECUNDARIO, 
+    numerO_CONTACTO_SECUNDARIO: this.currentProveedores.numerO_CONTACTO_SECUNDARIO, 
+    estado: this.currentProveedores.estado,
+    listaEspecialidades: this.currentProveedores.listaEspecialidades
   };
 
   this.http.put<any>(url, updatedData).subscribe({
