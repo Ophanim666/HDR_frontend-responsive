@@ -41,7 +41,7 @@ export class GestionEspecialidadComponent implements OnInit {
 
   // Listar o cargar especialidades
   loadEspecialidad(): void {
-    this.http.get<any>(this.apiUrl).subscribe({
+    this.http.get<any>(`${this.apiUrl}/ListarEspecialidades`).subscribe({
       next: response => {
         if (response.estado.ack) {
           this.especialidades = response.body.response;
@@ -108,7 +108,7 @@ export class GestionEspecialidadComponent implements OnInit {
 
   // Crear una nueva especialidad
   createEspecialidad(): void {
-    this.http.post(`${this.apiUrl}`, this.currentEspecialidad).subscribe({
+    this.http.post(`${this.apiUrl}/add`, this.currentEspecialidad).subscribe({
       next: (response: any) => {
         if (response.estado.ack) {
           console.log('Especialidad creada:', response);
