@@ -17,7 +17,7 @@
       <th>Proveedor</th>
       <th>Razon Social</th>
       <th>Rut</th>
-      <th>DV</th>
+      <!-- <th>DV</th> -->
       <!-- <th>Nombre Contacto Principal</th>
       <th>Numero Contacto Principal</th>
       <th>Nombre Contacto Secundario</th>
@@ -32,8 +32,8 @@
         <!-- <td>{{ proveedor.id }}</td> -->
         <td>{{ proveedor.nombre }}</td>
         <td>{{ proveedor.razoN_SOCIAL }}</td>
-        <td>{{ proveedor.rut }}</td>
-        <td>{{ proveedor.dv }}</td>
+        <td>{{ proveedor.rut }}-{{ proveedor.dv }}</td>
+        
         <td class="actions-columns">
           <div class="button-container">
             <button mat-flat-button color="primary" class="mat-flat-button editar" (click)="openModalProveedor(proveedor)">
