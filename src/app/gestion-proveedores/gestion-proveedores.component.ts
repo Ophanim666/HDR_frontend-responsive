@@ -188,6 +188,9 @@ createProveedor(): void {
     nombrE_CONTACTO_SECUNDARIO: this.currentProveedores.nombrE_CONTACTO_SECUNDARIO,
     numerO_CONTACTO_SECUNDARIO: this.currentProveedores.numerO_CONTACTO_SECUNDARIO,
     estado: this.currentProveedores.estado,
+
+    // investigar si se pueden trabajar 2 url dentro de crear y actualizar para distintos datos
+    //estos datos estan en la url de proveedor con especialidad
     listaEspecialidades: this.currentProveedores.listaEspecialidades
   };
 
