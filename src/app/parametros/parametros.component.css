@@ -13,21 +13,22 @@
 
 .form-row {
     display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: -20px;
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 16px;
 }
 
-.mat-form-field {
-    flex-grow: 1;
-    margin-right: 20px;
+.form-row .mat-form-field {
+    margin-right: 0;
+    margin-bottom: 16px;
+}
+
+.form-row .mat-form-field:last-child {
+    margin-bottom: 0;
 }
 
 .toggle-wrapper {
-    display: flex;
-    align-items: center;
-    width: 120px; /* Ancho fijo para el contenedor del toggle */
-    justify-content: flex-end; /* Alinea el toggle a la derecha */
+    align-self: flex-end;
 }
 
 .toggle-label {

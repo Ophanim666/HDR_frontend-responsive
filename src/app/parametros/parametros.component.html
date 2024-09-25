@@ -70,6 +70,7 @@
       <!-- Body -->
       <div class="modal-body parametro">
         <form (ngSubmit)="saveParametro()" #parametroForm="ngForm" class="form-container">
+          
           <div class="form-row">
 
             <!-- Campo para nombre de parámetro -->
@@ -96,13 +97,12 @@
 
             <!-- Campo para tipo de parámetro -->
             <mat-form-field class="mat-form-field">
-              <mat-label>Tipo de Parámetro</mat-label>
-              <input
-                matInput
-                [(ngModel)]="currentParametro.iD_TIPO_PARAMETRO"
-                name="tipoParametro"
-                required
-              />
+              <mat-label>Tipo de parámetro</mat-label>
+              <mat-select [(ngModel)]="currentParametro.iD_TIPO_PARAMETRO" name="tipoParametro" required>
+                <mat-option *ngFor="let tipo of tipoParametros" [value]="tipo.value">
+                  {{ tipo.viewValue }}
+                </mat-option>
+              </mat-select>
             </mat-form-field>
 
             <!-- Campo para estado (slide toggle) -->
@@ -116,6 +116,7 @@
               </mat-slide-toggle>
             </div>
           </div>
+
         </form>
       </div>
 

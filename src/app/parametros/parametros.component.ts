@@ -19,6 +19,12 @@ export class ParametrosComponent implements OnInit {
   isEditMode = false;
   pagedParametros: any[] = [];
 
+  tipoParametros: { value: number, viewValue: string }[] = [
+    { value: 1, viewValue: 'Tipo 1' },
+    { value: 2, viewValue: 'Tipo 2' },
+    { value: 3, viewValue: 'Tipo 3' },
+  ];
+
   private apiUrl = 'https://localhost:7125/api/Parametro';
 
   showErrorModal = false;

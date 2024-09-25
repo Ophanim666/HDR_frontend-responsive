@@ -25,6 +25,8 @@ import {MatInputModule} from '@angular/material/input';
 import {MatFormFieldModule} from '@angular/material/form-field';
 // Switch ANGULAR
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+// Select simple
+import {MatSelectModule} from '@angular/material/select';
 
 import {MatIconModule} from '@angular/material/icon';
 
@@ -89,6 +91,8 @@ import { CrearParametroComponent } from './crear-parametro/crear-parametro.compo
     // Animaciones
     BrowserAnimationsModule,
     AppRoutingModule,
+    
+    MatSelectModule,
     
     //HTTPclient
     HttpClientModule,
