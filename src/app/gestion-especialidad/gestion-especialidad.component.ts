@@ -42,7 +42,7 @@ export class GestionEspecialidadComponent implements OnInit {
 
   // Listar o cargar especialidades
   loadEspecialidad(): void {
-    this.http.get<any>(this.apiUrl).subscribe({
+    this.http.get<any>(`${this.apiUrl}/ListarEspecialidades`).subscribe({
       next: response => {
         if (response.estado.ack) {
           this.especialidades = response.body.response;
