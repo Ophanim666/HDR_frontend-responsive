@@ -163,12 +163,7 @@ closeModalProveedor(): void {
   this.especialidades.reset();  // Limpiamos el FormControl de especialidades
 }
 
-// este es nuevo
-cancelEdit(): void {
-  // Limpiar el FormControl de especialidades al cancelar
-  this.especialidades.setValue([]);
-  this.currentProveedores = {}; // Resetear datos del proveedor actual
-}
+
 
 
   // Método para guardar una especialidad
@@ -209,23 +204,18 @@ createProveedor(): void {
 // Editar Proveedor
 updateProveedor(): void {
   const url = `${this.apiUrl}/Actualizar/${this.currentProveedores.id}`;
-
-  // Obtener las especialidades seleccionadas del FormControl
-  const especialidadesSeleccionadas = this.especialidades.value || [];
-
   const updatedData = {
     id: this.currentProveedores.id,
     nombre: this.currentProveedores.nombre,
-    razonSocial: this.currentProveedores.razoN_SOCIAL,
+    razoN_SOCIAL: this.currentProveedores.razoN_SOCIAL,
     rut: this.currentProveedores.rut,
     dv: this.currentProveedores.dv,
-    nombreContactoPri: this.currentProveedores.nombrE_CONTACTO_PRINCIPAL,
-    numeroContactoPri: this.currentProveedores.numerO_CONTACTO_PRINCIPAL,
-    nombreContactoSec: this.currentProveedores.nombrE_CONTACTO_SECUNDARIO,
-    numeroContactoSec: this.currentProveedores.numerO_CONTACTO_SECUNDARIO,
+    nombrE_CONTACTO_PRINCIPAL: this.currentProveedores.nombrE_CONTACTO_PRINCIPAL,
+    numerO_CONTACTO_PRINCIPAL: this.currentProveedores.numerO_CONTACTO_PRINCIPAL,
+    nombrE_CONTACTO_SECUNDARIO: this.currentProveedores.nombrE_CONTACTO_SECUNDARIO,
+    numerO_CONTACTO_SECUNDARIO: this.currentProveedores.numerO_CONTACTO_SECUNDARIO,
     estado: this.currentProveedores.estado,
-    // Asignar las especialidades seleccionadas al enviar la actualización
-    listaEspecialidades: especialidadesSeleccionadas
+    listaEspecialidades: this.currentProveedores.listaEspecialidades
   };
 
   this.http.put<any>(url, updatedData).subscribe({
@@ -233,8 +223,8 @@ updateProveedor(): void {
       if (response?.estado?.ack) {
         console.log('Proveedor actualizado:', response);
         this.showError('Proveedor actualizado exitosamente.', false);
-        this.loadProveedores();  // Recargar la lista de proveedores actualizada
-        this.closeModalProveedor();  // Cerrar el modal después de la actualización
+        this.loadProveedores();
+        this.closeModalProveedor();
       } else {
         this.showError(`Error al actualizar el Proveedor: ${response?.estado?.errDes || 'Error desconocido'}`, true);
       }
@@ -246,20 +236,7 @@ updateProveedor(): void {
   });
 }
 
-editProveedor(proveedor: any): void {
-  this.currentProveedores = proveedor;
 
-  // Asignar las especialidades existentes del proveedor al FormControl
-  if (proveedor.iDespecialidad) {
-    // Asignar las especialidades seleccionadas al FormControl
-    this.especialidades.setValue(proveedor.iDespecialidad);
-  } else {
-    // Si no tiene especialidades, limpiar la selección
-    this.especialidades.setValue([]);
-  }
-
-  // Aquí podrías abrir el modal o realizar cualquier otra acción adicional
-}
 
 
 
