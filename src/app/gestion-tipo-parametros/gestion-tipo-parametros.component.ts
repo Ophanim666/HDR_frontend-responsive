@@ -59,6 +59,7 @@ export class GestionTipoParametrosComponent implements OnInit {
     });
   }
 
+  // Actualizar los tipos de parámetro paginados
   updatePagedTipoParametros(): void {
     const filtered = this.filteredTipoParametros();
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
@@ -67,11 +68,13 @@ export class GestionTipoParametrosComponent implements OnInit {
     this.paginator.length = filtered.length;
   }
 
+  // Método que se llama cuando cambia el texto de búsqueda
   onSearchChange(): void {
     this.paginator.firstPage();
     this.updatePagedTipoParametros();
   }
 
+  // Abrir el modal de tipo parámetro
   openModalTipoParametro(tipoParametro?: any): void {
     this.isEditMode = !!tipoParametro;
     this.currentTipoParametro = tipoParametro ? { ...tipoParametro } : {
@@ -83,15 +86,18 @@ export class GestionTipoParametrosComponent implements OnInit {
     document.body.classList.add('modal-open');
   }
 
+  // Método que maneja el cambio en el toggle de estado de tipo parámetro
   onToggleChange(event: MatSlideToggleChange): void {
     this.currentTipoParametro.estado = event.checked ? 1 : 0;
   }
 
+  // Cerrar el modal de tipo parámetro
   closeModalTipoParametro(): void {
     this.showModalTipoParametro = false;
     document.body.classList.remove('modal-open');
   }
 
+  // Método para guardar tipo parámetro
   saveTipoParametro(): void {
     if (this.isEditMode) {
       this.updateTipoParametro();
@@ -100,6 +106,7 @@ export class GestionTipoParametrosComponent implements OnInit {
     }
   }
 
+  // Crear un nuevo tipo parámetro
   createTipoParametro(): void {
     this.http.post(`${this.apiUrl}/add`, this.currentTipoParametro).subscribe({
       next: (response: any) => {
@@ -119,6 +126,7 @@ export class GestionTipoParametrosComponent implements OnInit {
     });
   }
 
+  // Editar un tipo parámetro
   updateTipoParametro(): void {
     const url = `${this.apiUrl}/${this.currentTipoParametro.id}`;
     const updatedData = {
@@ -144,18 +152,21 @@ export class GestionTipoParametrosComponent implements OnInit {
     });
   }
 
+  // Confirmar eliminación de tipo parámetro
   confirmDelete(id: number): void {
     this.tipoParametroDelete = id;
     this.showModalTipoParametro = false;
     this.showConfirmationDeleteTipoParametro = true;
   }
 
+  // Cerrar el diálogo de confirmación de eliminación
   closeConfirmationDialog(): void {
     this.showConfirmationDeleteTipoParametro = false;
     this.showModalTipoParametro = true;
     this.tipoParametroDelete = null;
   }
 
+  // Eliminar tipo parámetro
   deleteTipoParametro(): void {
     if (this.tipoParametroDelete !== null) {
       this.http.delete<any>(`${this.apiUrl}/${this.tipoParametroDelete}`).subscribe({
@@ -178,16 +189,19 @@ export class GestionTipoParametrosComponent implements OnInit {
     }
   }
 
+  // Mostrar un mensaje de error o éxito
   showError(message: string, isError: boolean): void {
     this.errorMessage = { message, isError };
     this.showErrorModal = true;
   }
 
+  // Cerrar el modal de error
   closeErrorModal(): void {
     this.showErrorModal = false;
     this.errorMessage = { message: '', isError: true };
   }
 
+  // Método que se llama cuando cambia la página en el paginador
   onPageChange(event: PageEvent) {
     this.updatePagedTipoParametros();
   }
