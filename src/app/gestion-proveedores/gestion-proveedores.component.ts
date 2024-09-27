@@ -77,24 +77,43 @@ loadListEspecialidad(): void {
 
 
   // Listar datos de proveedores
-  loadProveedores(): void {
-    this.http.get<any>(this.apiUrl).subscribe({
-      next: response => {
-        if (response.estado.ack) {
-          this.proveedores = response.body.response;
-          this.updatePageProveedor();
-          console.log('Proveedores cargados:', this.proveedores);
-        } else {
-          this.showError(`Error al cargar los Proveedores: ${response.estado.errDes}`, true);
-        }
-      },
-      error: error => {
-        console.error('Error al cargar los datos:', error);
-        this.showError('Error en la solicitud al cargar los datos.', true);
-      },
-      complete: () => console.log('Carga de proveedores completa')
-    });
-  }
+// Listar datos de proveedores con especialidades
+loadProveedores(): void {
+  this.http.get<any>(`${this.apiUrl}/Listado`).subscribe({
+    next: response => {
+      if (response.estado.ack) {
+        // Actualizamos la lógica para reflejar la nueva estructura de respuesta
+        this.proveedores = response.body.response.map((proveedor: any) => ({
+          id: proveedor.iDproveedor,
+          nombre: proveedor.nombreProveedor,
+          razonSocial: proveedor.razonSocial,
+          rut: proveedor.rut,
+          dv: proveedor.dv,
+          nombreContactoPri: proveedor.nombreContactoPri,
+          numeroContactoPri: proveedor.numeroContactoPri,
+          nombreContactoSec: proveedor.nombreContactoSec,
+          numeroContactoSec: proveedor.numeroContactoSec,
+          estado: proveedor.estado,
+          // Guardamos las especialidades por su ID para poder seleccionarlas
+          iDespecialidad: proveedor.iDespecialidad,
+          especialidades: proveedor.nombreEspecialidad.join(', ')
+        }));
+
+        this.updatePageProveedor();  // Actualiza la paginación
+        console.log('Proveedores con especialidades cargados:', this.proveedores);
+      } else {
+        this.showError(`Error al cargar los Proveedores: ${response.estado.errDes}`, true);
+      }
+    },
+    error: error => {
+      console.error('Error al cargar los datos:', error);
+      this.showError('Error en la solicitud al cargar los datos.', true);
+    },
+    complete: () => console.log('Carga de proveedores completa')
+  });
+}
+
+
 
     // Actualizar las especialidades paginadas
     updatePageProveedor(): void {
@@ -134,11 +153,18 @@ loadListEspecialidad(): void {
       this.currentProveedores.estado = event.checked ? 1 : 0;
     }
 
-   // Cerrar el modal de especialidad
-   closeModalProveedor(): void {
-    this.showModalProveedores = false;
-    document.body.classList.remove('modal-open');
-  }
+
+// Cerrar el modal de proveedor y limpiar las especialidades seleccionadas
+closeModalProveedor(): void {
+  this.showModalProveedores = false;
+  document.body.classList.remove('modal-open');
+
+  // Limpiar las especialidades seleccionadas
+  this.especialidades.reset();  // Limpiamos el FormControl de especialidades
+}
+
+
+
 
   // Método para guardar una especialidad
   saveProveedor(): void {
@@ -175,8 +201,9 @@ createProveedor(): void {
 //....
 
  // Editar Proveedor
- updateProveedor(): void {
-  const url = `${this.apiUrl}/${this.currentProveedores.id}`;
+// Editar Proveedor
+updateProveedor(): void {
+  const url = `${this.apiUrl}/Actualizar/${this.currentProveedores.id}`;
   const updatedData = {
     id: this.currentProveedores.id,
     nombre: this.currentProveedores.nombre,
@@ -211,6 +238,11 @@ createProveedor(): void {
     }
   });
 }
+
+
+
+
+
 
   // Confirmar eliminación
   confirmDelete(id: number): void {

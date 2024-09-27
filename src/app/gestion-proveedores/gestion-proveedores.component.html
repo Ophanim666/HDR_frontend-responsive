@@ -11,29 +11,26 @@
 </div>
 
 <!-- Tabla -->
+<!-- Tabla -->
 <table class="table-elegant">
   <thead>
     <tr>
       <th>Proveedor</th>
       <th>Razon Social</th>
       <th>Rut</th>
-      <!-- <th>DV</th> -->
-      <!-- <th>Nombre Contacto Principal</th>
-      <th>Numero Contacto Principal</th>
-      <th>Nombre Contacto Secundario</th>
-      <th>Numero Contacto Secundario</th>
-      <th>Estado</th> -->
+      <th>DV</th>
+      <th>Especialidades</th> <!-- Nueva columna para especialidades -->
       <th></th>
     </tr>
   </thead>
 
   <tbody>
     <tr *ngFor="let proveedor of pagedProveedores">
-        <!-- <td>{{ proveedor.id }}</td> -->
         <td>{{ proveedor.nombre }}</td>
         <td>{{ proveedor.razoN_SOCIAL }}</td>
-        <td>{{ proveedor.rut }}-{{ proveedor.dv }}</td>
-        
+        <td>{{ proveedor.rut }}</td>
+        <td>{{ proveedor.dv }}</td>
+        <td>{{ proveedor.especialidades }}</td> <!-- Aquí mostramos las especialidades -->
         <td class="actions-columns">
           <div class="button-container">
             <button mat-flat-button color="primary" class="mat-flat-button editar" (click)="openModalProveedor(proveedor)">
@@ -44,6 +41,7 @@
     </tr>
   </tbody>
 </table>
+
 
 
 <!-- Paginación -->
@@ -191,17 +189,19 @@
 
             <!-- nueva logica -->
             <span class="titulo-especialidades">Selección de especialidades</span>
-            <!-- Campo de especialidades en el formulario -->
-            <mat-form-field appearance="fill">
-              <mat-label>Especialidades</mat-label>
-              <mat-select [formControl]="especialidades" multiple>
-                <!-- Ahora usamos el id como valor de cada opción -->
-                <mat-option *ngFor="let especialidad of especialidadList" [value]="especialidad.id">
-                  {{ especialidad.nombre }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
+<!-- Campo de especialidades en el formulario -->
+<mat-form-field appearance="fill">
+  <mat-label>Especialidades</mat-label>
+  <mat-select [formControl]="especialidades" multiple>
+    <!-- Usamos el id como valor de cada opción -->
+    <mat-option *ngFor="let especialidad of especialidadList" [value]="especialidad.id">
+      {{ especialidad.nombre }}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
+
             <!-- nueva logica -->
+
 
           </div>
         </form>
