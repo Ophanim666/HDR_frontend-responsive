@@ -48,7 +48,7 @@ export class ParametrosComponent implements OnInit {
 
   // Listar o cargar parámetros
   loadParametros(): void {
-    this.http.get<any>(this.apiUrl).subscribe({
+    this.http.get<any>(`${this.apiUrl}/Listar`).subscribe({
       next: response => {
         if (response.estado.ack) {
           this.parametros = response.body.response;
@@ -117,7 +117,7 @@ export class ParametrosComponent implements OnInit {
 
   // Crear un nuevo parámetro
   createParametro(): void {
-    this.http.post(`${this.apiUrl}`, this.currentParametro).subscribe({
+    this.http.post(`${this.apiUrl}/add`, this.currentParametro).subscribe({
       next: (response: any) => {
         if (response.estado.ack) {
           console.log('Parámetro creado:', response);
@@ -137,7 +137,7 @@ export class ParametrosComponent implements OnInit {
 
   // Editar un parámetro existente
   updateParametro(): void {
-    const url = `${this.apiUrl}/${this.currentParametro.id}`;
+    const url = `${this.apiUrl}/Actualizar/${this.currentParametro.id}`;
     const updatedData = {
       nombre: this.currentParametro.nombre,
       estado: this.currentParametro.estado
