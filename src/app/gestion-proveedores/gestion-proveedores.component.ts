@@ -26,7 +26,7 @@ export class GestionProveedoresComponent implements OnInit {
   // lista para especilidades
   especialidades = new FormControl();
   //no es string es any para que lleguen los nombres
-  especialidadList: any[] = [];
+  especialidadList: any[] = [];//aqui van las especialidades
 
 
   showErrorModal = false;
@@ -50,70 +50,53 @@ export class GestionProveedoresComponent implements OnInit {
 
   // Listado de especialidades
   // En este método cargamos las especialidades y almacenamos tanto el nombre como el id.
-loadListEspecialidad(): void {
-  this.http.get<any>(`${this.apiUrl2}/ListadoDeespecialidadesSimple`).subscribe({
-    next: response => {
-      if (response.estado.ack) {
-        // Ahora almacenamos tanto el nombre como el id de cada especialidad
-        this.especialidadList = response.body.response.map((especialidad: any) => ({
-          id: especialidad.id,        // Capturamos el id de la especialidad
-          nombre: especialidad.nombre  // Y el nombre para mostrarlo en el formulario
-        }));
-
-        console.log('Especialidades cargadas:', this.especialidadList);
-      } else {
-        this.showError(`Error al cargar las especialidades: ${response.estado.errDes}`, true);
-      }
-    },
-    error: error => {
-      console.error('Error al cargar los datos:', error);
-      this.showError('Error en la solicitud al cargar los datos.', true);
-    },
-    complete: () => console.log('Carga de especialidades completa')
-  });
-}
-//....
+  loadListEspecialidad(): void {
+    this.http.get<any>(`${this.apiUrl2}/ListadoDeespecialidadesSimple`).subscribe({
+      next: response => {
+        if (response.estado.ack) {
+          // Ahora almacenamos tanto el nombre como el id de cada especialidad
+          this.especialidadList = response.body.response.map((especialidad: any) => ({
+            id: especialidad.id,        // Capturamos el id de la especialidad
+            nombre: especialidad.nombre  // Y el nombre para mostrarlo en el formulario
+          }));
+  
+          console.log('Especialidades cargadas:', this.especialidadList);
+        } else {
+          this.showError(`Error al cargar las especialidades: ${response.estado.errDes}`, true);
+        }
+      },
+      error: error => {
+        console.error('Error al cargar los datos:', error);
+        this.showError('Error en la solicitud al cargar los datos.', true);
+      },
+      complete: () => console.log('Carga de especialidades completa')
+    });
+  }
+  //....
 
 
 
   // Listar datos de proveedores
-// Listar datos de proveedores con especialidades
-loadProveedores(): void {
-  this.http.get<any>(`${this.apiUrl}/Listado`).subscribe({
-    next: response => {
-      if (response.estado.ack) {
-        // Actualizamos la lógica para reflejar la nueva estructura de respuesta
-        this.proveedores = response.body.response.map((proveedor: any) => ({
-          id: proveedor.iDproveedor,
-          nombre: proveedor.nombreProveedor,
-          razonSocial: proveedor.razonSocial,
-          rut: proveedor.rut,
-          dv: proveedor.dv,
-          nombreContactoPri: proveedor.nombreContactoPri,
-          numeroContactoPri: proveedor.numeroContactoPri,
-          nombreContactoSec: proveedor.nombreContactoSec,
-          numeroContactoSec: proveedor.numeroContactoSec,
-          estado: proveedor.estado,
-          // Guardamos las especialidades por su ID para poder seleccionarlas
-          iDespecialidad: proveedor.iDespecialidad,
-          especialidades: proveedor.nombreEspecialidad.join(', ')
-        }));
+  loadProveedores(): void {
+    this.http.get<any>(this.apiUrl).subscribe({
+      next: response => {
+        if (response.estado.ack) {
+          this.proveedores = response.body.response;
+          this.updatePageProveedor();
+          console.log('Proveedores cargados:', this.proveedores);
+        } else {
+          this.showError(`Error al cargar los Proveedores: ${response.estado.errDes}`, true);
+        }
+      },
+      error: error => {
+        console.error('Error al cargar los datos:', error);
+        this.showError('Error en la solicitud al cargar los datos.', true);
+      },
+      complete: () => console.log('Carga de proveedores completa')
+    });
+  }
 
-        this.updatePageProveedor();  // Actualiza la paginación
-        console.log('Proveedores con especialidades cargados:', this.proveedores);
-      } else {
-        this.showError(`Error al cargar los Proveedores: ${response.estado.errDes}`, true);
-      }
-    },
-    error: error => {
-      console.error('Error al cargar los datos:', error);
-      this.showError('Error en la solicitud al cargar los datos.', true);
-    },
-    complete: () => console.log('Carga de proveedores completa')
-  });
-}
-
-
+  //....
 
     // Actualizar las especialidades paginadas
     updatePageProveedor(): void {
@@ -138,35 +121,61 @@ loadProveedores(): void {
       estado: 1,
       rut:'',
       dv: '',
-      nombrE_CONTACTO_PRINCIPAL: '',
-      numerO_CONTACTO_PRINCIPAL: '',
-      nombrE_CONTACTO_SECUNDARIO: '',
-      numerO_CONTACTO_SECUNDARIO: '',
       listaEspecialidades: []
     };
+    // Si estás editando, cargamos las especialidades seleccionadas del proveedor
+    if (this.isEditMode && proveedor) {
+      this.loadEspecialidadesProveedor(proveedor.id);
+    } else {
+      this.especialidades.setValue([]); // Si es un nuevo proveedor, dejamos el campo vacío
+    }
+
     this.showModalProveedores = true;
     document.body.classList.add('modal-open');
   }
+
+  //.....
+  
+  //...
+  // Función para cargar las especialidades seleccionadas de un proveedor
+  loadEspecialidadesProveedor(proveedorId: number): void {
+    this.http.get<any>(`${this.apiUrl}/con-especialidades/${proveedorId}`).subscribe({
+      next: response => {
+        if (response.estado.ack) {
+          // Obtenemos los IDs de las especialidades seleccionadas
+          const especialidadesSeleccionadas = response.body.response[0].iDespecialidades;
+          // Establecemos las especialidades seleccionadas en el FormControl
+          this.especialidades.setValue(especialidadesSeleccionadas);
+          console.log('Especialidades seleccionadas para el proveedor:', especialidadesSeleccionadas);
+        } else {
+          this.showError(`Error al cargar las especialidades del proveedor: ${response.estado.errDes}`, true);
+        }
+      },
+      error: error => {
+        console.error('Error en la solicitud:', error);
+        this.showError('Error en la solicitud al cargar las especialidades.', true);
+      }
+    });
+  }
+  //.....
+
 
     // Método que maneja el cambio en el toggle
     onToggleChange(event: MatSlideToggleChange): void {
       this.currentProveedores.estado = event.checked ? 1 : 0;
     }
 
+  // Cerrar el modal de proveedor y limpiar las especialidades seleccionadas
+  closeModalProveedor(): void {
+    this.showModalProveedores = false;
+    document.body.classList.remove('modal-open');
 
-// Cerrar el modal de proveedor y limpiar las especialidades seleccionadas
-closeModalProveedor(): void {
-  this.showModalProveedores = false;
-  document.body.classList.remove('modal-open');
-
-  // Limpiar las especialidades seleccionadas
-  this.especialidades.reset();  // Limpiamos el FormControl de especialidades
-}
-
+    // Limpiar las especialidades seleccionadas
+    this.especialidades.reset();  // Limpiamos el FormControl de especialidades
+  }
 
 
-
-  // Método para guardar una especialidad
+  // Método para guardar un Proveedor
   saveProveedor(): void {
     // Aquí obtenemos los IDs de las especialidades seleccionadas en el formulario
     this.currentProveedores.listaEspecialidades = this.especialidades.value;
@@ -179,68 +188,62 @@ closeModalProveedor(): void {
   }
   //......
 
-//-----------------------------------------------------------
-createProveedor(): void {
-  this.http.post(`${this.apiUrl}/add`, this.currentProveedores).subscribe({
-    next: (response: any) => {
-      if (response.estado.ack) {
-        console.log('Proveedor creado:', response);
-        this.showError('Proveedor creado exitosamente.', false);
-        this.loadProveedores();
-        this.closeModalProveedor();
-      } else {
-        this.showError(`Error al crear el Proveedor: ${response.estado.errDes}`, true);
+
+  //.......
+  // Creacion de Provedores
+  createProveedor(): void {
+    this.http.post(`${this.apiUrl}/add`, this.currentProveedores).subscribe({
+      next: (response: any) => {
+        if (response.estado.ack) {
+          console.log('Proveedor creado:', response);
+          this.showError('Proveedor creado exitosamente.', false);
+          this.loadProveedores();
+          this.closeModalProveedor();
+        } else {
+          this.showError(`Error al crear el Proveedor: ${response.estado.errDes}`, true);
+        }
+      },
+      error: error => {
+        console.error('Error en la solicitud:', error);
+        this.showError('Error en la solicitud.', true);
       }
-    },
-    error: error => {
-      console.error('Error en la solicitud:', error);
-      this.showError('Error en la solicitud.', true);
-    }
-  });
-}
-//....
+    });
+  }
+  //....
 
- // Editar Proveedor
-// Editar Proveedor
-updateProveedor(): void {
-  const url = `${this.apiUrl}/Actualizar/${this.currentProveedores.id}`;
-  const updatedData = {
-    id: this.currentProveedores.id,
-    nombre: this.currentProveedores.nombre,
-    razoN_SOCIAL: this.currentProveedores.razoN_SOCIAL,
-    rut: this.currentProveedores.rut,
-    dv: this.currentProveedores.dv,
-    nombrE_CONTACTO_PRINCIPAL: this.currentProveedores.nombrE_CONTACTO_PRINCIPAL,
-    numerO_CONTACTO_PRINCIPAL: this.currentProveedores.numerO_CONTACTO_PRINCIPAL,
-    nombrE_CONTACTO_SECUNDARIO: this.currentProveedores.nombrE_CONTACTO_SECUNDARIO,
-    numerO_CONTACTO_SECUNDARIO: this.currentProveedores.numerO_CONTACTO_SECUNDARIO,
-    estado: this.currentProveedores.estado,
+  //.....
+  // Editar Proveedor
+  updateProveedor(): void {
+    const url = `${this.apiUrl}/Actualizar/${this.currentProveedores.id}`;
+    const updatedData = {
+      id: this.currentProveedores.id,
+      nombre: this.currentProveedores.nombre,
+      razoN_SOCIAL: this.currentProveedores.razoN_SOCIAL,
+      rut: this.currentProveedores.rut,
+      dv: this.currentProveedores.dv,
+      estado: this.currentProveedores.estado,
 
-    // investigar si se pueden trabajar 2 url dentro de crear y actualizar para distintos datos
-    //estos datos estan en la url de proveedor con especialidad
-    listaEspecialidades: this.currentProveedores.listaEspecialidades
-  };
+      listaEspecialidades: this.currentProveedores.listaEspecialidades
+    };
 
-  this.http.put<any>(url, updatedData).subscribe({
-    next: (response: any) => {
-      if (response?.estado?.ack) {
-        console.log('Proveedor actualizado:', response);
-        this.showError('Proveedor actualizado exitosamente.', false);
-        this.loadProveedores();
-        this.closeModalProveedor();
-      } else {
-        this.showError(`Error al actualizar el Proveedor: ${response?.estado?.errDes || 'Error desconocido'}`, true);
+    this.http.put<any>(url, updatedData).subscribe({
+      next: (response: any) => {
+        if (response?.estado?.ack) {
+          console.log('Proveedor actualizado:', response);
+          this.showError('Proveedor actualizado exitosamente.', false);
+          this.loadProveedores();
+          this.closeModalProveedor();
+        } else {
+          this.showError(`Error al actualizar el Proveedor: ${response?.estado?.errDes || 'Error desconocido'}`, true);
+        }
+      },
+      error: (error) => {
+        console.error('Error en la solicitud:', error);
+        this.showError('Error en la solicitud al actualizar el Proveedor.', true);
       }
-    },
-    error: (error) => {
-      console.error('Error en la solicitud:', error);
-      this.showError('Error en la solicitud al actualizar el Proveedor.', true);
-    }
-  });
-}
-
-
-
+    });
+  }
+  //..........
 
 
 
@@ -262,7 +265,7 @@ updateProveedor(): void {
   // Eliminar proveedor
   deleteProveedor(): void {
     if (this.proveedorDelete !== null) {
-      this.http.delete<any>(`${this.apiUrl}/${this.proveedorDelete}`).subscribe({
+      this.http.delete<any>(`${this.apiUrl}/Eliminar/${this.proveedorDelete}`).subscribe({
         next: response => {
           if (response.estado.ack) {
             console.log('Proveedor eliminado:', response);

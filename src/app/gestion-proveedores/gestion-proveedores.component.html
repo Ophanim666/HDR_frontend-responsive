@@ -18,7 +18,7 @@
       <th>Proveedor</th>
       <th>Razon Social</th>
       <th>Rut</th>
-      <th>DV</th>
+      <!-- <th>DV</th> -->
       <th>Especialidades</th> <!-- Nueva columna para especialidades -->
       <th></th>
     </tr>
@@ -28,8 +28,8 @@
     <tr *ngFor="let proveedor of pagedProveedores">
         <td>{{ proveedor.nombre }}</td>
         <td>{{ proveedor.razoN_SOCIAL }}</td>
-        <td>{{ proveedor.rut }}</td>
-        <td>{{ proveedor.dv }}</td>
+        <td>{{ proveedor.rut }}-{{ proveedor.dv }}</td>
+        <!-- <td>{{ proveedor.dv }}</td> -->
         <td>{{ proveedor.especialidades }}</td> <!-- Aquí mostramos las especialidades -->
         <td class="actions-columns">
           <div class="button-container">
@@ -130,79 +130,19 @@
               </mat-form-field>
             </div>
 
-            <!-- Campos de Contacto Principal y Secundario en la misma fila -->
-            <div class="form-row contactos">
-              <!-- Columna para Contactos Principales -->
-              <div class="columna-nombre">
-                <mat-form-field class="mat-form-field contacto-nombre">
-                  <mat-label>Nombre Contacto Principal</mat-label>
-                  <input
-                    matInput
-                    placeholder="Nombre del contacto principal"
-                    [(ngModel)]="currentProveedores.nombrE_CONTACTO_PRINCIPAL"
-                    name="nombrE_CONTACTO_PRINCIPAL"
-                    required
-                  />
-                </mat-form-field>
-              </div>
-
-              <div class="columna-numero">
-                <mat-form-field class="mat-form-field contacto-numero">
-                  <mat-label>Número Contacto Principal</mat-label>
-                  <input
-                    matInput
-                    placeholder="Número de contacto principal"
-                    [(ngModel)]="currentProveedores.numerO_CONTACTO_PRINCIPAL"
-                    name="numerO_CONTACTO_PRINCIPAL"
-                    required
-                    type="number"
-                  />
-                </mat-form-field>
-              </div>
-
-              <!-- Columna para Contactos Secundarios -->
-              <div class="columna-nombre">
-                <mat-form-field class="mat-form-field contacto-nombre">
-                  <mat-label>Nombre Contacto Secundario</mat-label>
-                  <input
-                    matInput
-                    placeholder="Nombre del contacto secundario"
-                    [(ngModel)]="currentProveedores.nombrE_CONTACTO_SECUNDARIO"
-                    name="nombrE_CONTACTO_SECUNDARIO"
-                  />
-                </mat-form-field>
-              </div>
-
-              <div class="columna-numero">
-                <mat-form-field class="mat-form-field contacto-numero">
-                  <mat-label>Número Contacto Secundario</mat-label>
-                  <input
-                    matInput
-                    placeholder="Número de contacto secundario"
-                    [(ngModel)]="currentProveedores.numerO_CONTACTO_SECUNDARIO"
-                    name="numerO_CONTACTO_SECUNDARIO"
-                    type="number"
-                  />
-                </mat-form-field>
-              </div>
-            </div>
-
             <!-- nueva logica -->
             <span class="titulo-especialidades">Selección de especialidades</span>
-<!-- Campo de especialidades en el formulario -->
-<mat-form-field appearance="fill">
-  <mat-label>Especialidades</mat-label>
-  <mat-select [formControl]="especialidades" multiple>
-    <!-- Usamos el id como valor de cada opción -->
-    <mat-option *ngFor="let especialidad of especialidadList" [value]="especialidad.id">
-      {{ especialidad.nombre }}
-    </mat-option>
-  </mat-select>
-</mat-form-field>
-
+            <!-- Campo de especialidades en el formulario -->
+            <mat-form-field appearance="fill">
+              <mat-label>Especialidades</mat-label>
+              <mat-select [formControl]="especialidades" multiple>
+                <!-- Usamos el id como valor de cada opción -->
+                <mat-option *ngFor="let especialidad of especialidadList" [value]="especialidad.id">
+                  {{ especialidad.nombre }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
             <!-- nueva logica -->
-
-
           </div>
         </form>
       </div>
