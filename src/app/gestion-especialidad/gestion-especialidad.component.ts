@@ -18,6 +18,7 @@ export class GestionEspecialidadComponent implements OnInit {
   searchText: string = '';
   isEditMode = false;
   pagedEspecialidades: any[] = [];
+  
   private apiUrl = 'https://localhost:7125/api/Especialidad';
 
   showErrorModal = false;
