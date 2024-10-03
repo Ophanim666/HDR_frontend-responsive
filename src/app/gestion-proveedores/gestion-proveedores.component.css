@@ -61,63 +61,41 @@
   gap: 15px;
 }
 
+/* mensaje de rut */
+.rut-help-text {
+  color: gray;        /* Color gris */
+  font-size: 0.9em;  /* Tamaño de fuente más pequeño */
+  margin-top: 4px;   /* Espacio entre el input y el mensaje */
+  display: block;     /* Asegura que se muestre en su propia línea */
+}
+
 .form-row.nombre-razo {
   display: flex;
   gap: 15px;
+  width: 100%;
 }
 
-.form-row.contactos {
+.form-row.especialidad {
   display: flex;
   justify-content: space-between;
   gap: 15px;
+  width: 90%;
 }
 
-/* Columna para los nombres (a la izquierda) */
-.columna-nombre {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-/* Columna para los números (a la derecha) */
-.columna-numero {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-/* Ajuste para que los campos de contacto principal y secundario tengan width 50% */
-.form-row.contactos .mat-form-field {
-  min-width: 200px; /* Asegura un ancho mínimo */
-}
-
-/* Estilos específicos para el campo DV */
-.mat-form-field.dv {
-  width: 10px; /* Ajusta el ancho del campo DV */
-  padding: 0; /* Elimina el padding para asegurar que el ancho de 10px sea aplicado */
-  text-align: center; /* Centra el dígito verificador dentro del campo */
-}
-
-.mat-form-field.dv input {
-  width: 100%; /* Asegura que el input ocupe el espacio disponible dentro del campo */
-  padding: 0; /* Elimina el padding interno del input */
-}
-
-/* Estilos específicos para los campos de Nombre del proveedor y Razón Social */
-.mat-form-field.nombre,
-.mat-form-field.razo-social {
-  flex: 1;
-  min-width: 200px; /* Asegura que los campos tengan un ancho mínimo adecuado */
-}
 
 /* Ajuste para que los campos Proveedor, Razón Social y Rut tengan el mismo ancho */
 .form-row.nombre-razo .mat-form-field,
-.form-row.rut .mat-form-field {
+.mat-form-field.rut {
   flex: 1;
   min-width: 200px;
+  width: 100px;
 }
+
+
+.mat-form-field.dv{
+  width: 20%;
+}
+
 
 /* Footer del modal */
 .modal-footer {
@@ -128,16 +106,9 @@
 }
 
 /* lista de item de especilidades */
-mat-form-field {
-  width: 100%; /* Ajusta el ancho para que ocupe todo el espacio del modal */
-  margin-bottom: 16px; /* Añadir un margen para separarlo de otros elementos */
-}
-
-.titulo-especialidades {
-  font-size: 20px; /* Ajusta el tamaño de la fuente */
-  font-weight: bold;
-  display: block;
-  margin-bottom: 8px;
+.mat-form-field.esp {
+  width: 150%; 
+  margin-bottom: 16px; 
 }
 
 
@@ -158,7 +129,7 @@ mat-form-field {
   }
 
   /* Ajuste en la disposición de las columnas en pantallas pequeñas */
-  .form-row.contactos {
+  .form-row.especialidad {
     flex-direction: column;
   }
 

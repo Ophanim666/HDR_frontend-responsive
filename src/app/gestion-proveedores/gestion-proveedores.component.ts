@@ -74,8 +74,8 @@ export class GestionProveedoresComponent implements OnInit {
   }
   //....
 
-
-
+  // esta es la api que se esta llamando aqui
+  // private apiUrl = 'https://localhost:7125/api/Proveedor';
   // Listar datos de proveedores
   loadProveedores(): void {
     this.http.get<any>(this.apiUrl).subscribe({
@@ -97,6 +97,29 @@ export class GestionProveedoresComponent implements OnInit {
   }
 
   //....
+
+   //...
+  // Función para cargar las especialidades seleccionadas de un proveedor
+  loadEspecialidadesProveedor(proveedorId: number): void {
+    this.http.get<any>(`${this.apiUrl}/con-especialidades/${proveedorId}`).subscribe({
+      next: response => {
+        if (response.estado.ack) {
+          const especialidadesSeleccionadas = response.body.response[0].iDespecialidades || [];
+          // Establecemos las especialidades seleccionadas en el FormControl
+          this.especialidades.setValue(especialidadesSeleccionadas);
+          console.log('Especialidades seleccionadas para el proveedor:', especialidadesSeleccionadas);
+        } else {
+          this.showError(`Error al cargar las especialidades del proveedor: ${response.estado.errDes}`, true);
+        }
+      },
+      error: error => {
+        console.error('Error en la solicitud:', error);
+        this.showError('Error en la solicitud al cargar las especialidades.', true);
+      }
+    });
+  }
+  //.....
+
 
     // Actualizar las especialidades paginadas
     updatePageProveedor(): void {
@@ -136,29 +159,6 @@ export class GestionProveedoresComponent implements OnInit {
 
   //.....
   
-  //...
-  // Función para cargar las especialidades seleccionadas de un proveedor
-  loadEspecialidadesProveedor(proveedorId: number): void {
-    this.http.get<any>(`${this.apiUrl}/con-especialidades/${proveedorId}`).subscribe({
-      next: response => {
-        if (response.estado.ack) {
-          // Obtenemos los IDs de las especialidades seleccionadas
-          const especialidadesSeleccionadas = response.body.response[0].iDespecialidades;
-          // Establecemos las especialidades seleccionadas en el FormControl
-          this.especialidades.setValue(especialidadesSeleccionadas);
-          console.log('Especialidades seleccionadas para el proveedor:', especialidadesSeleccionadas);
-        } else {
-          this.showError(`Error al cargar las especialidades del proveedor: ${response.estado.errDes}`, true);
-        }
-      },
-      error: error => {
-        console.error('Error en la solicitud:', error);
-        this.showError('Error en la solicitud al cargar las especialidades.', true);
-      }
-    });
-  }
-  //.....
-
 
     // Método que maneja el cambio en el toggle
     onToggleChange(event: MatSlideToggleChange): void {
@@ -178,7 +178,7 @@ export class GestionProveedoresComponent implements OnInit {
   // Método para guardar un Proveedor
   saveProveedor(): void {
     // Aquí obtenemos los IDs de las especialidades seleccionadas en el formulario
-    this.currentProveedores.listaEspecialidades = this.especialidades.value;
+    this.currentProveedores.listaEspecialidades = this.especialidades.value || [];
 
     if (this.isEditMode) {
       this.updateProveedor();
@@ -223,7 +223,7 @@ export class GestionProveedoresComponent implements OnInit {
       dv: this.currentProveedores.dv,
       estado: this.currentProveedores.estado,
 
-      listaEspecialidades: this.currentProveedores.listaEspecialidades
+      listaEspecialidades: this.currentProveedores.listaEspecialidades || []
     };
 
     this.http.put<any>(url, updatedData).subscribe({
@@ -301,5 +301,34 @@ export class GestionProveedoresComponent implements OnInit {
   onPageChange(event: PageEvent) {
     this.updatePageProveedor();   // Actualiza los proveedores paginados para mostrar la nueva página
   }
+
+  //.......
+  // Restricciones para Rut y DV
+  // Método para permitir solo números (para el campo RUT)
+  onlyNumbers(event: KeyboardEvent): void {
+    const pattern = /[0-9]/; // Solo números
+    const inputChar = String.fromCharCode(event.charCode);
+    if (!pattern.test(inputChar)) {
+      event.preventDefault(); // Evitar el ingreso de caracteres no válidos
+    }
+  }
+
+  // Método para permitir solo un carácter (para el campo DV)
+  onlyOneCharacter(event: KeyboardEvent): void {
+    const pattern = /[0-9A-Za-z]/; // Solo números y letras
+    const inputChar = String.fromCharCode(event.charCode);
+    if (!pattern.test(inputChar)) {
+      event.preventDefault(); // Evitar el ingreso de caracteres no válidos
+    }
+  }
+
+  formatRut(rut: string): string {
+    // Agregar puntos al RUT en el formato XX.XXX.XXX
+    if (rut.length !== 8) return rut; // Asegúrate de que tenga el largo esperado
+  
+    return `${rut.slice(0, 2)}.${rut.slice(2, 5)}.${rut.slice(5, 8)}`; // Formateo
+  }
+  //.......
+  
 
 }

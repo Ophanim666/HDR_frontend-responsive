@@ -16,10 +16,13 @@
   <thead>
     <tr>
       <th>Proveedor</th>
-      <th>Razon Social</th>
+      <th>Razón Social</th>
       <th>Rut</th>
       <!-- <th>DV</th> -->
+       <th>Estado</th>
       <th>Especialidades</th> <!-- Nueva columna para especialidades -->
+      <th>Fecha</th>
+      <th>Usuario Creación</th>
       <th></th>
     </tr>
   </thead>
@@ -28,9 +31,14 @@
     <tr *ngFor="let proveedor of pagedProveedores">
         <td>{{ proveedor.nombre }}</td>
         <td>{{ proveedor.razoN_SOCIAL }}</td>
-        <td>{{ proveedor.rut }}-{{ proveedor.dv }}</td>
-        <!-- <td>{{ proveedor.dv }}</td> -->
-        <td>{{ proveedor.especialidades }}</td> <!-- Aquí mostramos las especialidades -->
+        <td>{{ formatRut(proveedor.rut) }}-{{ proveedor.dv.toUpperCase() }}</td>
+        <td>{{ proveedor.estado=== 1 ? 'Activo' : 'Inactivo' }}</td>
+        <td>{{ proveedor.especialidad }}</td> 
+        <!-- <ul>
+          <li *ngFor="let especialidad of proveedor.especialidades">{{ especialidad }}</li>
+        </ul> -->
+        <td>{{ proveedor.fechA_CREACION | date: 'dd/MM/yyyy' }}</td>
+         <td>{{ proveedor.usuariO_CREACION }}</td>
         <td class="actions-columns">
           <div class="button-container">
             <button mat-flat-button color="primary" class="mat-flat-button editar" (click)="openModalProveedor(proveedor)">
@@ -69,7 +77,7 @@
         <form (ngSubmit)="saveProveedor()" #proveedorForm="ngForm" class="form-container">
           <div class="form-row">
 
-              <!-- Campos Nombre del Proveedor, Razón Social y Estado -->
+              <!-- Campos Nombre del Proveedor, Razón Social -->
             <div class="form-row nombre-razo">
               <mat-form-field class="mat-form-field nombre">
                 <mat-label>Proveedor</mat-label>
@@ -92,17 +100,6 @@
                   required
                 />
               </mat-form-field>
-
-              <!-- Campo para Estado (slide toggle) -->
-              <div class="toggle-wrapper">
-                <mat-slide-toggle
-                  [(ngModel)]="currentProveedores.estado"
-                  (change)="onToggleChange($event)"
-                  name="estado"
-                  labelPosition="before">
-                  <span class="toggle-label">{{ currentProveedores.estado === 1 ? 'Activo' : 'Inactivo' }}</span>
-                </mat-slide-toggle>
-              </div>
             </div>
 
             <!-- Campo para Rut y DV -->
@@ -113,37 +110,51 @@
                   matInput
                   placeholder="RUT"
                   [(ngModel)]="currentProveedores.rut"
+                  maxlength="8" pattern="\d{8}" required (keypress)="onlyNumbers($event)" 
                   name="rut"
                   required
                 />
               </mat-form-field>
-
+              <h5>-</h5>
               <mat-form-field class="mat-form-field dv">
                 <mat-label>DV</mat-label>
                 <input
                   matInput
                   placeholder="DV"
                   [(ngModel)]="currentProveedores.dv"
+                  maxlength="1" required (keypress)="onlyOneCharacter($event)"
                   name="dv"
                   required
                 />
               </mat-form-field>
             </div>
+            <br>
+            <label class="rut-help-text">Digitar RUT sin puntos ni guion</label>
 
-            <!-- nueva logica -->
-            <span class="titulo-especialidades">Selección de especialidades</span>
-            <!-- Campo de especialidades en el formulario -->
-            <mat-form-field appearance="fill">
-              <mat-label>Especialidades</mat-label>
-              <mat-select [formControl]="especialidades" multiple>
-                <!-- Usamos el id como valor de cada opción -->
-                <mat-option *ngFor="let especialidad of especialidadList" [value]="especialidad.id">
-                  {{ especialidad.nombre }}
-                </mat-option>
-              </mat-select>
-            </mat-form-field>
-            <!-- nueva logica -->
-          </div>
+            <br>
+            <!-- Campo de especialidades y estado -->
+            <div class="form-row especialidad">
+              <mat-form-field class="mat-form-field esp">
+                <mat-label>Seleccionar Especialidades</mat-label>
+                <mat-select [formControl]="especialidades" multiple>
+                  <mat-option *ngFor="let especialidad of especialidadList" [value]="especialidad.id">
+                    {{ especialidad.nombre }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+  
+              <div class="toggle-wrapper">
+                <mat-slide-toggle
+                  [(ngModel)]="currentProveedores.estado"
+                  (change)="onToggleChange($event)"
+                  name="estado"
+                  labelPosition="before">
+                  <span class="toggle-label">{{ currentProveedores.estado === 1 ? 'Activo' : 'Inactivo' }}</span>
+                </mat-slide-toggle>
+              </div>
+            </div>
+           
+        </div>
         </form>
       </div>
 
