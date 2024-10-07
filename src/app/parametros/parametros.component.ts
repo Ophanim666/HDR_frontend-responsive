@@ -19,13 +19,10 @@ export class ParametrosComponent implements OnInit {
   isEditMode = false;
   pagedParametros: any[] = [];
 
-  tipoParametros: { value: number, viewValue: string }[] = [
-    { value: 1, viewValue: 'Tipo 1' },
-    { value: 2, viewValue: 'Tipo 2' },
-    { value: 3, viewValue: 'Tipo 3' },
-  ];
+  tipoParametros: any[] = [];
 
   private apiUrl = 'https://localhost:7125/api/Parametro';
+  private apiUrl1 = 'https://localhost:7125/api/TipoParametro';
 
   showErrorModal = false;
   errorMessage: { message: string, isError: boolean } = { message: '', isError: true };
@@ -37,6 +34,7 @@ export class ParametrosComponent implements OnInit {
   // Cargar datos
   ngOnInit(): void {
     this.loadParametros();
+    this.loadTipoParametros();
   }
 
   // Filtrar parámetros
@@ -66,7 +64,27 @@ export class ParametrosComponent implements OnInit {
     });
   }
 
-// Actualizar los parámetros paginados
+  // Listar o cargar tipo parámetros
+  loadTipoParametros(): void {
+    this.http.get<any>(`${this.apiUrl1}/TipoParametro/LstTipoParametro`).subscribe({
+      next: response => {
+        if (response.estado.ack) {
+          this.tipoParametros = response.body.response.map((tipo: any) => ({
+            value: tipo.id,
+            viewValue: tipo.nombre
+          }));
+        } else {
+          this.showError(`Error al cargar los tipos de parámetro: ${response.estado.errDes}`, true);
+        }
+      },
+      error: error => {
+        console.error('Error al cargar los tipos de parámetro:', error);
+        this.showError('Error en la solicitud al cargar los tipos de parámetro.', true);
+      }
+    });
+  }
+
+  // Actualizar los parámetros paginados
   updatePagedParametros(): void {
     const filtered = this.filteredParametros();
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
