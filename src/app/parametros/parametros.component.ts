@@ -4,6 +4,11 @@ import { NgForm } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
+interface TipoParametro {
+  id: number;
+  tipO_PARAMETRO: string;  // Actualizado para coincidir con la respuesta del API
+}
+
 @Component({
   selector: 'app-parametros',
   templateUrl: './parametros.component.html',
@@ -19,10 +24,10 @@ export class ParametrosComponent implements OnInit {
   isEditMode = false;
   pagedParametros: any[] = [];
 
-  tipoParametros: any[] = [];
+  tipoParametros: TipoParametro[] = [];
 
   private apiUrl = 'https://localhost:7125/api/Parametro';
-  private apiUrl1 = 'https://localhost:7125/api/TipoParametro';
+  private apiUrlTipoParametro = 'https://localhost:7125/api/TipoParametro/LstTipoParametros';
 
   showErrorModal = false;
   errorMessage: { message: string, isError: boolean } = { message: '', isError: true };
@@ -31,7 +36,6 @@ export class ParametrosComponent implements OnInit {
 
   constructor(private http: HttpClient) {}
 
-  // Cargar datos
   ngOnInit(): void {
     this.loadParametros();
     this.loadTipoParametros();
@@ -66,13 +70,12 @@ export class ParametrosComponent implements OnInit {
 
   // Listar o cargar tipo parámetros
   loadTipoParametros(): void {
-    this.http.get<any>(`${this.apiUrl1}/TipoParametro/LstTipoParametro`).subscribe({
+    this.http.get<any>(this.apiUrlTipoParametro).subscribe({
       next: response => {
         if (response.estado.ack) {
-          this.tipoParametros = response.body.response.map((tipo: any) => ({
-            value: tipo.id,
-            viewValue: tipo.nombre
-          }));
+          // Ahora usamos directamente la respuesta sin mapear, ya que coincide con nuestra interfaz
+          this.tipoParametros = response.body.response;
+          console.log('Tipos de parámetros cargados:', this.tipoParametros);
         } else {
           this.showError(`Error al cargar los tipos de parámetro: ${response.estado.errDes}`, true);
         }
@@ -83,6 +86,12 @@ export class ParametrosComponent implements OnInit {
       }
     });
   }
+
+    // Método helper para obtener el nombre del tipo de parámetro
+    getTipoParametroNombre(id: number): string {
+      const tipo = this.tipoParametros.find(t => t.id === id);
+      return tipo ? tipo.tipO_PARAMETRO : '';
+    }
 
   // Actualizar los parámetros paginados
   updatePagedParametros(): void {
@@ -106,11 +115,10 @@ export class ParametrosComponent implements OnInit {
       id: 0,
       parametro: '',
       valor: '',
-      iD_TIPO_PARAMETRO: null,
+      tipO_PARAMETRO: null, // Asegúrate de que este nombre coincida con tu modelo
       estado: 1,
     };
     this.showModalParametro = true;
-    document.body.classList.add('modal-open');
   }
 
   // Método que maneja el cambio en el toggle de estado de parámetro

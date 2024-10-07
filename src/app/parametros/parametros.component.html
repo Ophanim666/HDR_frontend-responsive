@@ -31,7 +31,7 @@
       <td>{{parametro.id}}</td>
       <td>{{parametro.parametro}}</td>
       <td>{{parametro.valor}}</td>
-      <td>{{parametro.iD_TIPO_PARAMETRO}}</td>
+      <td>{{getTipoParametroNombre(parametro.tipO_PARAMETRO)}}</td>
       <td>{{parametro.estado === 1 ? 'Activo' : 'Inactivo'}}</td>
       <td>{{parametro.usuariO_CREACION}}</td>
       <td>{{parametro.fechA_CREACION | date:'dd/MM/yyyy'}}</td>
@@ -58,56 +58,37 @@
 
 <!-- Modal para CREAR y EDITAR parámetro -->
 <div *ngIf="showModalParametro" class="modal">
-
   <div class="modal-dialog">
     <div class="modal-content">
-
-      <!-- Header -->
       <div class="modal-header">
         <h2 class="modal-title">{{ isEditMode ? 'Edición' : 'Creación' }} de parámetro</h2>
       </div>
 
-      <!-- Body -->
-      <div class="modal-body parametro">
-        <form (ngSubmit)="saveParametro()" #parametroForm="ngForm" class="form-container">
-          
+      <div class="modal-body">
+        <form #parametroForm="ngForm" class="form-container">
           <div class="form-row">
-
-            <!-- Campo para nombre de parámetro -->
             <mat-form-field class="mat-form-field">
               <mat-label>Parámetro</mat-label>
-              <input
-                matInput
-                [(ngModel)]="currentParametro.parametro"
-                name="parametro"
-                required
-              />
+              <input matInput [(ngModel)]="currentParametro.parametro" name="parametro" required>
             </mat-form-field>
 
-            <!-- Campo para valor de parámetro -->
             <mat-form-field class="mat-form-field">
               <mat-label>Valor</mat-label>
-              <input
-                matInput
-                [(ngModel)]="currentParametro.valor"
-                name="valor"
-                required
-              />
+              <input matInput [(ngModel)]="currentParametro.valor" name="valor" required>
             </mat-form-field>
 
             <mat-form-field class="mat-form-field">
               <mat-label>Tipo de parámetro</mat-label>
-              <mat-select [(ngModel)]="currentParametro.iD_TIPO_PARAMETRO" name="tipoParametro" required>
-                <mat-option *ngFor="let tipo of tipoParametros" [value]="tipo.value">
-                  {{ tipo.viewValue }}
+              <mat-select [(ngModel)]="currentParametro.tipO_PARAMETRO" name="tipoParametro" required>
+                <mat-option *ngFor="let tipo of tipoParametros" [value]="tipo.id">
+                  {{ tipo.tipO_PARAMETRO }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
-            <!-- Campo para estado (slide toggle) -->
             <div class="toggle-wrapper">
               <mat-slide-toggle
-                [(ngModel)]="currentParametro.estado"
+                [checked]="currentParametro.estado === 1"
                 (change)="onToggleChange($event)"
                 name="estado"
                 labelPosition="before">
@@ -115,24 +96,24 @@
               </mat-slide-toggle>
             </div>
           </div>
-
         </form>
       </div>
 
-      <!-- Footer para los botones del modal -->
       <div class="modal-footer">
         <div class="button-group-left">
-          <button mat-flat-button class="mat-flat-button cancelar" (click)="closeModalParametro()" type="button">Cancelar</button>
-          <button *ngIf="isEditMode" mat-flat-button color="warn" class="mat-flat-button eliminar" (click)="confirmDelete(currentParametro.id)">
+          <button mat-flat-button class="mat-flat-button cancelar" (click)="closeModalParametro()">
+            Cancelar
+          </button>
+          <button *ngIf="isEditMode" mat-flat-button color="warn" class="mat-flat-button eliminar" 
+                  (click)="confirmDelete(currentParametro.id)">
             <mat-icon>delete</mat-icon>Eliminar
           </button>
         </div>
-
-        <button mat-flat-button [ngClass]="{'agregar': !isEditMode, 'actualizar': isEditMode}" class="mat-flat-button" (click)="saveParametro()" type="submit">
+        <button mat-flat-button [ngClass]="{'agregar': !isEditMode, 'actualizar': isEditMode}" 
+                class="mat-flat-button" (click)="saveParametro()" [disabled]="!parametroForm.form.valid">
           <mat-icon>{{ isEditMode ? 'save' : 'add_circle' }}</mat-icon>
           {{ isEditMode ? 'Actualizar' : 'Agregar' }}
         </button>
-
       </div>
     </div>
   </div>
