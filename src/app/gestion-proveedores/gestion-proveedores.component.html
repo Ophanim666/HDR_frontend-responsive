@@ -30,14 +30,14 @@
   <tbody>
     <tr *ngFor="let proveedor of pagedProveedores">
         <td>{{ proveedor.nombre }}</td>
-        <td>{{ proveedor.razoN_SOCIAL }}</td>
+        <td>{{ proveedor.razonSocial }}</td>
         <td>{{ formatRut(proveedor.rut) }}-{{ proveedor.dv.toUpperCase() }}</td>
         <td>{{ proveedor.estado=== 1 ? 'Activo' : 'Inactivo' }}</td>
-        <td>{{ proveedor.especialidad }}</td> 
+        <td>{{ proveedor.especialidades }}</td> 
         <!-- <ul>
           <li *ngFor="let especialidad of proveedor.especialidades">{{ especialidad }}</li>
         </ul> -->
-        <td>{{ proveedor.fechA_CREACION | date: 'dd/MM/yyyy' }}</td>
+        <td>{{ proveedor.fechaCreacion | date: 'dd/MM/yyyy' }}</td>
          <td>{{ proveedor.usuariO_CREACION }}</td>
         <td class="actions-columns">
           <div class="button-container">

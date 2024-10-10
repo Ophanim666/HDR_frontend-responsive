@@ -78,10 +78,22 @@ export class GestionProveedoresComponent implements OnInit {
   // private apiUrl = 'https://localhost:7125/api/Proveedor';
   // Listar datos de proveedores
   loadProveedores(): void {
-    this.http.get<any>(this.apiUrl).subscribe({
+    this.http.get<any>(`${this.apiUrl}/listado`).subscribe({
       next: response => {
         if (response.estado.ack) {
-          this.proveedores = response.body.response;
+          this.proveedores = response.body.response.map((proveedor: any) => ({
+            id: proveedor.iDproveedor,
+            nombre: proveedor.nombreProveedor,
+            razonSocial: proveedor.razonSocial,
+            rut: proveedor.rut,
+            dv: proveedor.dv,
+            estado: proveedor.estado,
+            iDespecialidad: proveedor.iDespecialidad,
+            especialidades: proveedor.nombreEspecialidad.join(', '),
+            // Aquí agregamos la fecha de creación
+            fechaCreacion: proveedor.fechaCreacion, // Asegúrate de que el campo coincida con el nombre que se devuelve en la respuesta del backend
+            usuarioCreacion: proveedor.usuariO_CREACION // También agregamos el usuario de creación si está en la respuesta
+          }));
           this.updatePageProveedor();
           console.log('Proveedores cargados:', this.proveedores);
         } else {
