@@ -33,10 +33,13 @@
         <td>{{ proveedor.razonSocial }}</td>
         <td>{{ formatRut(proveedor.rut) }}-{{ proveedor.dv.toUpperCase() }}</td>
         <td>{{ proveedor.estado=== 1 ? 'Activo' : 'Inactivo' }}</td>
-        <td>{{ proveedor.especialidades }}</td> 
-        <!-- <ul>
-          <li *ngFor="let especialidad of proveedor.especialidades">{{ especialidad }}</li>
-        </ul> -->
+        <td>
+          <ul>
+            <li *ngFor="let especialidad of getEspecialidades(proveedor.especialidades)">
+            {{ especialidad.trim() }}
+            </li>
+          </ul>
+        </td>
         <td>{{ proveedor.fechaCreacion | date: 'dd/MM/yyyy' }}</td>
          <td>{{ proveedor.usuariO_CREACION }}</td>
         <td class="actions-columns">
@@ -95,8 +98,8 @@
                 <input
                   matInput
                   placeholder="Razón Social"
-                  [(ngModel)]="currentProveedores.razoN_SOCIAL"
-                  name="razoN_SOCIAL"
+                  [(ngModel)]="currentProveedores.razonSocial"
+                  name="razonSocial"
                   required
                 />
               </mat-form-field>

@@ -133,14 +133,23 @@ export class GestionProveedoresComponent implements OnInit {
   //.....
 
 
-    // Actualizar las especialidades paginadas
-    updatePageProveedor(): void {
-      const filtered = this.filteredProveedores();
-      const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-      const endIndex = startIndex + this.paginator.pageSize;
-      this.pagedProveedores = filtered.slice(startIndex, endIndex);
-      this.paginator.length = filtered.length;
-    }
+//
+getEspecialidades(especialidades: string): string[] {
+    return especialidades ? especialidades.split(',') : [];
+  }
+//......
+
+
+
+
+  // Actualizar las especialidades paginadas
+  updatePageProveedor(): void {
+    const filtered = this.filteredProveedores();
+    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
+    const endIndex = startIndex + this.paginator.pageSize;
+    this.pagedProveedores = filtered.slice(startIndex, endIndex);
+    this.paginator.length = filtered.length;
+  }
 
     // Método que se llama cuando cambia el texto de búsqueda
   onSearchChange(): void {
