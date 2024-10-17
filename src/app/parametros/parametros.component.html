@@ -6,13 +6,14 @@
     [(ngModel)]="searchText"
     (ngModelChange)="onSearchChange()"
     class="buscador"
-    />
-    <button mat-flat-button class="mat-flat-button agregar" (click)="openModalParametro()"><mat-icon>add_circle</mat-icon>Agregar</button>
+  />
+  <button mat-flat-button class="mat-flat-button agregar" (click)="openModalParametro()">
+    <mat-icon>add_circle</mat-icon>Agregar
+  </button>
 </div>
 
-  <!-- Tabla -->
+<!-- Tabla -->
 <table class="table-elegant">
-  
   <thead>
     <tr>
       <th>Id</th>
@@ -25,7 +26,6 @@
       <th></th>
     </tr>
   </thead>
-
   <tbody>
     <tr *ngFor="let parametro of pagedParametros">
       <td>{{parametro.id}}</td>
@@ -38,22 +38,22 @@
       <td class="actions-column">
         <div class="button-container">
           <button mat-flat-button color="primary" class="mat-flat-button editar" (click)="openModalParametro(parametro)">
-              <mat-icon>edit</mat-icon></button>
-            </div>
-          </td>
-      </tr>
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+      </td>
+    </tr>
   </tbody>
-
 </table>
 
-  <!-- Paginación -->
+<!-- Paginación -->
 <div class="paginador-container">
   <mat-paginator
-      [length]="filteredParametros().length"
-      [pageSize]="5"
-      [pageSizeOptions]="[5, 10, 20]"
-      (page)="onPageChange($event)">
-    </mat-paginator>
+    [length]="filteredParametros().length"
+    [pageSize]="5"
+    [pageSizeOptions]="[5, 10, 20]"
+    (page)="onPageChange($event)">
+  </mat-paginator>
 </div>
 
 <!-- Modal para CREAR y EDITAR parámetro -->
@@ -63,7 +63,6 @@
       <div class="modal-header">
         <h2 class="modal-title">{{ isEditMode ? 'Edición' : 'Creación' }} de parámetro</h2>
       </div>
-
       <div class="modal-body">
         <form #parametroForm="ngForm" class="form-container">
           <div class="form-row">
@@ -98,7 +97,6 @@
           </div>
         </form>
       </div>
-
       <div class="modal-footer">
         <div class="button-group-left">
           <button mat-flat-button class="mat-flat-button cancelar" (click)="closeModalParametro()">
@@ -121,48 +119,35 @@
 
 <!-- Modal de confirmación de eliminación -->
 <div *ngIf="showConfirmationDeleteParametro" class="modal">
-
   <div class="modal-dialog">
     <div class="modal-content">
-
-      <!-- Header -->
       <div class="modal-header">
         <h2 class="modal-title">Confirmación de eliminación</h2>
       </div>
-
-      <!-- Body -->
       <div class="modal-body">
         <p>¿Está seguro de que desea eliminar este parámetro?</p>
       </div>
-
-      <!-- Footer -->
       <div class="modal-footer">
         <button mat-flat-button class="mat-flat-button cancelar" (click)="closeConfirmationDialog()">No</button>
         <button mat-flat-button class="mat-flat-button confirmarEliminar" (click)="deleteParametro()">Sí</button>
       </div>
-
     </div>
   </div>
 </div>
 
 <!-- Modal para mostrar errores -->
 <div *ngIf="showErrorModal" class="modal error-modal">
-
   <div class="modal-dialog">
     <div class="modal-content">
-
       <div class="modal-header error">
         <h6>{{ errorMessage.isError ? '¡Error!' : '¡Éxito!' }}</h6>
       </div>
-
       <div class="modal-body">
         <p>{{ errorMessage.message }}</p>
       </div>
-
       <div class="modal-footer">
         <button mat-flat-button class="mat-flat-button cerrar" (click)="closeErrorModal()">Cerrar</button>
       </div>
-
     </div>
   </div>
 </div>
