@@ -263,6 +263,6 @@ export class ParametrosComponent implements OnInit {
         return `Tipo ${id}`;
     }
     
-    return tipoParametro.tipO_PARAMETRO;
+    return tipoParametro.tipO_PARAMETRO; 
   }
 }
