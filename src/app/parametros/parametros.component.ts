@@ -19,13 +19,13 @@ interface Parametro {
   estado: number;
 }
 
-
 @Component({
   selector: 'app-parametros',
   templateUrl: './parametros.component.html',
   styleUrls: ['./parametros.component.css']
 })
 export class ParametrosComponent implements OnInit {
+  // Variables de clase
   parametros: Parametro[] = [];
   currentParametro: Parametro = this.getEmptyParametro();
   tipoParametros: TipoParametro[] = [];
@@ -36,10 +36,11 @@ export class ParametrosComponent implements OnInit {
   isEditMode = false;
   pagedParametros: any[] = [];
   
-
+  // URLs de la API
   private apiUrl = 'https://localhost:7125/api/Parametro';
   private apiUrlTipoParametro = 'https://localhost:7125/api/TipoParametro';
 
+  // Variables para manejo de errores
   showErrorModal = false;
   errorMessage: { message: string, isError: boolean } = { message: '', isError: true };
 
@@ -48,10 +49,12 @@ export class ParametrosComponent implements OnInit {
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
+    // Carga inicial de parámetros y tipos de parámetros
     this.loadParametros();
     this.loadTipoParametros();
   }
 
+  // Función para obtener un objeto Parametro vacío
   getEmptyParametro(): Parametro {
     return {
       parametro: '',
@@ -61,6 +64,7 @@ export class ParametrosComponent implements OnInit {
     };
   }
 
+  // Función para cargar tipos de parámetros desde la API
   loadTipoParametros(): void {
     this.http.get<any>(`${this.apiUrlTipoParametro}/LstTipoParametros`).subscribe({
       next: response => {
@@ -78,28 +82,14 @@ export class ParametrosComponent implements OnInit {
     });
   }
 
-  // loadTipoParametros(): void {
-  //   this.http.get<any>(`${this.apiUrlTipoParametro}/LstTipoParametros`).subscribe({
-  //     next: response => {
-  //       if (response.estado.ack) {
-  //         this.tipoParametros = response.body.response;
-  //       } else {
-  //         this.showError(`Error al cargar los tipos de parámetros: ${response.estado.errDes}`, true);
-  //       }
-  //     },
-  //     error: error => {
-  //       console.error('Error al cargar los tipos de parámetros:', error);
-  //       this.showError('Error en la solicitud al cargar los tipos de parámetros.', true);
-  //     }
-  //   });
-  // }
-
+  // Función para filtrar parámetros según el texto de búsqueda
   filteredParametros() {
     return this.parametros.filter(parametro =>
       parametro.parametro.toLowerCase().includes(this.searchText.toLowerCase())
     );
   }
 
+  // Función para cargar parámetros desde la API
   loadParametros(): void {
     this.http.get<any>(`${this.apiUrl}/Listar`).subscribe({
       next: response => {
@@ -117,6 +107,7 @@ export class ParametrosComponent implements OnInit {
     });
   }
 
+  // Función para actualizar la página de parámetros según la paginación
   updatePageParametro(): void {
     const filtered = this.filteredParametros();
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
@@ -125,13 +116,15 @@ export class ParametrosComponent implements OnInit {
     this.paginator.length = filtered.length;
   }
 
+  // Función que se llama cuando cambia el texto de búsqueda
   onSearchChange(): void {
     this.paginator.firstPage();
     this.updatePageParametro();
   }
 
+  // Función para abrir el modal para crear o editar un parámetro
   openModalParametro(parametro?: Parametro): void {
-    this.isEditMode = !!parametro;
+    this.isEditMode = !!parametro; // Establecer modo de edición
     this.currentParametro = parametro ? { ...parametro } : this.getEmptyParametro();
     
     // Asegurarse de que los tipos de parámetros estén cargados
@@ -143,16 +136,18 @@ export class ParametrosComponent implements OnInit {
     document.body.classList.add('modal-open');
   }
 
-
+  // Función para manejar el cambio del estado del parámetro
   onToggleChange(event: MatSlideToggleChange): void {
     this.currentParametro.estado = event.checked ? 1 : 0;
   }
 
+  // Función para cerrar el modal de parámetros
   closeModalParametro(): void {
     this.showModalParametro = false;
     document.body.classList.remove('modal-open');
   }
 
+  // Función para guardar el parámetro (crear o actualizar)
   saveParametro(): void {
     if (this.isEditMode) {
       this.updateParametro();
@@ -161,6 +156,7 @@ export class ParametrosComponent implements OnInit {
     }
   }
 
+  // Función para crear un nuevo parámetro
   createParametro(): void {
     this.http.post(`${this.apiUrl}/add`, this.currentParametro).subscribe({
       next: (response: any) => {
@@ -179,6 +175,7 @@ export class ParametrosComponent implements OnInit {
     });
   }
 
+  // Función para actualizar un parámetro existente
   updateParametro(): void {
     const url = `${this.apiUrl}/Actualizar/${this.currentParametro.id}`;
     this.http.put<any>(url, this.currentParametro).subscribe({
@@ -198,18 +195,21 @@ export class ParametrosComponent implements OnInit {
     });
   }
 
+  // Función para confirmar la eliminación de un parámetro
   confirmDelete(id: number): void {
     this.parametroDelete = id;
     this.showModalParametro = false;
     this.showConfirmationDeleteParametro = true;
   }
 
+  // Función para cerrar el diálogo de confirmación de eliminación
   closeConfirmationDialog(): void {
     this.showConfirmationDeleteParametro = false;
     this.showModalParametro = true;
     this.parametroDelete = null;
   }
 
+  // Función para eliminar un parámetro
   deleteParametro(): void {
     if (this.parametroDelete !== null) {
       this.http.delete<any>(`${this.apiUrl}/Eliminar/${this.parametroDelete}`).subscribe({
@@ -231,20 +231,24 @@ export class ParametrosComponent implements OnInit {
     }
   }
 
+  // Función para mostrar mensajes de error
   showError(message: string, isError: boolean): void {
     this.errorMessage = { message, isError };
     this.showErrorModal = true;
   }
 
+  // Función para cerrar el modal de error
   closeErrorModal(): void {
     this.showErrorModal = false;
     this.errorMessage = { message: '', isError: true };
   }
 
+  // Función que se llama cuando cambia la página en la paginación
   onPageChange(event: PageEvent) {
     this.updatePageParametro();
   }
 
+  // Función para obtener el nombre de un tipo de parámetro según su ID
   getTipoParametroNombre(id: number): string {
     console.log('ID recibido:', id); // Ver qué ID llega
     console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
