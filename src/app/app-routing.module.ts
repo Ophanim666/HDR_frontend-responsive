@@ -15,13 +15,14 @@ import { GestionProveedoresComponent } from './gestion-proveedores/gestion-prove
 import { GestionTipoParametrosComponent } from './gestion-tipo-parametros/gestion-tipo-parametros.component';
 //Gestión parametros
 import { ParametrosComponent } from './parametros/parametros.component';
+//Login
+import { LogInComponent } from './log-in/log-in.component';
 
 
 
 
 const routes: Routes = [
   //Aqui agregaremos las rutas de las paginas la sacaremos de nav-data
-  {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
   {path: 'dashboard', component: DashboardComponent},
   // ejemplo {path: 'settings', component: SettingsComponent} //Recordar cambiar su el nombre de su component: por ejemplo SettingsComponent
   {path: 'actas', component: ActasComponent},
@@ -40,7 +41,9 @@ const routes: Routes = [
   { path: 'gestion-tipo-parametros', component: GestionTipoParametrosComponent },
   //Gestión parámetros
   { path: 'parametros', component: ParametrosComponent },
-
+  //LogIn ahora es la pagina que primero se ejecuta
+  { path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirige a la ruta de login por defecto
+  { path: 'login', component: LogInComponent }, // Ruta para el componente de inicio de sesión
 ];
 
 @NgModule({
