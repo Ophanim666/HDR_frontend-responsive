@@ -15,7 +15,7 @@ interface Parametro {
   id?: number;
   parametro: string;
   valor: string;
-  ID_TIPO_PARAMETRO: number; // Cambiado para coincidir con la API
+  iD_TIPO_PARAMETRO: number; // Cambiado para coincidir con la API
   estado: number;
 }
 
@@ -59,7 +59,7 @@ export class ParametrosComponent implements OnInit {
     return {
       parametro: '',
       valor: '',
-      ID_TIPO_PARAMETRO: 0, // valor por defecto
+      iD_TIPO_PARAMETRO: 0, // valor por defecto
       estado: 1
     };
   }
@@ -126,12 +126,15 @@ export class ParametrosComponent implements OnInit {
   openModalParametro(parametro?: Parametro): void {
     this.isEditMode = !!parametro; // Establecer modo de edición
     this.currentParametro = parametro ? { ...parametro } : this.getEmptyParametro();
-    
+    // Verifica el objeto currentParametro
+    console.log('currentParametro:', this.currentParametro); // Verifica la estructura del objeto
+    console.log('ID_TIPO_PARAMETRO:', this.currentParametro.iD_TIPO_PARAMETRO); // Verifica el valor
+
     // Asegurarse de que los tipos de parámetros estén cargados
     if (this.tipoParametros.length === 0) {
       this.loadTipoParametros();
     }
-    
+
     this.showModalParametro = true;
     document.body.classList.add('modal-open');
   }

@@ -31,7 +31,7 @@
       <td>{{parametro.id}}</td>
       <td>{{parametro.parametro}}</td>
       <td>{{parametro.valor}}</td>
-      <td>{{getTipoParametroNombre(parametro.ID_TIPO_PARAMETRO)}}</td>      
+      <td>{{getTipoParametroNombre(parametro.iD_TIPO_PARAMETRO)}}</td>      
       <td>{{parametro.estado === 1 ? 'Activo' : 'Inactivo'}}</td>
       <td>{{parametro.usuariO_CREACION}}</td>
       <td>{{parametro.fechA_CREACION | date:'dd/MM/yyyy'}}</td>
@@ -78,11 +78,10 @@
 
             <mat-form-field class="mat-form-field">
               <mat-label>Tipo de parámetro</mat-label>
-              <mat-select [(ngModel)]="currentParametro.ID_TIPO_PARAMETRO" 
+              <mat-select [(ngModel)]="currentParametro.iD_TIPO_PARAMETRO" 
                           name="tipoParametro" 
                           required 
                           #tipoParametroField="ngModel">
-                <mat-option [value]="0">Seleccione un tipo</mat-option>
                 <mat-option *ngFor="let tipo of tipoParametros" [value]="tipo.id">
                   {{ tipo.tipO_PARAMETRO }}
                 </mat-option>
