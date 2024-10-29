@@ -34,8 +34,7 @@ import {MatCardModule} from '@angular/material/card';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { ReactiveFormsModule } from '@angular/forms';
 
-// para los item de especialidad
-import { MatSelectModule } from '@angular/material/select';
+// Para los items de especialidad
 import { MatOptionModule } from '@angular/material/core'; // Este módulo contiene mat-option
 
 
