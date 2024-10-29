@@ -37,13 +37,4 @@ export class LogInComponent {
       }
     });
   }
-
-  // Método para cerrar sesión
-  logout() {
-    // Eliminar el token de localStorage
-    localStorage.removeItem('token');
-
-    // Redirigir al usuario a la página de inicio de sesión
-    this.router.navigate(['/login']);
-  }
 }

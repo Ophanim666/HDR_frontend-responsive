@@ -1,33 +1,65 @@
+/* Fondo con diseño */
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('/assets/background-image.jpg') no-repeat center center fixed; /* Reemplaza con la ruta correcta de tu imagen de fondo */
+  background-size: cover; /* Asegura que la imagen cubra toda el área */
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+}
+
+/* Estilos para el contenedor de inicio de sesión */
 .login-container {
   max-width: 400px;
-  margin: 0 auto;
+  width: 90%; /* Hace que el contenedor sea responsivo */
   padding: 20px;
   border-radius: 8px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco con opacidad para que se vea el fondo de diseño */
+  transition: all 0.3s ease;
 }
 
+/* Estilo para el encabezado */
 h2 {
   text-align: center;
+  color: #333;
+  margin-bottom: 20px;
 }
 
+/* Estilo para los grupos de formularios */
 .form-group {
   margin-bottom: 15px;
 }
 
+/* Estilo para las etiquetas */
 label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
+  color: #555;
 }
 
+/* Estilo para los campos de entrada */
 input {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 4px;
   font-size: 16px;
+  transition: border 0.3s ease;
 }
 
+/* Cambiar color del borde al enfocar el campo */
+input:focus {
+  border-color: #007BFF;
+  outline: none;
+}
+
+/* Estilo para el botón de inicio de sesión */
 .login-button {
   width: 100%;
   padding: 10px;
@@ -37,14 +69,39 @@ input {
   border-radius: 4px;
   font-size: 16px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
 }
 
+/* Cambiar color al pasar el mouse */
 .login-button:hover {
   background-color: #0056b3;
 }
 
+/* Estilo para el mensaje de error */
 .error-message {
   color: red;
   margin-top: 15px;
   text-align: center;
+}
+
+/* Estilo para el enlace de olvidar contraseña */
+.forgot-password {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.forgot-password a {
+  color: #007BFF;
+  text-decoration: none;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}
+
+/* Media queries para asegurar que el login sea responsivo */
+@media (max-width: 600px) {
+  .login-container {
+    width: 95%; /* Más ancho en pantallas pequeñas */
+  }
 }

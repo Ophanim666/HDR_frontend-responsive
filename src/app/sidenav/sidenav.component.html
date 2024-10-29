@@ -4,19 +4,35 @@
     <button class="logo" (click)="toggleColapse()"><img src="/assets/logo.jpg"/></button>
     <div class="logo-text" *ngIf="collapsed">BRAVO IZQUIERDO</div>
   </div>
-  
+
   <ul class="sidenav-nav">
     <li class="sidenav-nav-item" *ngFor="let data of navData">
-      <a class="sidenav-nav-link" [routerLink]="[data.RouterLink]"
-      routerLinkActive="active"
-      [routerLinkActiveOptions]="{exact: true}"
-      >
-      
+      <a class="sidenav-nav-link"
+         [routerLink]="[data.RouterLink]"
+         *ngIf="!data.action || data.action !== 'logout'"
+         routerLinkActive="active"
+         [routerLinkActiveOptions]="{exact: true}">
         <i class="sidenav-link-icon" [class]="data.icon"></i>
-        <span class="sidenav-link-text" *ngIf="collapsed">
-          {{data.label}}
-        </span>
+        <span class="sidenav-link-text" *ngIf="collapsed">{{data.label}}</span>
+      </a>
+
+      <a class="sidenav-nav-link" *ngIf="data.action === 'logout'" (click)="openLogoutModal()">
+        <i class="sidenav-link-icon" [class]="data.icon"></i>
+        <span class="sidenav-link-text" *ngIf="collapsed">{{data.label}}</span>
       </a>
     </li>
   </ul>
+
+  <!-- Modal de confirmación de logout -->
+  <div class="modal" *ngIf="showLogoutModal">
+    <div class="modal-content">
+      <h2>Confirmar Cierre de Sesión</h2>
+      <p>¿Estás seguro de que deseas cerrar sesión?</p>
+      <div class="modal-actions">
+        <button (click)="cancelLogout()">Cancelar</button>
+        <button class="logout-button" (click)="confirmLogout()">Cerrar Sesión</button>
+      </div>
+    </div>
+  </div>
+
 </div>
