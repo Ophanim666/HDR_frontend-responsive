@@ -113,7 +113,7 @@
                   matInput
                   placeholder="RUT"
                   [(ngModel)]="currentProveedores.rut"
-                  maxlength="8" pattern="\d{8}" required (keypress)="onlyNumbers($event)" 
+                  maxlength="8" pattern="\d{8}" required (keypress)="onlyNumbers($event)"
                   name="rut"
                   required
                 />
@@ -145,7 +145,7 @@
                   </mat-option>
                 </mat-select>
               </mat-form-field>
-  
+
               <div class="toggle-wrapper">
                 <mat-slide-toggle
                   [(ngModel)]="currentProveedores.estado"
@@ -156,7 +156,7 @@
                 </mat-slide-toggle>
               </div>
             </div>
-           
+
         </div>
         </form>
       </div>
