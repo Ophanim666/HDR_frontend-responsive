@@ -59,7 +59,7 @@ export class GestionProveedoresComponent implements OnInit {
             id: especialidad.id,        // Capturamos el id de la especialidad
             nombre: especialidad.nombre  // Y el nombre para mostrarlo en el formulario
           }));
-  
+
           console.log('Especialidades cargadas:', this.especialidadList);
         } else {
           this.showError(`Error al cargar las especialidades: ${response.estado.errDes}`, true);
@@ -162,6 +162,7 @@ getEspecialidades(especialidades: string): string[] {
     this.isEditMode = !!proveedor;
     this.currentProveedores = proveedor ? { ...proveedor } : {
       nombre: '',
+      razonSocial: '',
       estado: 1,
       rut:'',
       dv: '',
@@ -179,7 +180,7 @@ getEspecialidades(especialidades: string): string[] {
   }
 
   //.....
-  
+
 
     // Método que maneja el cambio en el toggle
     onToggleChange(event: MatSlideToggleChange): void {
@@ -239,7 +240,7 @@ getEspecialidades(especialidades: string): string[] {
     const updatedData = {
       id: this.currentProveedores.id,
       nombre: this.currentProveedores.nombre,
-      razoN_SOCIAL: this.currentProveedores.razoN_SOCIAL,
+      razonSocial: this.currentProveedores.razonSocial,
       rut: this.currentProveedores.rut,
       dv: this.currentProveedores.dv,
       estado: this.currentProveedores.estado,
@@ -346,10 +347,10 @@ getEspecialidades(especialidades: string): string[] {
   formatRut(rut: string): string {
     // Agregar puntos al RUT en el formato XX.XXX.XXX
     if (rut.length !== 8) return rut; // Asegúrate de que tenga el largo esperado
-  
+
     return `${rut.slice(0, 2)}.${rut.slice(2, 5)}.${rut.slice(5, 8)}`; // Formateo
   }
   //.......
-  
+
 
 }
