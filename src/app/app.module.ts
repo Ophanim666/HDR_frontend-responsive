@@ -8,6 +8,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 // Animaciones
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core'; // Importa MatNativeDateModule para el adaptador de fechas nativo
+// Importa otros módulos necesarios de Angular Material
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -113,6 +117,9 @@ import { CrearParametroComponent } from './crear-parametro/crear-parametro.compo
     ReactiveFormsModule,
     MatSelectModule,
     MatOptionModule, // Agrega este módulo
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
   ],
 
   providers: [
