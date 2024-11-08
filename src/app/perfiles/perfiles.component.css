@@ -1,0 +1,132 @@
+/* Estilo para el modal */
+.modal {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+  }
+  
+  .modal-dialog {
+    width: 70%; /* Incrementa el ancho del modal */
+    max-width: 800px; /* Ajusta el tamaño máximo si es necesario */
+  }
+  
+  .modal-content {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+  }
+  
+  .modal-header {
+    text-align: center;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .modal-title {
+    font-size: 1.5em;
+    font-weight: bold;
+  }
+  
+  .modal-body-prov {
+    padding: 20px;
+  }
+  
+  .form-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  /* Fila para campos de formulario */
+  .form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+  
+  /* Estilo específico para los campos en la misma fila */
+  /* .form-row .mat-form-field {
+    flex: 1;
+  } */
+
+  .form-row.nombre {
+    display: flex;
+    gap: 15px;
+    width: 50%;
+  }
+  
+  .form-row.rut {
+    display: flex;
+    gap: 15px;
+  }
+  
+  /* mensaje de rut */
+  .rut-help-text {
+    color: gray;        /* Color gris */
+    font-size: 0.9em;  /* Tamaño de fuente más pequeño */
+    margin-top: 4px;   /* Espacio entre el input y el mensaje */
+    display: block;     /* Asegura que se muestre en su propia línea */
+  }
+  
+  .form-row.mail {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+  }
+  
+  
+
+  .form-row.mail .mat-form-field,
+  .mat-form-field.rut {
+    flex: 1;
+    min-width: 200px;
+    width: 100px;
+  }
+  
+  
+  .mat-form-field.dv{
+    width: 20%;
+  }
+  
+  
+  /* Footer del modal */
+  .modal-footer {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+  }
+  
+  
+  
+  /* Responsivo para pantallas pequeñas */
+  @media (max-width: 768px) {
+    .modal-dialog {
+      width: 90%;
+    }
+  
+    .mat-form-field {
+      width: 100%;
+    }
+  
+    .form-group {
+      flex-direction: column;
+    }
+  
+    /* Ajuste en la disposición de las columnas en pantallas pequeñas */
+    .form-row.especialidad {
+      flex-direction: column;
+    }
+  
+    .columna-nombre, .columna-numero {
+      flex: 1 1 100%;
+    }
+  }
+  
