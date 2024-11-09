@@ -1,0 +1,38 @@
+/* Estilos para los encabezados de los modals */
+.modal-title {
+    font-size: 20px;
+    font-weight: 500;
+    margin: 5px;
+    text-align: center;
+}
+
+/*----- Estilos para campos y toogle slide -----*/
+.form-container {
+    width: 100%;
+}
+
+.form-row {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    margin-bottom: 16px;
+}
+
+.form-row .mat-form-field {
+    margin-right: 0;
+    margin-bottom: 16px;
+}
+
+.form-row .mat-form-field:last-child {
+    margin-bottom: 0;
+}
+
+.toggle-wrapper {
+    align-self: flex-end;
+}
+
+.toggle-label {
+    min-width: 50px; /* Ancho mínimo para el texto del toggle */
+    display: inline-block;
+    text-align: right;
+}
