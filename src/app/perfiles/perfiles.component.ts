@@ -5,12 +5,25 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 import { FormControl } from '@angular/forms';
 
+
+
+
+//Aqui van las interfaces
+interface Parametro {
+  id?: number;
+  parametro: string;
+  // valor: string;
+  iD_TIPO_PARAMETRO: number; // Cambiado para coincidir con la API
+  // estado: number;
+}
+
 @Component({
   selector: 'app-perfiles',
   templateUrl: './perfiles.component.html',
   styleUrl: './perfiles.component.css'
 })
 export class PerfilesComponent {
+  parametros: Parametro[] = [];
   usuarios: any[] = [];
   currentUsuarios: any = {};
   showModalUsuarios = false;
@@ -25,6 +38,7 @@ export class PerfilesComponent {
 
   //URL
   private apiUrl = 'https://localhost:7125/api/Usuarios';
+  private apiUrlParametro = 'https://localhost:7125/api/Parametro';
 
   showErrorModal = false;
   errorMessage: { message: string, isError: boolean } = { message: '', isError: true };
@@ -34,6 +48,7 @@ export class PerfilesComponent {
   constructor(private http: HttpClient){}
   ngOnInit(): void {
   this.loadUsuarios();
+  this.loadParametros();
   }
 
   // Filtrar usuarios
@@ -88,9 +103,9 @@ export class PerfilesComponent {
       dv: '',
       email: '',
       password: '',
-      es_administrador: 1,
-      rol_id: '',
-      estado: 1,
+      es_administrador: 0,
+      rol_id: 0,
+      estado: 0,
     };
     this.showModalUsuarios = true;
     document.body.classList.add('modal-open');
@@ -103,10 +118,12 @@ export class PerfilesComponent {
     document.body.classList.remove('modal-open');
   }
 
-  onToggleChange(event: MatSlideToggleChange, type: string): void {
+  onToggleChange(event: any, type: string): void {
     if (type === 'estado') {
+      // Si el evento es de tipo toggle (mat-slide-toggle), usamos `event.checked`
       this.currentUsuarios.estado = event.checked ? 1 : 0;
     } else if (type === 'es_administrador') {
+      // Si el evento es de tipo checkbox (mat-checkbox), también usamos `event.checked`
       this.currentUsuarios.es_administrador = event.checked ? 1 : 0;
     }
   }
@@ -120,6 +137,24 @@ export class PerfilesComponent {
     }
   }
 
+  //Listar los Parametros ........
+  loadParametros(): void {
+    this.http.get<any>(`${this.apiUrlParametro}/Listar`).subscribe({
+      next: response => {
+        if (response.estado.ack) {
+          this.parametros = response.body.response;
+          // this.updatePageParametro();
+        } else {
+          this.showError(`Error al cargar los Usuarios: ${response.estado.errDes}`, true);
+        }
+      },
+      error: error => {
+        console.error('Error al cargar los datos:', error);
+        this.showError('Error en la solicitud al cargar los datos.', true);
+      }
+    });
+  }
+  //.....................
 
   // Listado de Usuarios ...........
   loadUsuarios(): void {
@@ -158,6 +193,7 @@ export class PerfilesComponent {
 
   // Creacion de Usuarios ..............
   createUsuario(): void {
+    console.log(this.currentUsuarios.es_administrador)
     this.http.post(`${this.apiUrl}/add`, this.currentUsuarios).subscribe({
       next: (response: any) => {
         if (response.estado.ack) {
@@ -181,21 +217,8 @@ export class PerfilesComponent {
    // Editar Usuarios .......
    updateUsuario(): void {
     const url = `${this.apiUrl}/Actualizar/${this.currentUsuarios.id}`;
-    const updatedData = {
-            primer_nombre: this.currentUsuarios.primer_nombre,
-            segundo_nombre: this.currentUsuarios.segundo_nombre,
-            primer_apellido: this.currentUsuarios.primer_apellido,
-            segundo_apellido: this.currentUsuarios.segundo_apellido,
-            rut: this.currentUsuarios.rut,
-            dv: this.currentUsuarios.dv,
-            email: this.currentUsuarios.email,
-            password: this.currentUsuarios.password,
-            es_administrador: this.currentUsuarios.es_administrador,
-            rol_id: this.currentUsuarios.rol_id,
-            estado: this.currentUsuarios.estado
-    };
-
-    this.http.put<any>(url, updatedData).subscribe({
+    console.log(this.currentUsuarios.es_administrador);
+    this.http.put<any>(url, this.currentUsuarios).subscribe({
       next: (response: any) => {
         if (response?.estado?.ack) {
           console.log('Usuario actualizado:', response);
@@ -279,6 +302,19 @@ export class PerfilesComponent {
   }
   //...............................
 
+  //Obtener los nombres de parametros .................
+  getRolNombre(id: number): string {
+    const rol = this.parametros.find(elemento => {
+        return elemento.id === id;
+    });
+
+    if (!rol) {
+        return `Tipo ${id}`;
+    }
+
+    return rol.parametro; 
+  }
+  //..........................
 
 }
 

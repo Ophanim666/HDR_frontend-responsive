@@ -25,10 +25,13 @@
   <thead>
     <tr>
       <th>Nombre</th>
-      <th>Apellido</th>
       <th>Rut</th>
       <th>Correo</th> 
+      <th>Contraseña</th> <!-- Quitar el apartado de contraseña -->
+      <th>Rol</th>
+      <th>Rol ID</th>
       <th>Estado</th>
+      <th>Administrador</th>
       
       <th></th>
     </tr>
@@ -39,6 +42,9 @@
         <td>{{ usuario.primer_nombre }} {{ usuario.primer_apellido }}</td>
         <td>{{ formatRut(usuario.rut) }}-{{ usuario.dv.toUpperCase() }}</td>
         <td>{{ usuario.email }}</td>
+        <td>{{ usuario.password }}</td>  <!-- Quitar el apartado de contraseña -->
+        <td>{{ getRolNombre(usuario.rol_id) }}</td>
+        <td> {{ usuario.rol_id }}</td>
         <td>{{ usuario.estado=== 1 ? 'Activo' : 'Inactivo' }}</td>
         <td>{{ usuario.es_administrador=== 1 ? 'Activo' : 'Inactivo' }}</td>
         
@@ -160,7 +166,7 @@
 
             <br>
 
-            <!-- Campo Correo -->
+            <!-- Campo Correo y contraseña -->
             <div class="form-row.mail">
               <mat-form-field class="mat-form-field email">
                 <mat-label>Correo</mat-label>
@@ -172,42 +178,60 @@
                   required
                 />
               </mat-form-field>
+             
+              
+              <mat-form-field *ngIf="!isEditMode" class="mat-form-field contra">
+                <mat-label >Contraseña</mat-label>
+                <input
+                  matInput
+                  placeholder="password"
+                  [(ngModel)]="currentUsuarios.password"
+                  name="password"
+                  required
+                />
+              </mat-form-field>
             </div>
 
 
             <!-- Campo de rol, administrador y estado -->
             <div class="form-row roles">
-                <mat-form-field class="mat-form-field rol">
+                <mat-form-field class="mat-form-field">
                   <mat-label>Rol</mat-label>
-                  <input
-                    matInput
-                    placeholder="id Rol"
-                    [(ngModel)]="currentUsuarios.rol_id"
-                    name="rol_id"
-                    required
-                  />
-                </mat-form-field>
-              
-              
-                <div class="toggle-wrapper">
-                  <mat-slide-toggle
-                    [(ngModel)]="currentUsuarios.es_administrador"
-                    (change)="onToggleChange($event, 'es_administrador')"
-                    name="es_administrador"
-                    labelPosition="before">
-                    <span class="toggle-label">{{ currentUsuarios.es_administrador === 1 ? 'Activo' : 'Inactivo' }}</span>
-                  </mat-slide-toggle>
-                </div>
+                  <mat-select [(ngModel)]="currentUsuarios.rol_id" 
+                              name="rol" 
+                              required 
+                              #rolField="ngModel">
+                    <mat-option *ngFor="let tipo of parametros" [value]="tipo.id">
+                      {{ tipo.parametro }}
+                    </mat-option>                     
+                  </mat-select>
+                  <mat-error *ngIf="rolField.invalid && rolField.touched">
+                    Debe seleccionar un Rol
+                  </mat-error>
+                </mat-form-field>        
+            </div>
 
-                <div class="toggle-wrapper">
-                  <mat-slide-toggle
-                    [(ngModel)]="currentUsuarios.estado"
-                    (change)="onToggleChange($event, 'estado')"
-                    name="estado"
-                    labelPosition="before">
-                    <span class="toggle-label">{{ currentUsuarios.estado === 1 ? 'Activo' : 'Inactivo' }}</span>
-                  </mat-slide-toggle>
-                </div>
+            <div class="form-row cheks">
+              <!-- Checkbox para es_administrador -->
+              <div class="checkbox-wrapper">
+                <mat-checkbox
+                  [(ngModel)]="currentUsuarios.es_administrador"
+                  (change)="onToggleChange($event, 'es_administrador')"
+                  name="es_administrador">
+                  <span class="checkbox-label">{{ currentUsuarios.es_administrador === 1 ? 'Activo' : 'Inactivo' }}</span>
+                </mat-checkbox>
+              </div>
+
+              <!-- Toggle para estado -->
+              <div class="toggle-wrapper">
+                <mat-slide-toggle
+                  [(ngModel)]="currentUsuarios.estado"
+                  (change)="onToggleChange($event, 'estado')"
+                  name="estado"
+                  labelPosition="before">
+                  <span class="toggle-label">{{ currentUsuarios.estado === 1 ? 'Activo' : 'Inactivo' }}</span>
+                </mat-slide-toggle>
+              </div>
             </div>
 
         </div>

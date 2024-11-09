@@ -15,6 +15,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatOptionModule } from '@angular/material/core';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 // Rutas y HttpClient
 import { AppRoutingModule } from './app-routing.module';
@@ -76,6 +77,7 @@ import { CrearParametroComponent } from './crear-parametro/crear-parametro.compo
     MatTooltipModule,
     MatSelectModule,
     MatOptionModule,
+    MatCheckboxModule,
   ],
 
   providers: [],
