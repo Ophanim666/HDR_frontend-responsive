@@ -30,7 +30,7 @@
       <td>{{ obra.nombre }}</td>
       <td>{{ obra.estado === 1 ? 'Activo' : 'Inactivo' }}</td>
       <td>{{ obra.usuario_creacion }}</td>
-      <td>{{ obra.fecha_creacion | date: 'dd/MM/yyyy' }}</td>
+      <td>{{ obra.fechA_CREACION | date: 'dd/MM/yyyy' }}</td>
       <td class="actions-column">
         <div class="button-container">
           <button mat-flat-button color="primary" class="mat-flat-button editar" (click)="openModalObra(obra)">
@@ -65,19 +65,20 @@
       <!-- Body -->
       <div class="modal-body">
         <form (ngSubmit)="saveObra()" #obraForm="ngForm" class="form-container">
+          <div class="form-row">
+          
           <!-- Campo para nombre de obra -->
           <mat-form-field class="mat-form-field">
             <mat-label>Obra</mat-label>
             <input
               matInput
-              placeholder="Nombre de la obra"
+              placeholder=""
               [(ngModel)]="currentObra.nombre"
               name="nombre"
               required
             />
-          </mat-form-field>        
-        </form>
-
+          </mat-form-field>            
+          
           <!-- Campo para estado (slide toggle) -->
           <mat-slide-toggle
             [(ngModel)]="currentObra.estado"
@@ -85,8 +86,12 @@
             name="estado"
             labelPosition="before">
             <span class="toggle-label">{{ currentObra.estado === 1 ? 'Activo' : 'Inactivo' }}</span>
-          </mat-slide-toggle>
-      </div>
+          </mat-slide-toggle>   
+        </div>  
+    </form>
+  </div>
+
+
 
       <!-- Footer para los botones del modal -->
       <div class="modal-footer">

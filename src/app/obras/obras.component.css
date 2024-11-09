@@ -5,3 +5,33 @@
     margin: 5px;
     text-align: center;
 }
+
+/*----- Estilos para campos y toogle slide -----*/
+.form-container {
+    width: 100%;
+}
+
+.form-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: -20px;
+}
+
+.mat-form-field {
+    flex-grow: 1;
+    margin-right: 20px;
+}
+
+.toggle-wrapper {
+    display: flex;
+    align-items: center;
+    width: 120px; /* Ancho fijo para el contenedor del toggle */
+    justify-content: flex-end; /* Alinea el toggle a la derecha */
+}
+
+.toggle-label {
+    min-width: 50px; /* Ancho mínimo para el texto del toggle */
+    display: inline-block;
+    text-align: right;
+}

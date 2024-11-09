@@ -36,6 +36,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 import { ReactiveFormsModule } from '@angular/forms';
 
 // Para los items de especialidad
@@ -66,6 +68,7 @@ import { GestionTipoParametrosComponent } from './gestion-tipo-parametros/gestio
 
 import { ParametrosComponent } from './parametros/parametros.component';
 import { CrearParametroComponent } from './crear-parametro/crear-parametro.component';
+
 
 @NgModule({
   declarations: [
@@ -120,6 +123,8 @@ import { CrearParametroComponent } from './crear-parametro/crear-parametro.compo
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
+    MatCheckboxModule,
+    MatRadioModule,
   ],
 
   providers: [
