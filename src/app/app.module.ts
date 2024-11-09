@@ -63,6 +63,9 @@ import { GestionTipoParametrosComponent } from './gestion-tipo-parametros/gestio
 import { ParametrosComponent } from './parametros/parametros.component';
 import { CrearParametroComponent } from './crear-parametro/crear-parametro.component';
 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -113,6 +116,8 @@ import { CrearParametroComponent } from './crear-parametro/crear-parametro.compo
     ReactiveFormsModule,
     MatSelectModule,
     MatOptionModule, // Agrega este módulo
+    MatDatepickerModule,
+    MatNativeDateModule
   ],
 
   providers: [

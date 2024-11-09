@@ -74,23 +74,6 @@
               <input matInput [(ngModel)]="currentActa.obrA_ID" name="obra" required>
             </mat-form-field>
 
-            
-
-            <mat-form-field class="mat-form-field">
-              <mat-label>Especialidad</mat-label>
-              <mat-select [(ngModel)]="currentActa.especialidaD_ID" 
-                          name="especialidad" 
-                          required 
-                          #especialidadField="ngModel">
-                <mat-option *ngFor="let tipo of especialidad" [value]="tipo.id">
-                  {{ tipo.nombre }}
-                </mat-option>
-              </mat-select>
-              <mat-error *ngIf="especialidadField.invalid && especialidadField.touched">
-                Debe seleccionar un tipo de parámetro
-              </mat-error>
-            </mat-form-field>
-
             <mat-form-field class="mat-form-field">
               <mat-label>Proveedor</mat-label>
               <mat-select [(ngModel)]="currentActa.proveedoR_ID" 
@@ -107,8 +90,65 @@
             </mat-form-field>
 
             <mat-form-field class="mat-form-field">
-              <mat-label>Valor</mat-label>
-              <input matInput [(ngModel)]="currentActa.especialidaD_ID" name="especialidad" required>
+              <mat-label>Especialidad</mat-label>
+              <mat-select [(ngModel)]="currentActa.especialidaD_ID" 
+                          name="especialidad" 
+                          required 
+                          #especialidadField="ngModel">
+                <mat-option *ngFor="let tipo of especialidad" [value]="tipo.id">
+                  {{ tipo.nombre }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="especialidadField.invalid && especialidadField.touched">
+                Debe seleccionar un tipo de parámetro
+              </mat-error>
+            </mat-form-field>
+
+            <!-- <mat-form-field class="mat-form-field">
+              <mat-label>Fecha Aprobacion</mat-label>
+              <input matInput [(ngModel)]="currentActa.fechA_APROBACION" name="fecha_aprobacion" required>
+            </mat-form-field> -->
+
+            <mat-form-field class="mat-form-field">
+              <mat-label>Fecha Aprobación</mat-label>
+              <input matInput [matDatepicker]="picker" [(ngModel)]="currentActa.fechA_APROBACION" name="fecha_aprobacion" required>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="mat-form-field">
+              <mat-label>Estado Acta</mat-label>
+              <mat-select [(ngModel)]="currentActa.estadO_ID" 
+                          name="estado" 
+                          required 
+                          #estadoField="ngModel">
+                <mat-option *ngFor="let tipo of parametros" [value]="tipo.id">
+                  {{ tipo.parametro }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="estadoField.invalid && estadoField.touched">
+                Debe seleccionar un estado del acta
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="mat-form-field">
+              <mat-label>descripcion</mat-label>
+              <input matInput [(ngModel)]="currentActa.observacion" name="descripcion" required>
+            </mat-form-field>
+
+            <mat-form-field class="mat-form-field">
+              <mat-label>Administrador</mat-label>
+              <mat-select [(ngModel)]="currentActa.revisoR_ID" 
+                          name="revisor" 
+                          required 
+                          #revisorField="ngModel">
+                <mat-option *ngFor="let tipo of usuario" [value]="tipo.id">
+                  {{ tipo.primer_nombre }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="revisorField.invalid && revisorField.touched">
+                Debe seleccionar un administrador del acta
+              </mat-error>
             </mat-form-field>
 
             
@@ -135,11 +175,11 @@
             <mat-icon>delete</mat-icon>Eliminar
           </button> -->
         </div>
-        <!-- <button mat-flat-button [ngClass]="{'agregar': !isEditMode, 'actualizar': isEditMode}" 
-                class="mat-flat-button" (click)="saveParametro()">
+        <button mat-flat-button [ngClass]="{'agregar': !isEditMode, 'actualizar': isEditMode}" 
+                class="mat-flat-button" (click)="saveActa()">
           <mat-icon>{{ isEditMode ? 'save' : 'add_circle' }}</mat-icon>
           {{ isEditMode ? 'Actualizar' : 'Agregar' }}
-        </button> -->
+        </button>
       </div>
     </div>
   </div>

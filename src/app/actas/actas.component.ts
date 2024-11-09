@@ -36,7 +36,7 @@ interface Acta {
   proveedoR_ID: number;
   especialidaD_ID: number; // Cambiado para coincidir con la API
   estadO_ID: number;
-  fechA_APROBACION: string;
+  fechA_APROBACION: Date;
   observacion: string;
   revisoR_ID: number;
 }
@@ -81,8 +81,8 @@ export class ActasComponent implements OnInit {
   ngOnInit(): void {
     // Carga inicial de parámetros y tipos de parámetros
     this.loadActas()
-    this.loadParametros();
     this.loadTipoParametros();
+    //this.loadParametros();
     this.loadProveedores();
     this.loadEspecialidades();
     this.loadUsuarios();
@@ -96,7 +96,7 @@ export class ActasComponent implements OnInit {
       proveedoR_ID: 0,
       especialidaD_ID: 0, // valor por defecto
       estadO_ID: 0,
-      fechA_APROBACION: '',
+      fechA_APROBACION: new Date(),
       observacion: '',
       revisoR_ID: 0
     };
@@ -109,6 +109,8 @@ export class ActasComponent implements OnInit {
         if (response.estado?.ack) {
           this.tipoParametros = response.body.response;
           console.log('Tipos de parámetros cargados:', this.tipoParametros);
+
+          this.loadParametros();
         } else {
           this.showError(`Error al cargar los tipos de parámetros: ${response.estado?.errDes}`, true);
         }
@@ -173,12 +175,46 @@ export class ActasComponent implements OnInit {
 
   
 
-  // Función para cargar parámetros desde la API
+  // // Función para cargar parámetros desde la API
+  // loadParametros(): void {
+  //   this.http.get<any>(`${this.apiUrl}/Listar`).subscribe({
+  //     next: response => {
+  //       if (response.estado.ack) {
+  //         this.parametros = response.body.response.filter(
+  //           (parametro: Parametro) => parametro.iD_TIPO_PARAMETRO === 86
+  //         );
+  //         this.updatePageParametro();
+  //       } else {
+  //         this.showError(`Error al cargar los Parámetros: ${response.estado.errDes}`, true);
+  //       }
+  //     },
+  //     error: error => {
+  //       console.error('Error al cargar los datos:', error);
+  //       this.showError('Error en la solicitud al cargar los datos.', true);
+  //     }
+  //   });
+  // }
+
+  //Función para cargar parámetros desde la API
   loadParametros(): void {
     this.http.get<any>(`${this.apiUrl}/Listar`).subscribe({
       next: response => {
         if (response.estado.ack) {
-          this.parametros = response.body.response;
+          // Busca el ID del tipo de parámetro cuyo nombre es "Estado Acta"
+          const tipoEstadoActa = this.tipoParametros.find(
+            tipo => tipo.tipO_PARAMETRO === "Estado Acta"
+          );
+  
+          // Si encontramos el ID, filtramos los parámetros
+          if (tipoEstadoActa) {
+            this.parametros = response.body.response.filter(
+              (parametro: Parametro) => parametro.iD_TIPO_PARAMETRO === tipoEstadoActa.id
+            );
+          } else {
+            console.warn('No se encontró el tipo de parámetro "Estado Acta".');
+            this.parametros = [];
+          }
+  
           this.updatePageParametro();
         } else {
           this.showError(`Error al cargar los Parámetros: ${response.estado.errDes}`, true);
@@ -259,53 +295,68 @@ export class ActasComponent implements OnInit {
     document.body.classList.remove('modal-open');
   }
 
-  // // Función para guardar el parámetro (crear o actualizar)
-  // saveParametro(): void {
-  //   if (this.isEditMode) {
-  //     this.updateParametro();
-  //   } else {
-  //     this.createParametro();
-  //   }
-  // }
+  // Función para guardar el parámetro (crear o actualizar)
+  saveActa(): void {
+    if (this.isEditMode) {
+      this.updateActa();
+    } else {
+      this.createActa();
+    }
+  }
 
-  // // Función para crear un nuevo parámetro
-  // createParametro(): void {
-  //   this.http.post(`${this.apiUrl}/add`, this.currentParametro).subscribe({
-  //     next: (response: any) => {
-  //       if (response.estado.ack) {
-  //         this.showError('Parámetro creado exitosamente.', false);
-  //         this.loadParametros();
-  //         this.closeModalParametro();
-  //       } else {
-  //         this.showError(`Error al crear el Parámetro: ${response.estado.errDes}`, true);
-  //       }
-  //     },
-  //     error: error => {
-  //       console.error('Error en la solicitud:', error);
-  //       this.showError('Error en la solicitud.', true);
-  //     }
-  //   });
-  // }
+  // Función para crear un nuevo parámetro
+  createActa(): void {
+    // Convertimos la fecha a formato de cadena "YYYY-MM-DD"
+    const formattedActa = {
+      ...this.currentActa,
+      fechA_APROBACION: this.currentActa.fechA_APROBACION ? 
+        this.currentActa.fechA_APROBACION.toISOString().split('T')[0] : null
+    };
 
-  // // Función para actualizar un parámetro existente
-  // updateParametro(): void {
-  //   const url = `${this.apiUrl}/Actualizar/${this.currentParametro.id}`;
-  //   this.http.put<any>(url, this.currentParametro).subscribe({
-  //     next: (response: any) => {
-  //       if (response?.estado?.ack) {
-  //         this.showError('Parámetro actualizado exitosamente.', false);
-  //         this.loadParametros();
-  //         this.closeModalParametro();
-  //       } else {
-  //         this.showError(`Error al actualizar el Parámetro: ${response?.estado?.errDes || 'Error desconocido'}`, true);
-  //       }
-  //     },
-  //     error: (error) => {
-  //       console.error('Error en la solicitud:', error);
-  //       this.showError('Error en la solicitud al actualizar el Parámetro.', true);
-  //     }
-  //   });
-  // }
+
+
+    this.http.post(`${this.apiUrlActas}/add`, formattedActa).subscribe({
+      next: (response: any) => {
+        if (response.estado.ack) {
+          this.showError('Acta creado exitosamente.', false);
+          this.loadActas();
+          this.closeModalActa();
+        } else {
+          this.showError(`Error al crear el Acta: ${response.estado.errDes}`, true);
+        }
+      },
+      error: error => {
+        console.error('Error en la solicitud:', error);
+        this.showError('Error en la solicitud.', true);
+      }
+    });
+  }
+
+  // Función para actualizar un parámetro existente
+  updateActa(): void {
+    const formattedActa = {
+      ...this.currentActa,
+      fechA_APROBACION: this.currentActa.fechA_APROBACION ?
+        this.currentActa.fechA_APROBACION.toISOString().split('T')[0] : null
+    };
+
+    const url = `${this.apiUrlActas}/Actualizar/${this.currentActa.id}`;
+    this.http.put<any>(url, formattedActa).subscribe({
+      next: (response: any) => {
+        if (response?.estado?.ack) {
+          this.showError('Acta actualizado exitosamente.', false);
+          this.loadActas();
+          this.closeModalActa();
+        } else {
+          this.showError(`Error al actualizar el Acta: ${response?.estado?.errDes || 'Error desconocido'}`, true);
+        }
+      },
+      error: (error) => {
+        console.error('Error en la solicitud:', error);
+        this.showError('Error en la solicitud al actualizar el Parámetro.', true);
+      }
+    });
+  }
 
   // // Función para confirmar la eliminación de un parámetro
   // confirmDelete(id: number): void {
