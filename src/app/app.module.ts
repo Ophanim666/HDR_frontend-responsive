@@ -8,6 +8,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 // Animaciones
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core'; // Importa MatNativeDateModule para el adaptador de fechas nativo
+// Importa otros módulos necesarios de Angular Material
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -32,6 +36,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 import { ReactiveFormsModule } from '@angular/forms';
 
 // Para los items de especialidad
@@ -62,6 +68,7 @@ import { GestionTipoParametrosComponent } from './gestion-tipo-parametros/gestio
 
 import { ParametrosComponent } from './parametros/parametros.component';
 import { CrearParametroComponent } from './crear-parametro/crear-parametro.component';
+
 
 @NgModule({
   declarations: [
@@ -113,6 +120,11 @@ import { CrearParametroComponent } from './crear-parametro/crear-parametro.compo
     ReactiveFormsModule,
     MatSelectModule,
     MatOptionModule, // Agrega este módulo
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatRadioModule,
   ],
 
   providers: [
