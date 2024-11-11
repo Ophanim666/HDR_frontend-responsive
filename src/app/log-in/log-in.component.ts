@@ -12,7 +12,7 @@ export class LogInComponent {
   password: string = '';  // Captura la contraseña del usuario
   errorMessage: string = '';  // Mensaje de error si ocurre uno
 
-  private apiUrl = 'https://localhost:7125/api/LogInConreoller/login';  // URL de tu API
+  private apiUrl = 'https://localhost:7125/api/LogIn/login';  // URL de tu API
 
   constructor(private http: HttpClient, private router: Router) { }
 
