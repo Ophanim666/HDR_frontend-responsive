@@ -1,107 +1,115 @@
-/* Fondo con diseño */
-.background-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url('/assets/background-image.jpg') no-repeat center center fixed; /* Reemplaza con la ruta correcta de tu imagen de fondo */
-  background-size: cover; /* Asegura que la imagen cubra toda el área */
-  display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-}
-
-/* Estilos para el contenedor de inicio de sesión */
 .login-container {
   max-width: 400px;
-  width: 90%; /* Hace que el contenedor sea responsivo */
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
-  background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco con opacidad para que se vea el fondo de diseño */
-  transition: all 0.3s ease;
+  width: 100%;
+  height: 100%;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 98px;;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* Aseguramos que el formulario esté al frente */
 }
 
-/* Estilo para el encabezado */
+.logo {
+  margin-bottom: 10px;
+  width: 420px; /* Aumentamos el ancho del contenedor */
+  display: flex;
+  justify-content: center;
+}
+
+.logo img {
+  width: 100%; /* La imagen ocupará el 100% del contenedor */
+  height: auto; /* Mantiene la proporción de aspecto */
+  max-width: 420px; /* Evita que la imagen se agrande demasiado */
+}
+
 h2 {
-  text-align: center;
+  font-size: 24px;
   color: #333;
-  margin-bottom: 20px;
+  margin: 0;
+  margin-bottom: 8px;
+  font-weight: 500;
 }
 
-/* Estilo para los grupos de formularios */
+.subtitle {
+  color: #666;
+  margin: 0;
+  margin-bottom: 5;
+  font-size: 16px;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 360px;
+}
+
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 16px;
 }
 
-/* Estilo para las etiquetas */
-label {
-  display: block;
-  font-weight: bold;
-  margin-bottom: 5px;
-  color: #555;
-}
-
-/* Estilo para los campos de entrada */
 input {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ccc;
+  padding: 12px 16px;
+  border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 16px;
-  transition: border 0.3s ease;
+  font-size: 14px;
+  color: #333;
 }
 
-/* Cambiar color del borde al enfocar el campo */
-input:focus {
-  border-color: #007BFF;
-  outline: none;
+input::placeholder {
+  color: #999;
 }
 
-/* Estilo para el botón de inicio de sesión */
 .login-button {
   width: 100%;
-  padding: 10px;
-  background-color: #007BFF;
+  padding: 12px;
+  background-color: #000;
   color: white;
   border: none;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 14px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  margin-top: 8px;
 }
 
-/* Cambiar color al pasar el mouse */
 .login-button:hover {
-  background-color: #0056b3;
+  background-color: #141414;
 }
 
-/* Estilo para el mensaje de error */
-.error-message {
-  color: red;
-  margin-top: 15px;
-  text-align: center;
-}
-
-/* Estilo para el enlace de olvidar contraseña */
 .forgot-password {
+  margin-top: 16px;
   text-align: center;
-  margin-top: 10px;
 }
 
 .forgot-password a {
-  color: #007BFF;
+  color: #666;
   text-decoration: none;
+  font-size: 14px;
 }
 
 .forgot-password a:hover {
   text-decoration: underline;
 }
 
-/* Media queries para asegurar que el login sea responsivo */
-@media (max-width: 600px) {
-  .login-container {
-    width: 95%; /* Más ancho en pantallas pequeñas */
-  }
+/* Asegurarse de que use todo el espacio disponible */
+:host {
+  display: block;
+  width: 100%;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+}
+
+/* Para el mensaje de error */
+.error-message {
+  background-color: #fee2e2;
+  color: #dc2626;
+  padding: 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  font-size: 0.875rem;
+  text-align: center;
 }

@@ -1,8 +1,12 @@
-<div class="main-container" [class.collapsed]="isSideNavCollapsed">
-  <!-- Mostrar el sidenav solo si no estamos en la ruta /login -->
-  <app-sidenav *ngIf="showSidenav" (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
+<div class="main-container" [ngClass]="{'login-page': !showSidenav, 'with-sidenav': showSidenav}" [class.collapsed]="isSideNavCollapsed">
+  <!-- Sidenav -->
+  <app-sidenav 
+    *ngIf="showSidenav" 
+    (onToggleSideNav)="onToggleSideNav($event)">
+  </app-sidenav>
 
-  <div class="content">
+  <!-- Content -->
+  <div class="content" [ngClass]="{'full-width': !showSidenav}">
     <app-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth"></app-body>
   </div>
 </div>

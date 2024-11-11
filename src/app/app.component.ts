@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd, NavigationStart } from '@angular/router';  // Importamos Router y NavigationEnd
-import { filter } from 'rxjs/operators';  // Importamos filter para filtrar eventos de navegación
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 interface SideNavToggle {
   screenWidth: number;
@@ -10,32 +10,39 @@ interface SideNavToggle {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']  // Corregí "styleUrl" por "styleUrls"
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
   title = 'HRD_BI_FrontEnd_Responsive';
-
   isSideNavCollapsed = false;
   screenWidth = 0;
-  showSidenav = true;  // Nueva propiedad para controlar la visualización del sidenav
+  showSidenav = true;
 
-  constructor(private router: Router) {}
-
-  ngOnInit(): void {
-    // Nos suscribimos a los eventos del Router para detectar cambios de ruta
-    this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd))  // Filtramos solo los eventos de tipo NavigationEnd
-      .subscribe((event) => {
-        if (event instanceof NavigationEnd) {  // Verificamos el tipo del evento
-          // Si la ruta es /login, ocultamos el sidenav
-          this.showSidenav = event.url !== '/login';
-        }
-      });
+  constructor(private router: Router) {
+    // Verificar la ruta inicial
+    this.showSidenav = !this.router.url.includes('/login');
   }
 
-  // Funcionalidad para colapsar o expandir el sidenav
+  ngOnInit(): void {
+    // Suscribirse a los cambios de ruta
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      // Ahora TypeScript sabe que event es de tipo NavigationEnd
+      this.showSidenav = !event.urlAfterRedirects.includes('/login');
+      
+      // Si estamos en login, asegurarse de que el contenido ocupe todo el ancho
+      if (event.urlAfterRedirects.includes('/login')) {
+        this.isSideNavCollapsed = false;
+        this.screenWidth = window.innerWidth;
+      }
+    });
+  }
+
   onToggleSideNav(data: SideNavToggle): void {
-    this.screenWidth = data.screenWidth;
-    this.isSideNavCollapsed = data.collapsed;
+    if (this.showSidenav) {
+      this.screenWidth = data.screenWidth;
+      this.isSideNavCollapsed = data.collapsed;
+    }
   }
 }

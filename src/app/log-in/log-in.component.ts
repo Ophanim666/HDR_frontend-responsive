@@ -29,7 +29,7 @@ export class LogInComponent {
         localStorage.setItem('token', token);
 
         // Redirigir a la página principal
-        this.router.navigate(['/gestion-especialidad']);
+        this.router.navigate(['/dashboard']);
       },
       error: (error) => {
         console.error('Error al iniciar sesión:', error);
