@@ -8,6 +8,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 // Animaciones
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core'; // Importa MatNativeDateModule para el adaptador de fechas nativo
+// Importa otros módulos necesarios de Angular Material
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -24,16 +28,19 @@ import { MatInputModule } from '@angular/material/input';
 // Forms Angular
 import { MatFormFieldModule } from '@angular/material/form-field';
 // Switch ANGULAR
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+// Select simple
+import {MatSelectModule} from '@angular/material/select';
 
-// Esto es para el formulario del proveedores ya que es el que tiene más inputs
-import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { MatTooltipModule } from '@angular/material/tooltip';
+// Esto es para el formulario del proveedores ya que es el que tiene mas inputs
+import {MatIconModule} from '@angular/material/icon';
+import {MatCardModule} from '@angular/material/card';
+import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 import { ReactiveFormsModule } from '@angular/forms';
 
-// Para los item de especialidad
-import { MatSelectModule } from '@angular/material/select';
+// Para los items de especialidad
 import { MatOptionModule } from '@angular/material/core'; // Este módulo contiene mat-option
 
 import { ActasComponent } from './actas/actas.component';
@@ -65,6 +72,7 @@ import { LogInComponent } from './log-in/log-in.component';
 
 // Importa el interceptor
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -101,8 +109,10 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     // Animaciones
     BrowserAnimationsModule,
     AppRoutingModule,
-
-    // HTTPClient
+    
+    MatSelectModule,
+    
+    //HTTPclient
     HttpClientModule,
     MatDialogModule,
     MatButtonModule,
@@ -115,6 +125,11 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     ReactiveFormsModule,
     MatSelectModule,
     MatOptionModule, // Agrega este módulo
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatRadioModule,
   ],
 
   providers: [
