@@ -54,6 +54,13 @@ export const navbarData = [
     icon: 'fa-solid fa-gear',
     label: 'Parámetros'
   },
+  //logOut
+  {
+    RouterLink: 'logout',
+    icon: 'fa-solid fa-sign-out-alt',
+    label: 'Cerrar sesión',
+    action: 'logout'  // Acción personalizada para el logout
+  }
 
 ];
 

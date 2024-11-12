@@ -1,6 +1,12 @@
-<div class="main-container" [class.collapsed]="isSideNavCollapsed">
-    <app-sidenav (onToggleSideNav)="onToggleSideNav($event)"></app-sidenav>
-    <div class="content">
-      <app-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth"></app-body>
-    </div>
+<div class="main-container" [ngClass]="{'login-page': !showSidenav, 'with-sidenav': showSidenav}" [class.collapsed]="isSideNavCollapsed">
+  <!-- Sidenav -->
+  <app-sidenav 
+    *ngIf="showSidenav" 
+    (onToggleSideNav)="onToggleSideNav($event)">
+  </app-sidenav>
+
+  <!-- Content -->
+  <div class="content" [ngClass]="{'full-width': !showSidenav}">
+    <app-body [collapsed]="isSideNavCollapsed" [screenWidth]="screenWidth"></app-body>
   </div>
+</div>

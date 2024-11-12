@@ -24,9 +24,9 @@ import { MatButtonModule } from '@angular/material/button';
 // Crear modal dialogs
 import { MatDialogModule } from '@angular/material/dialog';
 // Usar inputs Angular
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 // Forms Angular
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 // Switch ANGULAR
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 // Select simple
@@ -43,7 +43,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 // Para los items de especialidad
 import { MatOptionModule } from '@angular/material/core'; // Este módulo contiene mat-option
 
-
 import { ActasComponent } from './actas/actas.component';
 import { PerfilesComponent } from './perfiles/perfiles.component';
 import { ObrasComponent } from './obras/obras.component';
@@ -51,6 +50,7 @@ import { GestionTareaComponent } from './gestion-tarea/gestion-tarea.component';
 
 // HTTPclient
 import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // Crear usuarios
 import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
@@ -60,14 +60,18 @@ import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usu
 
 // Gestión de proveedores
 import { GestionProveedoresComponent } from './gestion-proveedores/gestion-proveedores.component';
-import { GestionEspecialidadComponent } from './gestion-especialidad/gestion-especialidad.component'; 
+import { GestionEspecialidadComponent } from './gestion-especialidad/gestion-especialidad.component';
 import { HeaderComponent } from './header/header.component';
 
-// Rama que está trbajando Álvaro para el CRUD tipo de parámetro
+// Rama que está trabajando Álvaro para el CRUD tipo de parámetro
 import { GestionTipoParametrosComponent } from './gestion-tipo-parametros/gestion-tipo-parametros.component';
 
 import { ParametrosComponent } from './parametros/parametros.component';
 import { CrearParametroComponent } from './crear-parametro/crear-parametro.component';
+import { LogInComponent } from './log-in/log-in.component';
+
+// Importa el interceptor
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 
 @NgModule({
@@ -92,13 +96,14 @@ import { CrearParametroComponent } from './crear-parametro/crear-parametro.compo
     GestionTipoParametrosComponent,
     ParametrosComponent,
     CrearParametroComponent,
+    LogInComponent,
   ],
 
   imports: [
     BrowserModule,
     FormsModule,
 
-    //paginacion
+    // Paginación
     MatPaginatorModule,
 
     // Animaciones
@@ -128,10 +133,14 @@ import { CrearParametroComponent } from './crear-parametro/crear-parametro.compo
   ],
 
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    {
+      provide: HTTP_INTERCEPTORS, // Proporciona el interceptor
+      useClass: AuthInterceptor,  // Clase del interceptor
+      multi: true,  // Permite múltiples interceptores
+    },
   ],
 
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-
 export class AppModule {}

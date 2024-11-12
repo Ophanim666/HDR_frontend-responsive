@@ -1,0 +1,121 @@
+.login-container {
+  max-width: 400px;
+  width: 100%;
+  height: 100%;
+  padding: 40px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 80px;;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10; /* Aseguramos que el formulario esté al frente */
+}
+
+.logo {
+  margin-bottom: 10px;
+  width: 430px; /* Aumentamos el ancho del contenedor */
+  display: flex;
+  justify-content: center;
+}
+
+.logo img {
+  width: 100%; /* La imagen ocupará el 100% del contenedor */
+  height: auto; /* Mantiene la proporción de aspecto */
+  max-width: 430px; /* Evita que la imagen se agrande demasiado */
+}
+
+h2 {
+  font-size: 24px;
+  color: #333;
+  margin: 0;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.subtitle {
+  color: #666;
+  margin: 0;
+  margin-bottom: 5;
+  font-size: 16px;
+}
+
+.login-form {
+  width: 100%;
+  max-width: 380px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+input {
+  width: 100%;
+  padding: 15px 20px; /* Aumentar el padding */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 16px; /* Aumentar el tamaño de la fuente */
+  color: #333;
+}
+
+input::placeholder {
+  color: #999;
+}
+
+.login-button {
+  width: 100%;
+  padding: 15px;
+  background-color: #000;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 8px;
+}
+
+.login-button:hover {
+  background-color: #141414;
+}
+
+.forgot-password {
+  margin-top: 18px;
+  text-align: center;
+}
+
+.forgot-password a {
+  color: #666;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}
+
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-container input {
+  padding-right: 40px; /* Dejar espacio para el botón */
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  cursor: pointer;
+  color: #666;
+}
+
+/* Asegurarse de que use todo el espacio disponible */
+:host {
+  display: block;
+  width: 100%;
+  height: 100vh;
+  padding: 0;
+  margin: 0;
+}

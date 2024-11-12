@@ -1,6 +1,7 @@
-import { Component, ElementRef, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
-import { navbarData } from './nav-data';
+import { Component, OnInit, Output, EventEmitter, HostListener } from '@angular/core';
+import { Router } from '@angular/router';  // Asegúrate de importar Router
 import { animate, keyframes, style, transition, trigger } from '@angular/animations';
+import { navbarData } from './nav-data';  // Asegúrate de que la ruta sea correcta
 
 interface SideNavToggle {
   screenWidth: number;
@@ -10,66 +11,64 @@ interface SideNavToggle {
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
-  styleUrl: './sidenav.component.css',
-  //Agregaremos animaciones - arreglar
+  styleUrls: ['./sidenav.component.css'],
   animations: [
-    // trigger('fadeInOut',[
-    //   transition(':enter', [
-    //     style({opacity: 0}),
-    //     animate('350ms',
-    //       style({opacity: 1})
-    //     )
-    //   ]),
-    //   transition(':leave', [
-    //     style({opacity: 1}),
-    //     animate('350ms',
-    //       style({opacity: 0})
-    //     )
-    //   ])
-    // ]),
-    //Esto hara que gire el boton de cerrar
-    trigger('rotate',[
-      transition(':enter',
-        animate('1000ms',
-          keyframes([
-            style({transform: 'rotate(0deg)', offset: '0'}),
-            style({transform: 'rotate(2turn)', offset: '1'})
-          ])
-        )
-      )
+    trigger('rotate', [
+      transition(':enter', animate('1000ms', keyframes([
+        style({ transform: 'rotate(0deg)', offset: '0' }),
+        style({ transform: 'rotate(2turn)', offset: '1' })
+      ])))
     ])
   ]
 })
-export class SidenavComponent implements OnInit{
+export class SidenavComponent implements OnInit {
 
   @Output() onToggleSideNav: EventEmitter<SideNavToggle> = new EventEmitter();
-  // cambiar entre true y false para mostrar opcionesdel sidenav
   collapsed = false;
   screenWidth = 0;
   navData = navbarData;
 
-  //esto espor si la pantalla cambia de tamaño se escondera la sidenav
+  showLogoutModal = false;  // Control para mostrar el modal de logout
+
+  constructor(private router: Router) {}
+
   @HostListener('window:resize', ['$event'])
-  onResize(event: any){
+  onResize(event: any) {
     this.screenWidth = window.innerWidth;
-    if(this.screenWidth <= 768){
+    if (this.screenWidth <= 768) {
       this.collapsed = false;
-      this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth})
+      this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
     }
   }
 
   ngOnInit(): void {
-      this.screenWidth = window.innerWidth;
+    this.screenWidth = window.innerWidth;
   }
 
-  toggleColapse(): void{
+  toggleColapse(): void {
     this.collapsed = !this.collapsed;
-    this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth})
+    this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
   }
 
-  closeSidenav(): void{
+  closeSidenav(): void {
     this.collapsed = false;
-    this.onToggleSideNav.emit({collapsed: this.collapsed, screenWidth: this.screenWidth})
+    this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
+  }
+
+  // Abrir el modal de confirmación de logout
+  openLogoutModal() {
+    this.showLogoutModal = true;
+  }
+
+  // Cancelar el logout y cerrar el modal
+  cancelLogout() {
+    this.showLogoutModal = false;
+  }
+
+  // Confirmar el logout
+  confirmLogout() {
+    localStorage.removeItem('token');  // Elimina el token de autenticación
+    this.router.navigate(['/login']);  // Redirige al login
+    this.showLogoutModal = false;  // Cierra el modal
   }
 }
-
