@@ -3,7 +3,7 @@
     <img src="/assets/headerlogin.png" alt="Bravo Izquierdo" />
   </div>
   
-  <form (submit)="login()" class="login-form">
+  <form (submit)="login()" (keyup.enter)="login()" class="login-form">
     <div class="form-group">
       <p class="subtitle">Ingresa tu correo electrónico</p>
       <input 
@@ -18,14 +18,19 @@
 
     <div class="form-group">
       <p class="subtitle">Ingresa tu contraseña</p>
-      <input 
-        type="password" 
-        id="password" 
-        [(ngModel)]="password" 
-        name="password" 
-        required 
-        placeholder="Contraseña" 
-      />
+      <div class="password-input-container">
+        <input 
+          [type]="showPassword ? 'text' : 'password'"
+          id="password" 
+          [(ngModel)]="password" 
+          name="password" 
+          required 
+          placeholder="Contraseña" 
+        />
+        <span class="password-toggle-btn" (click)="togglePasswordVisibility()">
+          <i [class]="showPassword ? 'fa fa-eye-slash' : 'fa fa-eye'"></i>
+        </span>
+      </div>
     </div>
 
     <button type="submit" class="login-button">Iniciar sesión</button>
@@ -33,5 +38,22 @@
 
   <div class="forgot-password">
     <a href="#">¿Has olvidado tu contraseña?</a>
+  </div>
+</div>
+
+<!-- Modal para mostrar errores -->
+<div *ngIf="errorMessage" class="modal error-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header error">
+        <h6>¡Error!</h6>
+      </div>
+      <div class="modal-body">
+        <p>{{ errorMessage }}</p>
+      </div>
+      <div class="modal-footer">
+        <button mat-flat-button class="mat-flat-button cerrar" (click)="closeErrorModal()">Reintentar</button>
+      </div>
+    </div>
   </div>
 </div>

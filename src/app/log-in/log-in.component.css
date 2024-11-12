@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-right: 98px;;
+  margin-right: 80px;;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -15,7 +15,7 @@
 
 .logo {
   margin-bottom: 10px;
-  width: 420px; /* Aumentamos el ancho del contenedor */
+  width: 430px; /* Aumentamos el ancho del contenedor */
   display: flex;
   justify-content: center;
 }
@@ -23,7 +23,7 @@
 .logo img {
   width: 100%; /* La imagen ocupará el 100% del contenedor */
   height: auto; /* Mantiene la proporción de aspecto */
-  max-width: 420px; /* Evita que la imagen se agrande demasiado */
+  max-width: 430px; /* Evita que la imagen se agrande demasiado */
 }
 
 h2 {
@@ -43,7 +43,7 @@ h2 {
 
 .login-form {
   width: 100%;
-  max-width: 360px;
+  max-width: 380px;
 }
 
 .form-group {
@@ -52,10 +52,10 @@ h2 {
 
 input {
   width: 100%;
-  padding: 12px 16px;
+  padding: 15px 20px; /* Aumentar el padding */
   border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 16px; /* Aumentar el tamaño de la fuente */
   color: #333;
 }
 
@@ -65,12 +65,12 @@ input::placeholder {
 
 .login-button {
   width: 100%;
-  padding: 12px;
+  padding: 15px;
   background-color: #000;
   color: white;
   border: none;
   border-radius: 4px;
-  font-size: 14px;
+  font-size: 16px;
   cursor: pointer;
   margin-top: 8px;
 }
@@ -80,18 +80,35 @@ input::placeholder {
 }
 
 .forgot-password {
-  margin-top: 16px;
+  margin-top: 18px;
   text-align: center;
 }
 
 .forgot-password a {
   color: #666;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 16px;
 }
 
 .forgot-password a:hover {
   text-decoration: underline;
+}
+
+.password-input-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.password-input-container input {
+  padding-right: 40px; /* Dejar espacio para el botón */
+}
+
+.password-toggle-btn {
+  position: absolute;
+  right: 12px;
+  cursor: pointer;
+  color: #666;
 }
 
 /* Asegurarse de que use todo el espacio disponible */
@@ -101,15 +118,4 @@ input::placeholder {
   height: 100vh;
   padding: 0;
   margin: 0;
-}
-
-/* Para el mensaje de error */
-.error-message {
-  background-color: #fee2e2;
-  color: #dc2626;
-  padding: 0.75rem;
-  border-radius: 4px;
-  margin-bottom: 1rem;
-  font-size: 0.875rem;
-  text-align: center;
 }
