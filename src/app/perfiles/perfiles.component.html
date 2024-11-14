@@ -1,11 +1,286 @@
-<h1>Perfiles</h1>
+<h1>Usuarios</h1>
 <!-- aqui en perfiles añadiremos las opciones de listar update, etc -->
-<div class="card">
+<!-- <div class="card">
   <div class="card-head">Listado de usuarios - dashboard</div>
   <div class="card-body">
-    <!-- Funcion para listar usuarios / echa por procedimieto almacenado -->
     <h5 *ngFor="let usuario of usuarios">
       {{usuario.id}} - {{usuario.userName}}
     </h5>
+  </div>
+</div> -->
+
+<!-- Buscador -->
+<div class="buscador-container">
+  <input
+  type="text"
+  placeholder="Buscar por nombre..."
+  [(ngModel)]="searchText"
+  (ngModelChange)="onSearchChange()"
+  class="buscador"
+  />
+  <button mat-flat-button class="mat-flat-button agregar" (click)="openModalUsuario()"><mat-icon>add_circle</mat-icon>Agregar</button>
+</div>
+
+<table class="table-elegant">
+  <thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Rut</th>
+      <th>Correo</th> 
+      <th>Rol</th>
+      <th>Estado</th>
+      <th>Administrador</th>
+      
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let usuario of pagedUsuarios">
+        <td>{{ usuario.primer_nombre }} {{ usuario.primer_apellido }}</td>
+        <td>{{ formatRut(usuario.rut) }}-{{ usuario.dv.toUpperCase() }}</td>
+        <td>{{ usuario.email }}</td>
+        <td>{{ getRolNombre(usuario.rol_id) }}</td>
+        <td>{{ usuario.estado=== 1 ? 'Activo' : 'Inactivo' }}</td>
+        <td>{{ usuario.es_administrador=== 1 ? 'Activo' : 'Inactivo' }}</td>
+        
+        <td class="actions-columns">
+          <div class="button-container">
+            <button mat-flat-button color="primary" class="mat-flat-button editar" (click)="openModalUsuario(usuario)">
+              <mat-icon>edit_square</mat-icon>
+            </button>
+          </div>
+        </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Paginación -->
+<div class="paginador-container">
+  <mat-paginator [length]="filteredUsuarios().length"
+              [pageSize]="5"
+              [pageSizeOptions]="[5, 10, 20]"
+              (page)="onPageChange($event)">
+  </mat-paginator>
+</div>
+
+
+
+<!-- Modal para CREAR y EDITAR proveedor -->
+<div *ngIf="showModalUsuarios" class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Header -->
+      <div class="modal-header">
+        <h2 class="modal-title">{{ isEditMode ? 'Edición' : 'Creación' }} de usuario </h2>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body-prov">
+        <form (ngSubmit)="saveUsuario()" #usuarioForm="ngForm" class="form-container">
+          <div class="form-row">
+
+              <!-- Campos Nombres -->
+            <div class="form-row nombres">
+              <mat-form-field class="mat-form-field primernombre">
+                <mat-label>Nombre</mat-label>
+                <input
+                  matInput
+                  placeholder="primer_nombre"
+                  [(ngModel)]="currentUsuarios.primer_nombre"
+                  name="primer_nombre"
+                  required
+                />
+              </mat-form-field>
+
+              <mat-form-field class="mat-form-field segundonombre">
+                <mat-label>Segundo Nombre</mat-label>
+                <input
+                  matInput
+                  placeholder="segundo_nombre"
+                  [(ngModel)]="currentUsuarios.segundo_nombre"
+                  name="segundo_nombre"
+                  required
+                />
+              </mat-form-field>
+            </div>
+
+            <!-- Campos Apellidos -->
+            <div class="form-row apellidos">
+              <mat-form-field class="mat-form-field primerapellido">
+                <mat-label>Apellido Paterno</mat-label>
+                <input
+                  matInput
+                  placeholder="primer_apellido"
+                  [(ngModel)]="currentUsuarios.primer_apellido"
+                  name="primer_apellido"
+                  required
+                />
+              </mat-form-field>
+
+              <mat-form-field class="mat-form-field segundoapellido">
+                <mat-label>Apellido</mat-label>
+                <input
+                  matInput
+                  placeholder="segundo_apellido"
+                  [(ngModel)]="currentUsuarios.segundo_apellido"
+                  name="segundo_apellido"
+                  required
+                />
+              </mat-form-field>
+            </div>
+
+            <!-- Campo para Rut y DV -->
+            <div class="form-row rut">
+              <mat-form-field class="mat-form-field rut">
+                <mat-label>Rut</mat-label>
+                <input
+                  matInput
+                  placeholder="RUT"
+                  [(ngModel)]="currentUsuarios.rut"
+                  maxlength="8" pattern="\d{8}" required (keypress)="onlyNumbers($event)"
+                  name="rut"
+                  required
+                />
+              </mat-form-field>
+              <h5>-</h5>
+              <mat-form-field class="mat-form-field dv">
+                <mat-label>DV</mat-label>
+                <input
+                  matInput
+                  placeholder="DV"
+                  [(ngModel)]="currentUsuarios.dv"
+                  maxlength="1" required (keypress)="onlyOneCharacter($event)"
+                  name="dv"
+                  required
+                />
+              </mat-form-field>
+            </div>
+
+            <br>
+
+            <!-- Campo Correo y contraseña -->
+            <div class="form-row.mail">
+              <mat-form-field class="mat-form-field email">
+                <mat-label>Correo</mat-label>
+                <input
+                  matInput
+                  placeholder="email"
+                  [(ngModel)]="currentUsuarios.email"
+                  name="email"
+                  required
+                />
+              </mat-form-field>
+             
+              
+              <mat-form-field *ngIf="!isEditMode" class="mat-form-field contra">
+                <mat-label >Contraseña</mat-label>
+                <input
+                  matInput
+                  placeholder="password"
+                  [(ngModel)]="currentUsuarios.password"
+                  name="password"
+                  required
+                />
+              </mat-form-field>
+            </div>
+
+
+            <!-- Campo de rol, administrador y estado -->
+            <div class="form-row roles">
+                <mat-form-field class="mat-form-field">
+                  <mat-label>Rol</mat-label>
+                  <mat-select [(ngModel)]="currentUsuarios.rol_id" 
+                              name="rol" 
+                              required 
+                              #rolField="ngModel">
+                    <mat-option *ngFor="let tipo of parametros" [value]="tipo.id">
+                      {{ tipo.parametro }}
+                    </mat-option>                     
+                  </mat-select>
+                  <mat-error *ngIf="rolField.invalid && rolField.touched">
+                    Debe seleccionar un Rol
+                  </mat-error>
+                </mat-form-field>        
+            </div>
+
+            <div class="form-row cheks">
+              <div class="toggle-wrapper">
+                <mat-slide-toggle
+                  [(ngModel)]="currentUsuarios.es_administrador"
+                  (change)="onToggleChange($event, 'es_administrador')"
+                  name="es_administrador"
+                  labelPosition="before">
+                  <span class="toggle-label">{{ currentUsuarios.es_administrador === 1 ? 'Activo' : 'Inactivo' }}</span>
+                </mat-slide-toggle>
+              </div>
+
+              <!-- Toggle para estado -->
+              <div class="toggle-wrapper">
+                <mat-slide-toggle
+                  [(ngModel)]="currentUsuarios.estado"
+                  (change)="onToggleChange($event, 'estado')"
+                  name="estado"
+                  labelPosition="before">
+                  <span class="toggle-label">{{ currentUsuarios.estado === 1 ? 'Activo' : 'Inactivo' }}</span>
+                </mat-slide-toggle>
+              </div>
+            </div>
+
+        </div>
+        </form>
+      </div>
+
+      <!-- Footer para los botones del modal -->
+      <div class="modal-footer">
+        <div class="button-group-left">
+          <button mat-flat-button class="mat-flat-button cancelar" (click)="closeModalUsuario()" type="button">Cancelar</button>
+          <button *ngIf="isEditMode" mat-flat-button color="warn" class="mat-flat-button eliminar" (click)="confirmDelete(currentUsuarios.id)">
+            <mat-icon>delete</mat-icon>Eliminar
+          </button>
+        </div>
+
+        <button mat-flat-button [ngClass]="{'agregar': !isEditMode, 'actualizar': isEditMode}" class="mat-flat-button" (click)="saveUsuario()" type="submit">
+          <mat-icon>{{ isEditMode ? 'save' : 'add_circle' }}</mat-icon>
+          {{ isEditMode ? 'Actualizar' : 'Agregar' }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de confirmación de eliminación -->
+<div *ngIf="showConfirmationDeleteUsuarios" class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Confirmación de eliminación</h2>
+      </div>
+      <div class="modal-body">
+        <p>¿Está seguro de que desea eliminar este Usuario?</p>
+      </div>
+      <div class="modal-footer">
+        <button mat-flat-button class="mat-flat-button cancelar" (click)="closeConfirmationDialog()">No</button>
+        <button mat-flat-button class="mat-flat-button confirmarEliminar" (click)="deleteUsuario()">Sí</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para mostrar errores -->
+<div *ngIf="showErrorModal" class="modal error-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header error">
+        <h6>{{ errorMessage.isError ? '¡Error!' : '¡Éxito!' }}</h6>
+      </div>
+      <div class="modal-body">
+        <p>{{ errorMessage.message }}</p>
+      </div>
+      <div class="modal-footer">
+        <button mat-flat-button class="mat-flat-button cerrar" (click)="closeErrorModal()">Cerrar</button>
+      </div>
+    </div>
   </div>
 </div>
