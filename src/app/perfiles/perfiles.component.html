@@ -27,9 +27,7 @@
       <th>Nombre</th>
       <th>Rut</th>
       <th>Correo</th> 
-      <th>Contraseña</th> <!-- Quitar el apartado de contraseña -->
       <th>Rol</th>
-      <th>Rol ID</th>
       <th>Estado</th>
       <th>Administrador</th>
       
@@ -42,9 +40,7 @@
         <td>{{ usuario.primer_nombre }} {{ usuario.primer_apellido }}</td>
         <td>{{ formatRut(usuario.rut) }}-{{ usuario.dv.toUpperCase() }}</td>
         <td>{{ usuario.email }}</td>
-        <td>{{ usuario.password }}</td>  <!-- Quitar el apartado de contraseña -->
         <td>{{ getRolNombre(usuario.rol_id) }}</td>
-        <td> {{ usuario.rol_id }}</td>
         <td>{{ usuario.estado=== 1 ? 'Activo' : 'Inactivo' }}</td>
         <td>{{ usuario.es_administrador=== 1 ? 'Activo' : 'Inactivo' }}</td>
         
@@ -212,14 +208,14 @@
             </div>
 
             <div class="form-row cheks">
-              <!-- Checkbox para es_administrador -->
-              <div class="checkbox-wrapper">
-                <mat-checkbox
+              <div class="toggle-wrapper">
+                <mat-slide-toggle
                   [(ngModel)]="currentUsuarios.es_administrador"
                   (change)="onToggleChange($event, 'es_administrador')"
-                  name="es_administrador">
-                  <span class="checkbox-label">{{ currentUsuarios.es_administrador === 1 ? 'Activo' : 'Inactivo' }}</span>
-                </mat-checkbox>
+                  name="es_administrador"
+                  labelPosition="before">
+                  <span class="toggle-label">{{ currentUsuarios.es_administrador === 1 ? 'Activo' : 'Inactivo' }}</span>
+                </mat-slide-toggle>
               </div>
 
               <!-- Toggle para estado -->
@@ -251,6 +247,41 @@
           <mat-icon>{{ isEditMode ? 'save' : 'add_circle' }}</mat-icon>
           {{ isEditMode ? 'Actualizar' : 'Agregar' }}
         </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de confirmación de eliminación -->
+<div *ngIf="showConfirmationDeleteUsuarios" class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2 class="modal-title">Confirmación de eliminación</h2>
+      </div>
+      <div class="modal-body">
+        <p>¿Está seguro de que desea eliminar este Usuario?</p>
+      </div>
+      <div class="modal-footer">
+        <button mat-flat-button class="mat-flat-button cancelar" (click)="closeConfirmationDialog()">No</button>
+        <button mat-flat-button class="mat-flat-button confirmarEliminar" (click)="deleteUsuario()">Sí</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para mostrar errores -->
+<div *ngIf="showErrorModal" class="modal error-modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header error">
+        <h6>{{ errorMessage.isError ? '¡Error!' : '¡Éxito!' }}</h6>
+      </div>
+      <div class="modal-body">
+        <p>{{ errorMessage.message }}</p>
+      </div>
+      <div class="modal-footer">
+        <button mat-flat-button class="mat-flat-button cerrar" (click)="closeErrorModal()">Cerrar</button>
       </div>
     </div>
   </div>

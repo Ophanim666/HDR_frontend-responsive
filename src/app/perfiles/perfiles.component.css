@@ -109,38 +109,13 @@
   }
 
   /* Checkbox */
-/* Contenedor del checkbox */
-.checkbox-wrapper {
-  margin: 12px 0;
-}
-
-/* Estilo del label */
-.checkbox-label {
-  margin-left: 8px; /* Espaciado entre el checkbox y el texto */
-}
-
-/* Personalización básica del checkbox */
-.mat-checkbox .mat-checkbox-background {
-  background-color: #f5f5f5; /* Color de fondo por defecto */
-  border: 1px solid #ccc; /* Borde gris */
-}
-
-/* Color del checkbox cuando está marcado */
-.mat-checkbox.mat-checkbox-checked .mat-checkbox-background {
-  background-color: #4caf50; /* Verde cuando está marcado */
-  border-color: #4caf50; /* Borde verde cuando está marcado */
-}
-
-/* Estilo del icono (checkmark) cuando está marcado */
-.mat-checkbox.mat-checkbox-checked .mat-checkbox-checkmark {
-  color: white; /* Color blanco del checkmark */
-}
-
-/* Estilo cuando el checkbox está en hover */
-.mat-checkbox:hover .mat-checkbox-background {
-  background-color: #e0e0e0; /* Gris claro en hover */
-}
-
+  .checkbox-wrapper {
+    margin: 12px 0;
+  }
+  
+  .checkbox-seccion {
+    margin: 0 12px;
+  }
   /* ............................................ */
   
   

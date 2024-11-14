@@ -118,14 +118,8 @@ export class PerfilesComponent {
     document.body.classList.remove('modal-open');
   }
 
-  onToggleChange(event: any, type: string): void {
-    if (type === 'estado') {
-      // Si el evento es de tipo toggle (mat-slide-toggle), usamos `event.checked`
-      this.currentUsuarios.estado = event.checked ? 1 : 0;
-    } else if (type === 'es_administrador') {
-      // Si el evento es de tipo checkbox (mat-checkbox), también usamos `event.checked`
-      this.currentUsuarios.es_administrador = event.checked ? 1 : 0;
-    }
+  onToggleChange(event: MatSlideToggleChange, field: 'es_administrador' | 'estado'): void {
+    this.currentUsuarios[field] = event.checked ? 1 : 0;
   }
 
    // Guardar Usuario nuevo
@@ -251,8 +245,8 @@ export class PerfilesComponent {
     this.usuarioDelete = null;
   }
 
-  // Eliminar proveedor
-  deleteProveedor(): void {
+  // Eliminar Usuario
+  deleteUsuario(): void {
     if (this.usuarioDelete !== null) {
       this.http.delete<any>(`${this.apiUrl}/Eliminar/${this.usuarioDelete}`).subscribe({
         next: response => {
