@@ -1,7 +1,6 @@
-import { Component } from '@angular/core';
-// ahora se hace en el componente dashboard
-//importamos el HTTPclient
-//import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 interface SideNavToggle {
   screenWidth: number;
@@ -11,32 +10,39 @@ interface SideNavToggle {
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'HRD_BI_FrontEnd_Responsive';
-  //ahora esto se hace en el componente dashboard
-  //lista para los usuarios - luego quitar el any no es recomendable trabajar con any pero de momento se quedra asi
-  //AQUI SE CAPTARA TODA LA INFORMACION DEL BACKEND por procedimiento almacenado
-  //usuarios: any;
-
   isSideNavCollapsed = false;
   screenWidth = 0;
+  showSidenav = true;
 
-  // esto es para la funcionalidad de la sidenav
-  onToggleSideNav(data: SideNavToggle): void{
-    this.screenWidth = data.screenWidth;
-    this.isSideNavCollapsed = data.collapsed;
+  constructor(private router: Router) {
+    // Verificar la ruta inicial
+    this.showSidenav = !this.router.url.includes('/login');
   }
 
-  //ahora esto se hace en el componente dashboard
-  //invocacion de modulo -- por procedimiento almacenado listar usuarios
-  // constructor(private http: HttpClient){}
-  // ngOnInit(): void {
-  //   this.http.get("https://localhost:7125/api/Usuarios").subscribe({
-  //     next: response => this.usuarios =response,
-  //     error: error => console.log(error),
-  //     complete: () =>console.log('La solicitud esta completa')
-  //   })
-  // }
+  ngOnInit(): void {
+    // Suscribirse a los cambios de ruta
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd)
+    ).subscribe((event: NavigationEnd) => {
+      // Ahora TypeScript sabe que event es de tipo NavigationEnd
+      this.showSidenav = !event.urlAfterRedirects.includes('/login');
+      
+      // Si estamos en login, asegurarse de que el contenido ocupe todo el ancho
+      if (event.urlAfterRedirects.includes('/login')) {
+        this.isSideNavCollapsed = false;
+        this.screenWidth = window.innerWidth;
+      }
+    });
+  }
+
+  onToggleSideNav(data: SideNavToggle): void {
+    if (this.showSidenav) {
+      this.screenWidth = data.screenWidth;
+      this.isSideNavCollapsed = data.collapsed;
+    }
+  }
 }

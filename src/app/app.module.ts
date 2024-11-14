@@ -8,6 +8,10 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 // Animaciones
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core'; // Importa MatNativeDateModule para el adaptador de fechas nativo
+// Importa otros módulos necesarios de Angular Material
+
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -20,9 +24,9 @@ import { MatButtonModule } from '@angular/material/button';
 // Crear modal dialogs
 import { MatDialogModule } from '@angular/material/dialog';
 // Usar inputs Angular
-import {MatInputModule} from '@angular/material/input';
+import { MatInputModule } from '@angular/material/input';
 // Forms Angular
-import {MatFormFieldModule} from '@angular/material/form-field';
+import { MatFormFieldModule } from '@angular/material/form-field';
 // Switch ANGULAR
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 // Select simple
@@ -32,11 +36,12 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
 import {MatCardModule} from '@angular/material/card';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatRadioModule } from '@angular/material/radio';
 import { ReactiveFormsModule } from '@angular/forms';
 
 // Para los items de especialidad
 import { MatOptionModule } from '@angular/material/core'; // Este módulo contiene mat-option
-
 
 import { ActasComponent } from './actas/actas.component';
 import { PerfilesComponent } from './perfiles/perfiles.component';
@@ -45,6 +50,7 @@ import { GestionTareaComponent } from './gestion-tarea/gestion-tarea.component';
 
 // HTTPclient
 import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
 // Crear usuarios
 import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
@@ -54,17 +60,19 @@ import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usu
 
 // Gestión de proveedores
 import { GestionProveedoresComponent } from './gestion-proveedores/gestion-proveedores.component';
-import { GestionEspecialidadComponent } from './gestion-especialidad/gestion-especialidad.component'; 
+import { GestionEspecialidadComponent } from './gestion-especialidad/gestion-especialidad.component';
 import { HeaderComponent } from './header/header.component';
 
-// Rama que está trbajando Álvaro para el CRUD tipo de parámetro
+// Rama que está trabajando Álvaro para el CRUD tipo de parámetro
 import { GestionTipoParametrosComponent } from './gestion-tipo-parametros/gestion-tipo-parametros.component';
 
 import { ParametrosComponent } from './parametros/parametros.component';
 import { CrearParametroComponent } from './crear-parametro/crear-parametro.component';
+import { LogInComponent } from './log-in/log-in.component';
 
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
+// Importa el interceptor
+import { AuthInterceptor } from './interceptors/auth.interceptor';
+
 
 @NgModule({
   declarations: [
@@ -88,13 +96,14 @@ import { MatNativeDateModule } from '@angular/material/core';
     GestionTipoParametrosComponent,
     ParametrosComponent,
     CrearParametroComponent,
+    LogInComponent,
   ],
 
   imports: [
     BrowserModule,
     FormsModule,
 
-    //paginacion
+    // Paginación
     MatPaginatorModule,
 
     // Animaciones
@@ -117,14 +126,21 @@ import { MatNativeDateModule } from '@angular/material/core';
     MatSelectModule,
     MatOptionModule, // Agrega este módulo
     MatDatepickerModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatInputModule,
+    MatCheckboxModule,
+    MatRadioModule,
   ],
 
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    {
+      provide: HTTP_INTERCEPTORS, // Proporciona el interceptor
+      useClass: AuthInterceptor,  // Clase del interceptor
+      multi: true,  // Permite múltiples interceptores
+    },
   ],
 
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-
 export class AppModule {}
