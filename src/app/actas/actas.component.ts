@@ -14,6 +14,10 @@ interface Proveedor {
   iDproveedor: number;
   nombreProveedor: string;
 }
+interface Obra {
+  id: number;
+  nombre: string;
+}
 interface Especialidad {
   id: number;
   nombre: string;
@@ -54,6 +58,7 @@ export class ActasComponent implements OnInit {
   proveedor: Proveedor[] = [];
   especialidad: Especialidad[] = [];
   usuario: Usuario[] = [];
+  obra: Obra[] = [];
 
   parametroDelete: number | null = null;
   showModalActa = false;
@@ -69,6 +74,7 @@ export class ActasComponent implements OnInit {
   private apiUrlEspecialidad = 'https://localhost:7125/api/Especialidad';
   private apiUrlUsuarios = 'https://localhost:7125/api/Usuarios';
   private apiUrlActas = 'https://localhost:7125/api/Acta';
+  private apiUrlObras = 'https://localhost:7125/api/Obra';
 
   // Variables para manejo de errores
   showErrorModal = false;
@@ -86,6 +92,7 @@ export class ActasComponent implements OnInit {
     this.loadProveedores();
     this.loadEspecialidades();
     this.loadUsuarios();
+    this.loadObras();
     
   }
 
@@ -135,6 +142,22 @@ export class ActasComponent implements OnInit {
       error: error => {
         console.error('Error al cargar los proveedores:', error);
         this.showError('Error en la solicitud al cargar los proveedores.', true);
+      }
+    });
+  }
+  loadObras(): void {
+    this.http.get<any>(`${this.apiUrlObras}/ObtenerObras`).subscribe({
+      next: response => {
+        if (response.estado?.ack) {
+          this.obra = response.body.response;
+          console.log('Obras cargados:', this.obra);
+        } else {
+          this.showError(`Error al cargar las Obras: ${response.estado?.errDes}`, true);
+        }
+      },
+      error: error => {
+        console.error('Error al cargar los obras:', error);
+        this.showError('Error en la solicitud al cargar los obras.', true);
       }
     });
   }
@@ -274,7 +297,8 @@ export class ActasComponent implements OnInit {
     // Verifica el objeto currentParametro
     console.log('currentActa:', this.currentActa); // Verifica la estructura del objeto
     console.log('ID_TIPO_PARAMETRO:', this.currentActa.proveedoR_ID); // Verifica el valor
-
+    this.loadProveedores();
+    this.loadObras();
     // Asegurarse de que los tipos de parámetros estén cargados
     if (this.proveedor.length === 0) {
       this.loadProveedores();
@@ -400,11 +424,11 @@ export class ActasComponent implements OnInit {
     this.showErrorModal = true;
   }
 
-  // // Función para cerrar el modal de error
-  // closeErrorModal(): void {
-  //   this.showErrorModal = false;
-  //   this.errorMessage = { message: '', isError: true };
-  // }
+  // Función para cerrar el modal de error
+  closeErrorModal(): void {
+    this.showErrorModal = false;
+    this.errorMessage = { message: '', isError: true };
+  }
 
   // Función que se llama cuando cambia la página en la paginación
   onPageChange(event: PageEvent) {
@@ -427,6 +451,23 @@ export class ActasComponent implements OnInit {
     }
     
     return proveedor.nombreProveedor; 
+  }
+
+  getObraNombre(id: number): string {
+    console.log('ID recibido obra:', id); // Ver qué ID llega
+    //console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
+    
+    const obra = this.obra.find(elemento => {
+        //console.log('Comparando:aaaaa', elemento.id, 'con aaaa', id); // Ver las comparaciones
+        return elemento.id === id;
+    });
+    
+    if (!obra) {
+        //console.log(`No se encontró proveedor para ID: ${id}`);
+        return `Tipo ${id}`;
+    }
+    
+    return obra.nombre; 
   }
 
   getEspecialidadNombre(id: number): string {

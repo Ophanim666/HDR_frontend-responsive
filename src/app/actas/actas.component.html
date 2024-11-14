@@ -30,7 +30,7 @@
   <tbody>
     <tr *ngFor="let acta of pagedActas">
       <td>{{acta.id}}</td>
-      <td>Aqui va la obra</td>
+      <td>{{getObraNombre(acta.obrA_ID)}}</td>
       <td>{{getProveedorNombre(acta.proveedoR_ID)}}</td>
       <td>{{getEspecialidadNombre(acta.especialidaD_ID)}}</td>
       
@@ -40,9 +40,9 @@
       <td>{{getEstadoNombre(acta.estadO_ID)}}</td>
       <td class="actions-column">
         <div class="button-container">
-          <!-- <button mat-flat-button color="primary" class="mat-flat-button editar" (click)="openModalParametro(parametro)">
+          <button mat-flat-button color="primary" class="mat-flat-button editar" (click)="openModalActa(acta)">
             <mat-icon>edit</mat-icon>
-          </button> -->
+          </button>
         </div>
       </td>
     </tr>
@@ -69,9 +69,24 @@
       <div class="modal-body">
         <form #parametroForm="ngForm" class="form-container">
           <div class="form-row">
-            <mat-form-field class="mat-form-field">
+            <!-- <mat-form-field class="mat-form-field">
               <mat-label>Obra</mat-label>
               <input matInput [(ngModel)]="currentActa.obrA_ID" name="obra" required>
+            </mat-form-field> -->
+
+            <mat-form-field class="mat-form-field">
+              <mat-label>Obra</mat-label>
+              <mat-select [(ngModel)]="currentActa.obrA_ID" 
+                          name="obra" 
+                          required 
+                          #obraField="ngModel">
+                <mat-option *ngFor="let tipo of obra" [value]="tipo.id">
+                  {{ tipo.nombre }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="obraField.invalid && obraField.touched">
+                Debe seleccionar una obra
+              </mat-error>
             </mat-form-field>
 
             <mat-form-field class="mat-form-field">
@@ -111,7 +126,7 @@
 
             <mat-form-field class="mat-form-field">
               <mat-label>Fecha Aprobación</mat-label>
-              <input matInput [matDatepicker]="picker" [(ngModel)]="currentActa.fechA_APROBACION" name="fecha_aprobacion" required>
+              <input matInput [matDatepicker]="picker" [(ngModel)]="currentActa.fechA_APROBACION" name="fecha_aprobacion" >
               <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
               <mat-datepicker #picker></mat-datepicker>
             </mat-form-field>
@@ -133,7 +148,7 @@
 
             <mat-form-field class="mat-form-field">
               <mat-label>descripcion</mat-label>
-              <input matInput [(ngModel)]="currentActa.observacion" name="descripcion" required>
+              <input matInput [(ngModel)]="currentActa.observacion" name="descripcion" >
             </mat-form-field>
 
             <mat-form-field class="mat-form-field">
@@ -203,7 +218,7 @@
   </div>
 </div>-->
 
-<!-- Modal para mostrar errores 
+<!-- Modal para mostrar errores  -->
 <div *ngIf="showErrorModal" class="modal error-modal">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -218,4 +233,4 @@
       </div>
     </div>
   </div>
-</div>-->
+</div>
