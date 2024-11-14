@@ -6,7 +6,7 @@
     text-align: center;
 }
 
-/*----- Estilos para campos y toogle slide -----*/
+/* Estilos para los campos y toogle slide */
 .form-container {
     width: 100%;
 }
@@ -18,6 +18,17 @@
     margin-bottom: 16px;
 }
 
+/* Nueva estructura para las filas */
+.form-row.flex-row {
+    flex-direction: row;
+    gap: 16px; /* Espacio entre las columnas */
+}
+
+.form-column {
+    flex: 1;
+    min-width: 0;
+}
+
 .form-row .mat-form-field {
     margin-right: 0;
     margin-bottom: 16px;
@@ -25,6 +36,15 @@
 
 .form-row .mat-form-field:last-child {
     margin-bottom: 0;
+}
+
+/* Ajuste para el campo Descripción */
+.form-row .mat-form-field textarea {
+    resize: vertical; /* Permite redimensionar solo en dirección vertical */
+}
+
+.mat-form-field {
+    width: 100%;
 }
 
 .toggle-wrapper {
@@ -35,4 +55,14 @@
     min-width: 50px; /* Ancho mínimo para el texto del toggle */
     display: inline-block;
     text-align: right;
+}
+
+/* Asegura que las filas flexibles solo tengan una columna por defecto */
+.form-row.flex-row > .form-column {
+    width: 100%;
+}
+
+/* Estilos específicos para el formulario de Descripción (campo grande) */
+.form-row .mat-form-field textarea {
+    height: 120px; /* Ajusta la altura del campo de texto para la Descripción */
 }

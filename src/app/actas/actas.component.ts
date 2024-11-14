@@ -40,7 +40,7 @@ interface Acta {
   proveedoR_ID: number;
   especialidaD_ID: number; // Cambiado para coincidir con la API
   estadO_ID: number;
-  fechA_APROBACION: Date;
+  fechA_APROBACION: Date | null;
   observacion: string;
   revisoR_ID: number;
 }
@@ -60,9 +60,9 @@ export class ActasComponent implements OnInit {
   usuario: Usuario[] = [];
   obra: Obra[] = [];
 
-  parametroDelete: number | null = null;
+  actaDelete: number | null = null;
   showModalActa = false;
-  showConfirmationDeleteParametro = false;
+  showConfirmationDeleteActa = false;
   searchText: string = '';
   isEditMode = false;
   pagedActas: any[] = [];
@@ -103,7 +103,7 @@ export class ActasComponent implements OnInit {
       proveedoR_ID: 0,
       especialidaD_ID: 0, // valor por defecto
       estadO_ID: 0,
-      fechA_APROBACION: new Date(),
+      fechA_APROBACION: null,
       observacion: '',
       revisoR_ID: 0
     };
@@ -238,7 +238,7 @@ export class ActasComponent implements OnInit {
             this.parametros = [];
           }
   
-          this.updatePageParametro();
+          this.updatePageActa();
         } else {
           this.showError(`Error al cargar los Parámetros: ${response.estado.errDes}`, true);
         }
@@ -256,7 +256,7 @@ export class ActasComponent implements OnInit {
       next: response => {
         if (response.estado.ack) {
           this.actas = response.body.response;
-          //this.updatePageParametro();
+          this.updatePageActa();
         } else {
           this.showError(`Error al cargar las actas: ${response.estado.errDes}`, true);
         }
@@ -269,15 +269,15 @@ export class ActasComponent implements OnInit {
   }
 
   // Función para filtrar parámetros según el texto de búsqueda
-  filteredParametros() {
+  filteredActas() {
     return this.actas.filter(parametro =>
       parametro.observacion.toLowerCase().includes(this.searchText.toLowerCase())
     );
   }
 
   // Función para actualizar la página de parámetros según la paginación
-  updatePageParametro(): void {
-    const filtered = this.filteredParametros();
+  updatePageActa(): void {
+    const filtered = this.filteredActas();
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
     const endIndex = startIndex + this.paginator.pageSize;
     this.pagedActas = filtered.slice(startIndex, endIndex);
@@ -287,7 +287,7 @@ export class ActasComponent implements OnInit {
   // Función que se llama cuando cambia el texto de búsqueda
   onSearchChange(): void {
     this.paginator.firstPage();
-    this.updatePageParametro();
+    this.updatePageActa();
   }
 
   // Función para abrir el modal para crear o editar un parámetro
@@ -337,8 +337,6 @@ export class ActasComponent implements OnInit {
         this.currentActa.fechA_APROBACION.toISOString().split('T')[0] : null
     };
 
-
-
     this.http.post(`${this.apiUrlActas}/add`, formattedActa).subscribe({
       next: (response: any) => {
         if (response.estado.ack) {
@@ -356,8 +354,13 @@ export class ActasComponent implements OnInit {
     });
   }
 
+
   // Función para actualizar un parámetro existente
   updateActa(): void {
+    // Asegúrate de que 'fecha_aprobacion' sea siempre un objeto Date
+    if (this.currentActa.fechA_APROBACION && typeof this.currentActa.fechA_APROBACION === 'string') {
+      this.currentActa.fechA_APROBACION = new Date(this.currentActa.fechA_APROBACION);
+    }
     const formattedActa = {
       ...this.currentActa,
       fechA_APROBACION: this.currentActa.fechA_APROBACION ?
@@ -382,41 +385,41 @@ export class ActasComponent implements OnInit {
     });
   }
 
-  // // Función para confirmar la eliminación de un parámetro
-  // confirmDelete(id: number): void {
-  //   this.parametroDelete = id;
-  //   this.showModalParametro = false;
-  //   this.showConfirmationDeleteParametro = true;
-  // }
+  // Función para confirmar la eliminación de un parámetro
+  confirmDelete(id: number): void {
+    this.actaDelete = id;
+    this.showModalActa = false;
+    this.showConfirmationDeleteActa = true;
+  }
 
-  // // Función para cerrar el diálogo de confirmación de eliminación
-  // closeConfirmationDialog(): void {
-  //   this.showConfirmationDeleteParametro = false;
-  //   this.showModalParametro = true;
-  //   this.parametroDelete = null;
-  // }
+  // Función para cerrar el diálogo de confirmación de eliminación
+  closeConfirmationDialog(): void {
+    this.showConfirmationDeleteActa = false;
+    this.showModalActa = true;
+    this.actaDelete = null;
+  }
 
-  // // Función para eliminar un parámetro
-  // deleteParametro(): void {
-  //   if (this.parametroDelete !== null) {
-  //     this.http.delete<any>(`${this.apiUrl}/Eliminar/${this.parametroDelete}`).subscribe({
-  //       next: response => {
-  //         if (response.estado.ack) {
-  //           this.showError('Parámetro eliminado exitosamente.', false);
-  //           this.loadParametros();
-  //           this.closeConfirmationDialog();
-  //           this.closeModalParametro();
-  //         } else {
-  //           this.showError(`Error al eliminar el Parámetro: ${response.estado.errDes}`, true);
-  //         }
-  //       },
-  //       error: error => {
-  //         console.error('Error en la solicitud:', error);
-  //         this.showError('Error en la solicitud al eliminar el Parámetro.', true);
-  //       }
-  //     });
-  //   }
-  // }
+  // Función para eliminar un parámetro
+  deleteActa(): void {
+    if (this.actaDelete !== null) {
+      this.http.delete<any>(`${this.apiUrlActas}/Eliminar/${this.actaDelete}`).subscribe({
+        next: response => {
+          if (response.estado.ack) {
+            this.showError('Acta eliminada exitosamente.', false);
+            this.loadActas();
+            this.closeConfirmationDialog();
+            this.closeModalActa();
+          } else {
+            this.showError(`Error al eliminar el Acta: ${response.estado.errDes}`, true);
+          }
+        },
+        error: error => {
+          console.error('Error en la solicitud:', error);
+          this.showError('Error en la solicitud al eliminar el Acta.', true);
+        }
+      });
+    }
+  }
 
   // Función para mostrar mensajes de error
   showError(message: string, isError: boolean): void {
@@ -432,7 +435,7 @@ export class ActasComponent implements OnInit {
 
   // Función que se llama cuando cambia la página en la paginación
   onPageChange(event: PageEvent) {
-    this.updatePageParametro();
+    this.updatePageActa();
   }
 
   // Función para obtener el nombre de un tipo de parámetro según su ID
