@@ -147,7 +147,77 @@
             </mat-form-field>
           </div>
 
+          <!-- Botón para agregar una nueva card de tareas -->
+          <div class="add-group-container">
+            <button mat-flat-button color="primary" (click)="agregarNuevaCard()">Agregar Grupo de Tareas</button>
+          </div>
+
         </form>
+        <!-- Solo mostrar en modo de edición -->
+        <div *ngFor="let grupo of grupos; let i = index" class="grupo-container">
+          <mat-card class="grupo-card">
+            <mat-card-content>
+              <div class="grupo-header">
+                <!-- Botón para expandir/minimizar el grupo -->
+                <button mat-button (click)="toggleGrupo(grupo)">
+                  {{ grupo.minimizado ? 'Expandir' : 'Minimizar' }}
+                </button>
+
+                <!-- Botón para eliminar los datos y la card -->
+                <button mat-button color="warn" (click)="eliminarDatosYCard(grupo, i)">
+                  Eliminar Card
+                </button>
+
+              </div>
+        
+              <!-- Contenido de la card, solo se muestra si no está minimizado -->
+              <div *ngIf="!grupo.minimizado">
+                <div class="form-row flex-row">
+                  <mat-form-field class="mat-form-field">
+                    <mat-label>Rol</mat-label>
+                    <mat-select [(ngModel)]="currentGrupo.roL_ID" name="rol" #rolField="ngModel">
+                      <mat-option *ngFor="let rol of roles" [value]="rol.id">
+                        {{ rol.parametro }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="rolField.invalid && rolField.touched">
+                      Debe seleccionar un rol
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field class="mat-form-field">
+                    <mat-label>Encargado</mat-label>
+                    <mat-select [(ngModel)]="currentGrupo.encargadO_ID" name="encargado" required #encargadoField="ngModel">
+                      <mat-option *ngFor="let encargado of usuario" [value]="encargado.id">
+                        {{ encargado.primer_nombre }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="encargadoField.invalid && encargadoField.touched">
+                      Debe seleccionar un Encargado del grupo
+                    </mat-error>
+                  </mat-form-field>
+
+                </div>
+        
+                <div class="form-row">
+                  <mat-form-field class="mat-form-field">
+                    <mat-label>Tareas</mat-label>
+                    <mat-select multiple [(ngModel)]="grupo.tareas" name="tareas-{{i}}">
+                      <mat-option *ngFor="let tarea of tareas" [value]="tarea.id">
+                        {{ tarea.nombre }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+        
+                <!-- Botón para guardar y minimizar el grupo -->
+                <div class="button-group">
+                  <button mat-flat-button color="primary" (click)="guardarGrupo(grupo)">Guardar</button>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
       </div>
       <div class="modal-footer">
         <div class="button-group-left">

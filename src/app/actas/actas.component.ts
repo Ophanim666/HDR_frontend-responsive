@@ -44,6 +44,15 @@ interface Acta {
   observacion: string;
   revisoR_ID: number;
 }
+
+interface GrupoTarea {
+  id?: number;
+  actA_ID: number;
+  roL_ID: number;
+  encargadO_ID: number; // Cambiado para coincidir con la API
+  usuariO_CREACION: string;
+  fechA_APROBACION: Date | null;
+}
 @Component({
   selector: 'app-actas',
   templateUrl: './actas.component.html',
@@ -60,13 +69,78 @@ export class ActasComponent implements OnInit {
   usuario: Usuario[] = [];
   obra: Obra[] = [];
 
+  currentGrupo: GrupoTarea = this.getEmptyGrupoTarea();
+
   actaDelete: number | null = null;
   showModalActa = false;
   showConfirmationDeleteActa = false;
   searchText: string = '';
   isEditMode = false;
   pagedActas: any[] = [];
+
+
+  // Arrays para las opciones de selección
+  roles: Parametro[] = [];
+  encargados = [{ id: 1, nombre: 'Encargado 1' }, { id: 2, nombre: 'Encargado 2' }];
+  tareas = [{ id: 1, nombre: 'Tarea 1' }, { id: 2, nombre: 'Tarea 2' }];
+  // Array para almacenar los grupos de tareas
+  grupos: any[] = [];
+
+  // Método para agregar una nueva card de grupo de tareas
+  agregarNuevaCard() {
+    // if (this.hayCardSinGuardar()) {
+    //   alert("Por favor, guarda los datos de la card actual antes de agregar una nueva.");
+    //   return;
+    // }
+    // Verifica si el último grupo tiene datos antes de agregar una nueva card
+    if (this.grupos.length > 0 && !this.hayCardConDatos()) {
+      alert("Por favor, llena los datos de la card actual antes de agregar una nueva.");
+      return;
+    }
+    const nuevoGrupo = {
+      rol: null,
+      encargado: null,
+      tareas: [],
+      minimizado: false  // Nueva propiedad para el estado
+    };
+    this.grupos.push(nuevoGrupo);
+  }
+  // Método para guardar la información de un grupo específico
+  guardarGrupo(grupo: any) {
+    // Aquí puedes implementar la lógica de guardado, como enviarlo al backend
+    grupo.minimizado = true;
+    //console.log('Grupo guardado:', grupo);
+  }
+  // Método para alternar entre expandir y minimizar el grupo
+  toggleGrupo(grupo: any) {
+    grupo.minimizado = !grupo.minimizado;
+  }
+  // Función para verificar si existe alguna card sin guardar
+  // hayCardSinGuardar(): boolean {
+  //   return this.grupos.some(grupo => !grupo.minimizado); // Verifica si hay alguna card expandida
+  // }
+  // Función para verificar si el último grupo contiene datos
+  hayCardConDatos(): boolean {
+    const ultimoGrupo = this.grupos[this.grupos.length - 1];
+    // Verificamos si tiene datos significativos (rol, encargado o tareas)
+    return ultimoGrupo && (ultimoGrupo.rol || ultimoGrupo.encargado || ultimoGrupo.tareas.length > 0);
+  }
+  // Método para limpiar los datos y eliminar la card si está vacía
+  eliminarDatosYCard(grupo: any, index: number) {
+    // Limpiar los datos del grupo
+    grupo.rol = null;
+    grupo.encargado = null;
+    grupo.tareas = [];
+
+    // Confirmar si se desea eliminar la card completamente
+    const confirmarEliminar = confirm("¿Deseas eliminar esta card y sus datos?");
+    if (confirmarEliminar) {
+      this.grupos.splice(index, 1);  // Elimina la card del array si se confirma
+    }
+  }
   
+
+
   // URLs de la API
   private apiUrl = 'https://localhost:7125/api/Parametro';
   private apiUrlTipoParametro = 'https://localhost:7125/api/TipoParametro';
@@ -93,6 +167,7 @@ export class ActasComponent implements OnInit {
     this.loadEspecialidades();
     this.loadUsuarios();
     this.loadObras();
+    this.loadParametrosRoles()
     
   }
 
@@ -109,13 +184,23 @@ export class ActasComponent implements OnInit {
     };
   }
 
+  getEmptyGrupoTarea(): GrupoTarea {
+    return {
+      actA_ID: 0,
+      roL_ID: 0,
+      encargadO_ID: 0,
+      usuariO_CREACION: '',
+      fechA_APROBACION: null
+    };
+  }
+
   //Función para cargar tipos de parámetros desde la API
   loadTipoParametros(): void {
     this.http.get<any>(`${this.apiUrlTipoParametro}/LstTipoParametros`).subscribe({
       next: response => {
         if (response.estado?.ack) {
           this.tipoParametros = response.body.response;
-          console.log('Tipos de parámetros cargados:', this.tipoParametros);
+          ////console.log('Tipos de parámetros cargados:', this.tipoParametros);
 
           this.loadParametros();
         } else {
@@ -134,7 +219,7 @@ export class ActasComponent implements OnInit {
       next: response => {
         if (response.estado?.ack) {
           this.proveedor = response.body.response;
-          console.log('Proveedores cargados:', this.proveedor);
+          ////console.log('Proveedores cargados:', this.proveedor);
         } else {
           this.showError(`Error al cargar los proveedores: ${response.estado?.errDes}`, true);
         }
@@ -150,7 +235,7 @@ export class ActasComponent implements OnInit {
       next: response => {
         if (response.estado?.ack) {
           this.obra = response.body.response;
-          console.log('Obras cargados:', this.obra);
+          ////console.log('Obras cargados:', this.obra);
         } else {
           this.showError(`Error al cargar las Obras: ${response.estado?.errDes}`, true);
         }
@@ -167,7 +252,7 @@ export class ActasComponent implements OnInit {
       next: response => {
         if (response.estado?.ack) {
           this.especialidad = response.body.response;
-          console.log('Especialidades cargadas:', this.especialidad);
+          //console.log('Especialidades cargadas:', this.especialidad);
         } else {
           this.showError(`Error al cargar las especialidades: ${response.estado?.errDes}`, true);
         }
@@ -184,7 +269,7 @@ export class ActasComponent implements OnInit {
       next: response => {
         if (response.estado?.ack) {
           this.usuario = response.body.response;
-          console.log('Usuarios cargadas:', this.usuario);
+          //console.log('Usuarios cargadas:', this.usuario);
         } else {
           this.showError(`Error al cargar los Usuarios: ${response.estado?.errDes}`, true);
         }
@@ -250,6 +335,37 @@ export class ActasComponent implements OnInit {
     });
   }
 
+  //Función para cargar parámetros desde la API PARA ROLES
+  loadParametrosRoles(): void {
+    this.http.get<any>(`${this.apiUrl}/Listar`).subscribe({
+      next: response => {
+        if (response.estado.ack) {
+          // Busca el ID del tipo de parámetro cuyo nombre es "Roles"
+          const tipoRoles = this.tipoParametros.find(
+            tipo => tipo.tipO_PARAMETRO === "Roles"
+          );
+          
+          // Si encontramos el ID, filtramos los parámetros
+          if (tipoRoles) {
+            this.roles = response.body.response.filter(
+              (parametro: Parametro) => parametro.iD_TIPO_PARAMETRO === tipoRoles.id
+            );
+          } else {
+            console.warn('No se encontró el tipo de parámetro "Roles".');
+            this.roles = [];
+          }
+          this.updatePageActa();
+        } else {
+          this.showError(`Error al cargar los Parámetros: ${response.estado.errDes}`, true);
+        }
+      },
+      error: error => {
+        console.error('Error al cargar los datos:', error);
+        this.showError('Error en la solicitud al cargar los datos.', true);
+      }
+    });
+  }
+
   // Función para cargar parámetros desde la API
   loadActas(): void {
     this.http.get<any>(`${this.apiUrlActas}/Listar`).subscribe({
@@ -295,8 +411,8 @@ export class ActasComponent implements OnInit {
     this.isEditMode = !!acta; // Establecer modo de edición
     this.currentActa = acta ? { ...acta } : this.getEmptyActa();
     // Verifica el objeto currentParametro
-    console.log('currentActa:', this.currentActa); // Verifica la estructura del objeto
-    console.log('ID_TIPO_PARAMETRO:', this.currentActa.proveedoR_ID); // Verifica el valor
+    //console.log('currentActa:', this.currentActa); // Verifica la estructura del objeto
+    //console.log('ID_TIPO_PARAMETRO:', this.currentActa.proveedoR_ID); // Verifica el valor
     this.loadProveedores();
     this.loadObras();
     // Asegurarse de que los tipos de parámetros estén cargados
@@ -440,16 +556,16 @@ export class ActasComponent implements OnInit {
 
   // Función para obtener el nombre de un tipo de parámetro según su ID
   getProveedorNombre(id: number): string {
-    console.log('ID recibido proveed:', id); // Ver qué ID llega
-    //console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
+    //console.log('ID recibido proveed:', id); // Ver qué ID llega
+    ////console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
     
     const proveedor = this.proveedor.find(elemento => {
-        //console.log('Comparando:aaaaa', elemento.id, 'con aaaa', id); // Ver las comparaciones
+        ////console.log('Comparando:aaaaa', elemento.id, 'con aaaa', id); // Ver las comparaciones
         return elemento.iDproveedor === id;
     });
     
     if (!proveedor) {
-        //console.log(`No se encontró proveedor para ID: ${id}`);
+        ////console.log(`No se encontró proveedor para ID: ${id}`);
         return `Tipo ${id}`;
     }
     
@@ -457,16 +573,16 @@ export class ActasComponent implements OnInit {
   }
 
   getObraNombre(id: number): string {
-    console.log('ID recibido obra:', id); // Ver qué ID llega
-    //console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
+    //console.log('ID recibido obra:', id); // Ver qué ID llega
+    ////console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
     
     const obra = this.obra.find(elemento => {
-        //console.log('Comparando:aaaaa', elemento.id, 'con aaaa', id); // Ver las comparaciones
+        ////console.log('Comparando:aaaaa', elemento.id, 'con aaaa', id); // Ver las comparaciones
         return elemento.id === id;
     });
     
     if (!obra) {
-        //console.log(`No se encontró proveedor para ID: ${id}`);
+        ////console.log(`No se encontró proveedor para ID: ${id}`);
         return `Tipo ${id}`;
     }
     
@@ -474,16 +590,16 @@ export class ActasComponent implements OnInit {
   }
 
   getEspecialidadNombre(id: number): string {
-    console.log('ID recibido:', id); // Ver qué ID llega
-    //console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
+    //console.log('ID recibido:', id); // Ver qué ID llega
+    ////console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
     
     const especialidad = this.especialidad.find(elemento => {
-       // console.log('Comparando:', elemento.id, 'con', id); // Ver las comparaciones
+       // //console.log('Comparando:', elemento.id, 'con', id); // Ver las comparaciones
         return elemento.id === id;
     });
     
     if (!especialidad) {
-        //console.log(`No se encontró especialidad para ID: ${id}`);
+        ////console.log(`No se encontró especialidad para ID: ${id}`);
         return `Tipo ${id}`;
     }
     
@@ -491,16 +607,16 @@ export class ActasComponent implements OnInit {
   }
 
   getUsuarioNombre(id: number): string {
-    //console.log('ID recibido:', id); // Ver qué ID llega
-    //console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
+    ////console.log('ID recibido:', id); // Ver qué ID llega
+    ////console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
     
     const usuario = this.usuario.find(elemento => {
-        //console.log('Comparando:', elemento.id, 'con', id); // Ver las comparaciones
+        ////console.log('Comparando:', elemento.id, 'con', id); // Ver las comparaciones
         return elemento.id === id;
     });
     
     if (!usuario) {
-        //console.log(`No se encontró usuario para ID: ${id}`);
+        ////console.log(`No se encontró usuario para ID: ${id}`);
         return `Tipo ${id}`;
     }
     
@@ -508,16 +624,16 @@ export class ActasComponent implements OnInit {
   }
 
   getEstadoNombre(id: number): string {
-    //console.log('ID recibido:', id); // Ver qué ID llega
-    //console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
+    ////console.log('ID recibido:', id); // Ver qué ID llega
+    ////console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
     
     const estado = this.parametros.find(elemento => {
-        //console.log('Comparando:', elemento.id, 'con', id); // Ver las comparaciones
+        ////console.log('Comparando:', elemento.id, 'con', id); // Ver las comparaciones
         return elemento.id === id;
     });
     
     if (!estado) {
-        //console.log(`No se encontró usuario para ID: ${id}`);
+        ////console.log(`No se encontró usuario para ID: ${id}`);
         return `Tipo ${id}`;
     }
     

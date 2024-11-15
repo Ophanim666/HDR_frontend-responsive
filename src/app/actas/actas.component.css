@@ -64,5 +64,21 @@
 
 /* Estilos específicos para el formulario de Descripción (campo grande) */
 .form-row .mat-form-field textarea {
-    height: 120px; /* Ajusta la altura del campo de texto para la Descripción */
+    height: 40px; /* Ajusta la altura del campo de texto para la Descripción */
 }
+
+
+.add-group-container {
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .grupo-container {
+    margin-top: 10px;
+  }
+  
+  .grupo-card {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 8px;
+  }
