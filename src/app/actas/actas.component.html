@@ -69,6 +69,7 @@
       <div class="modal-body">
         <form #parametroForm="ngForm" class="form-container">
           <div class="form-row flex-row">
+
             <!-- Campos: Obra, Proveedor y Especialidad en una fila -->
             <div class="form-column">
               <mat-form-field class="mat-form-field">
@@ -140,22 +141,24 @@
           </div>
 
           <!-- Campo Descripción (campo grande) -->
-          <div class="form-row">
+          <div class="form-row des" [ngClass]="{'agregar-mode': !isEditMode}">
             <mat-form-field class="mat-form-field">
               <mat-label>Descripción</mat-label>
               <textarea matInput [(ngModel)]="currentActa.observacion" name="descripcion" rows="5"></textarea>
             </mat-form-field>
           </div>
-
+          
+<!-- ........................................................................................................................................... -->
           <!-- Botón para agregar una nueva card de tareas -->
-          <div class="add-group-container">
+          <div class="add-group-container" *ngIf="isEditMode">
             <button mat-flat-button color="primary" (click)="agregarNuevaCard()">Agregar Grupo de Tareas</button>
           </div>
+          
 
         </form>
         <!-- Solo mostrar en modo de edición -->
-        <div *ngFor="let grupo of grupos; let i = index" class="grupo-container">
-          <mat-card class="grupo-card">
+        <div *ngFor="let grupo of grupos; let i = index" class="grupo-container" >
+          <mat-card class="grupo-card" *ngIf="isEditMode">
             <mat-card-content>
               <div class="grupo-header">
                 <!-- Botón para expandir/minimizar el grupo -->
@@ -202,23 +205,29 @@
                 <div class="form-row">
                   <mat-form-field class="mat-form-field">
                     <mat-label>Tareas</mat-label>
-                    <mat-select multiple [(ngModel)]="grupo.tareas" name="tareas-{{i}}">
+                    <mat-select [(ngModel)]="selectedTareas" name="tareas" multiple required #tareasField="ngModel">
                       <mat-option *ngFor="let tarea of tareas" [value]="tarea.id">
                         {{ tarea.nombre }}
                       </mat-option>
                     </mat-select>
+                    <mat-error *ngIf="tareasField.invalid && tareasField.touched">
+                      Debe seleccionar al menos una tarea
+                    </mat-error>
                   </mat-form-field>
                 </div>
         
                 <!-- Botón para guardar y minimizar el grupo -->
                 <div class="button-group">
-                  <button mat-flat-button color="primary" (click)="guardarGrupo(grupo)">Guardar</button>
+                  <button mat-flat-button color="primary" (click)="createGrupoTarea(grupo)">Guardar</button>     
                 </div>
               </div>
             </mat-card-content>
           </mat-card>
         </div>
       </div>
+<!-- .................................................................................................... -->
+
+
       <div class="modal-footer">
         <div class="button-group-left">
           <button mat-flat-button class="mat-flat-button cancelar" (click)="closeModalActa()">
