@@ -53,6 +53,7 @@ interface GrupoTarea {
   usuariO_CREACION: string;
   fechA_APROBACION: Date | null;
 }
+
 interface Tarea{
   id: number;
   nombre: string;
@@ -76,7 +77,9 @@ export class ActasComponent implements OnInit {
   tarea: Tarea[] = [];
   gruptarea: GrupoTarea[] = []
 
+  grupoTareas: GrupoTarea[] = [];
   currentGrupo: GrupoTarea = this.getEmptyGrupoTarea();
+
 
   actaDelete: number | null = null;
   showModalActa = false;
@@ -118,7 +121,7 @@ export class ActasComponent implements OnInit {
 
 
   loadGruposTareas(): void {
-    this.http.get(`${this.apiUrlGrupTareas}/ListarGrupoTareas`).subscribe({
+    this.http.get(`${this.apiUrlGrupTareas}/Listado`).subscribe({
       next: (response: any) => {
         this.grupos = response.data || [];
         
@@ -151,7 +154,7 @@ export class ActasComponent implements OnInit {
       listaTareas: this.selectedTareas     // Lista de IDs de tareas seleccionadas
     };
   
-    console.log('Payload enviado:', nuevoGrupoTarea); // Verificar los datos enviados
+    // console.log('Payload enviado:', nuevoGrupoTarea); // Verificar los datos enviados
   
     // Realizamos la solicitud POST
     this.http.post(`${this.apiUrlGrupTareas}/add`, nuevoGrupoTarea).subscribe({
@@ -509,11 +512,13 @@ export class ActasComponent implements OnInit {
   }
 
   // Función para abrir el modal para crear o editar un parámetro
-  openModalActa(acta?: Acta): void {
+  openModalActa(acta?: Acta, gruptarea? : GrupoTarea): void {
     this.isEditMode = !!acta; // Establecer modo de edición
     this.currentActa = acta ? { ...acta } : this.getEmptyActa();
+    // this.currentGrupo = gruptarea ? { ...gruptarea} : this.getEmptyGrupoTarea;
     // Verifica el objeto currentParametro
-    //console.log('currentActa:', this.currentActa); // Verifica la estructura del objeto
+    console.log('currentActa:', this.currentActa); // Verifica la estructura del objeto
+    console.log('currentGrupo:', this.currentGrupo); // Verifica la estructura del objeto
     //console.log('ID_TIPO_PARAMETRO:', this.currentActa.proveedoR_ID); // Verifica el valor
     this.loadProveedores();
     this.loadObras();
