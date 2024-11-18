@@ -75,7 +75,6 @@ export class ActasComponent implements OnInit {
   usuario: Usuario[] = [];
   obra: Obra[] = [];
   tarea: Tarea[] = [];
-  gruptarea: GrupoTarea[] = []
 
   grupoTareas: GrupoTarea[] = [];
   currentGrupo: GrupoTarea = this.getEmptyGrupoTarea();
@@ -101,30 +100,75 @@ export class ActasComponent implements OnInit {
 // .....................................................................................................
   // Método para agregar una nueva card de grupo de tareas
   agregarNuevaCard() {
-    // if (this.hayCardSinGuardar()) {
-    //   alert("Por favor, guarda los datos de la card actual antes de agregar una nueva.");
+    // // if (this.hayCardSinGuardar()) {
+    // //   alert("Por favor, guarda los datos de la card actual antes de agregar una nueva.");
+    // //   return;
+    // // }
+    // // Verifica si el último grupo tiene datos antes de agregar una nueva card
+    // // if (this.grupos.length > 0 && !this.hayCardConDatos()) {
+    // //   alert("Por favor, llena los datos de la card actual antes de agregar una nueva.");
+    // //   return;
+    // // }
+
+    // // Verifica si alguna de las cards actuales tiene datos incompletos
+    // if (this.grupos.some(grupo => 
+    //   // Verificar si el rol es nulo o vacío
+    //   (grupo.idRol === null || grupo.idRol === undefined) || 
+      
+    //   // Verificar si el encargado es nulo o vacío
+    //   (grupo.idEncargado === null || grupo.idEncargado === undefined) || 
+      
+    //   // Verificar si tareas no es un array o es un array vacío
+      
+    // )) {
+    //   console.log('Grupos actuales:', this.grupos);
+    //   alert("Por favor, llena los datos de las cards actuales antes de agregar una nueva.");
     //   return;
     // }
+  
+    // const nuevoGrupo = {
+    //   rol: null,
+    //   encargado: null,
+    //   tareas: [],
+    //   minimizado: false  // Nueva propiedad para el estado
+    // };
+    // this.grupos.push(nuevoGrupo);
     // Verifica si el último grupo tiene datos antes de agregar una nueva card
-    if (this.grupos.length > 0 && !this.hayCardConDatos()) {
-      alert("Por favor, llena los datos de la card actual antes de agregar una nueva.");
-      return;
-    }
-    const nuevoGrupo = {
-      rol: null,
-      encargado: null,
-      tareas: [],
-      minimizado: false  // Nueva propiedad para el estado
-    };
-    this.grupos.push(nuevoGrupo);
+  const ultimoGrupo = this.grupos[this.grupos.length - 1];
+
+  // Validación para asegurarse de que la última card esté completa
+  if (ultimoGrupo && 
+      (ultimoGrupo.idRol === null || ultimoGrupo.idRol === undefined || 
+       ultimoGrupo.idEncargado === null || ultimoGrupo.idEncargado === undefined || 
+       !Array.isArray(ultimoGrupo.idTarea) || ultimoGrupo.idTarea.length === 0)) {
+    alert("Por favor, llena los datos de la card actual antes de agregar una nueva.");
+    return;
+  }
+
+  // Si la última card está completa, agrega una nueva card vacía
+  const nuevoGrupo = {
+    idRol: null,
+    idEncargado: null,
+    idTarea: [], // Asegurando que idTarea es siempre un array
+    minimizado: false  // Nueva propiedad para el estado
+  };
+
+  // Añadir el nuevo grupo a la lista
+  this.grupos.push(nuevoGrupo);
   }
 
 
-  loadGruposTareas(): void {
-    this.http.get(`${this.apiUrlGrupTareas}/Listado`).subscribe({
+  loadGruposTareas(actaId?: number): void {
+    this.http.get(`${this.apiUrlGrupoTareas}/Listado`).subscribe({
       next: (response: any) => {
-        this.grupos = response.data || [];
+        // Filtra los grupos de tareas por idActa si se pasa el actaId
+          if (actaId) {
+            this.grupos = response.body.response.filter((grupo: any) => grupo.idActa === actaId);
+          } else {
+            this.grupos = response.body.response || [];
+          }
         
+          console.log('currentGrupo:', this.grupos);
       },
       error: error => {
         console.error('Error al cargar grupos de tareas:', error);
@@ -132,6 +176,22 @@ export class ActasComponent implements OnInit {
       }
     });
   }
+
+  // loadGruposTareasPorActa(actaId: number): void {
+  //   this.http.get<any>(`${this.apiUrlGrupoTareas}/PorActa/${actaId}`).subscribe({
+  //     next: response => {
+  //       if (response.estado?.ack) {
+  //         this.grupoTareas = response.body.response; // Asigna los grupos de tareas a una variable
+  //       } else {
+  //         this.showError(`Error al cargar los grupos de tareas: ${response.estado?.errDes}`, true);
+  //       }
+  //     },
+  //     error: error => {
+  //       console.error('Error al cargar los grupos de tareas:', error);
+  //       this.showError('Error al cargar los grupos de tareas.', true);
+  //     }
+  //   });
+  // }
   
 
   // // Método para guardar la información de un grupo específico
@@ -149,20 +209,20 @@ export class ActasComponent implements OnInit {
     // Construimos el objeto a enviar con los datos actuales del grupo
     const nuevoGrupoTarea = {
       actA_ID: this.currentActa.id,         // ID del acta asociada
-      roL_ID: this.currentGrupo.roL_ID,              // ID del rol seleccionado
-      encargadO_ID: this.currentGrupo.encargadO_ID,    // ID del encargado seleccionado
-      listaTareas: this.selectedTareas     // Lista de IDs de tareas seleccionadas
+      roL_ID: grupo.idRol,              // ID del rol seleccionado
+      encargadO_ID: grupo.idEncargado,    // ID del encargado seleccionado
+      listaTareas: grupo.idTarea     // Lista de IDs de tareas seleccionadas
     };
   
     // console.log('Payload enviado:', nuevoGrupoTarea); // Verificar los datos enviados
-  
+    console.log('Payload enviado:', nuevoGrupoTarea);
     // Realizamos la solicitud POST
-    this.http.post(`${this.apiUrlGrupTareas}/add`, nuevoGrupoTarea).subscribe({
+    this.http.post(`${this.apiUrlGrupoTareas}/add`, nuevoGrupoTarea).subscribe({
       next: (response: any) => {
         if (response.estado?.ack) {
           // Mensaje de éxito y recargar grupos
           this.showError('Grupo de tareas creado exitosamente.', false);
-          this.loadGruposTareas();
+          this.loadGruposTareas(this.currentActa.id);
         } else {
           // Mensaje de error si el servidor no responde como se espera
           this.showError(`Error al crear el Grupo de Tareas: ${response.estado?.errDes || 'Respuesta no válida.'}`, true);
@@ -177,7 +237,71 @@ export class ActasComponent implements OnInit {
     });
   }
   
+  guardarGrupoTarea(grupo: any): void {
+    // Verificar si el grupo tiene un id. Si tiene, estamos actualizando; si no, estamos creando.
+    if (grupo.idGrupoTarea) {
+      // Si existe un id, actualizar el grupo de tarea
+      this.actualizarGrupoTarea(grupo);
+    } else {
+      // Si no existe id, crear un nuevo grupo de tarea
+      this.createGrupoTarea(grupo);
+    }
+  }
   
+  // Función para actualizar un grupo de tarea
+actualizarGrupoTarea(grupo: any): void {
+  const grupoActualizado = {
+    idGrupoTarea: grupo.idGrupoTarea,      // ID del grupo de tarea
+    actA_ID: this.currentActa.id,          // ID del acta asociada
+    roL_ID: grupo.idRol,                   // ID del rol seleccionado
+    encargadO_ID: grupo.idEncargado,       // ID del encargado seleccionado
+    listaTareas: grupo.idTarea             // Lista de IDs de tareas seleccionadas
+  };
+
+  this.http.put(`${this.apiUrlGrupoTareas}/Actualizar/${grupo.idGrupoTarea}`, grupoActualizado).subscribe({
+    next: (response: any) => {
+      if (response.estado?.ack) {
+        // Mensaje de éxito y recargar grupos
+        this.showError('Grupo de tareas actualizado exitosamente.', false);
+        this.loadGruposTareas(this.currentActa.id);
+      } else {
+        // Mensaje de error si el servidor no responde como se espera
+        this.showError(`Error al actualizar el Grupo de Tareas: ${response.estado?.errDes || 'Respuesta no válida.'}`, true);
+      }
+    },
+    error: error => {
+      console.error('Detalles del error:', error);
+      console.error('Código de estado:', error.status); // Código HTTP
+      console.error('Mensaje:', error.message);         // Mensaje del error
+      this.showError('Error al comunicarse con el servidor.', true);
+    }
+  });
+}
+
+eliminarGrupoTarea(grupoId: number): void {
+  const confirmarEliminar = confirm('¿Estás seguro de que quieres eliminar este grupo de tarea?');
+  if (!confirmarEliminar) return;  // Si el usuario cancela, no hacemos nada
+
+  // Realizamos la solicitud DELETE al backend para eliminar el grupo de tarea
+  this.http.delete(`${this.apiUrlGrupoTareas}/Eliminar/${grupoId}`).subscribe({
+    next: (response: any) => {
+      if (response.estado?.ack) {
+        // Mensaje de éxito y recargar los grupos de tareas
+        this.showError('Grupo de tarea eliminado exitosamente.', false);
+        this.loadGruposTareas(this.currentActa.id);  // Recargar los grupos de tareas para reflejar los cambios
+      } else {
+        // Mostrar error si la respuesta no es la esperada
+        this.showError(`Error al eliminar el grupo de tarea: ${response.estado?.errDes || 'Respuesta no válida.'}`, true);
+      }
+    },
+    error: error => {
+      console.error('Detalles del error:', error);
+      console.error('Código de estado:', error.status); // Código HTTP
+      console.error('Mensaje:', error.message);         // Mensaje del error
+      this.showError('Error al comunicarse con el servidor.', true);
+    }
+  });
+}
   
 
 
@@ -226,7 +350,7 @@ export class ActasComponent implements OnInit {
   private apiUrlActas = 'https://localhost:7125/api/Acta';
   private apiUrlObras = 'https://localhost:7125/api/Obra';
   private apiUrlTareas = 'https://localhost:7125/api/Tarea';
-  private apiUrlGrupTareas = 'https://localhost:7125/api/GrupoTarea';
+  private apiUrlGrupoTareas = 'https://localhost:7125/api/GrupoTarea';
 
   // Variables para manejo de errores
   showErrorModal = false;
@@ -512,16 +636,23 @@ export class ActasComponent implements OnInit {
   }
 
   // Función para abrir el modal para crear o editar un parámetro
-  openModalActa(acta?: Acta, gruptarea? : GrupoTarea): void {
+  openModalActa(acta?: Acta): void {
     this.isEditMode = !!acta; // Establecer modo de edición
     this.currentActa = acta ? { ...acta } : this.getEmptyActa();
     // this.currentGrupo = gruptarea ? { ...gruptarea} : this.getEmptyGrupoTarea;
     // Verifica el objeto currentParametro
-    console.log('currentActa:', this.currentActa); // Verifica la estructura del objeto
-    console.log('currentGrupo:', this.currentGrupo); // Verifica la estructura del objeto
+    //console.log('currentActa:', this.currentActa); // Verifica la estructura del objeto
+    //console.log('currentGrupo:', this.currentGrupo); // Verifica la estructura del objeto
     //console.log('ID_TIPO_PARAMETRO:', this.currentActa.proveedoR_ID); // Verifica el valor
     this.loadProveedores();
     this.loadObras();
+    //console.log('currentGrupo:', this.grupos);
+    if (this.isEditMode && acta?.id) {
+      this.loadGruposTareas(acta.id); // Carga los grupos de tareas del acta
+      //console.log('currentGrupo:', this.grupos);
+    } else {
+      this.grupos = []; // Limpia los grupos de tareas si es un nuevo acta
+    }
     // Asegurarse de que los tipos de parámetros estén cargados
     if (this.proveedor.length === 0) {
       this.loadProveedores();

@@ -167,7 +167,7 @@
                 </button>
 
                 <!-- Botón para eliminar los datos y la card -->
-                <button mat-button color="warn" (click)="eliminarDatosYCard(grupo, i)">
+                <button mat-button color="warn" *ngIf="!grupo.idGrupoTarea" (click)="eliminarDatosYCard(grupo, i)">
                   Eliminar Card
                 </button>
 
@@ -178,7 +178,7 @@
                 <div class="form-row flex-row">
                   <mat-form-field class="mat-form-field">
                     <mat-label>Rol</mat-label>
-                    <mat-select [(ngModel)]="currentGrupo.roL_ID" name="rol" #rolField="ngModel">
+                    <mat-select [(ngModel)]="grupo.idRol" name="rol" #rolField="ngModel">
                       <mat-option *ngFor="let rol of roles" [value]="rol.id">
                         {{ rol.parametro }}
                       </mat-option>
@@ -190,7 +190,7 @@
 
                   <mat-form-field class="mat-form-field">
                     <mat-label>Encargado</mat-label>
-                    <mat-select [(ngModel)]="currentGrupo.encargadO_ID" name="encargado" required #encargadoField="ngModel">
+                    <mat-select [(ngModel)]="grupo.idEncargado" name="encargado" required #encargadoField="ngModel">
                       <mat-option *ngFor="let encargado of usuario" [value]="encargado.id">
                         {{ encargado.primer_nombre }}
                       </mat-option>
@@ -205,7 +205,7 @@
                 <div class="form-row">
                   <mat-form-field class="mat-form-field">
                     <mat-label>Tareas</mat-label>
-                    <mat-select [(ngModel)]="selectedTareas" name="tareas" multiple required #tareasField="ngModel">
+                    <mat-select [(ngModel)]="grupo.idTarea" name="tareas" multiple required #tareasField="ngModel">
                       <mat-option *ngFor="let tarea of tareas" [value]="tarea.id">
                         {{ tarea.nombre }}
                       </mat-option>
@@ -218,7 +218,13 @@
         
                 <!-- Botón para guardar y minimizar el grupo -->
                 <div class="button-group">
-                  <button mat-flat-button color="primary" (click)="createGrupoTarea(grupo)">Guardar</button>     
+                  <button mat-flat-button color="primary" (click)="guardarGrupoTarea(grupo)">Guardar</button>     
+                </div>
+                <!-- Botón de eliminar en cada card -->
+                <div class="button-group">
+                  <button mat-button color="warn" *ngIf="grupo.idGrupoTarea"  (click)="eliminarGrupoTarea(grupo.idGrupoTarea)">
+                    Eliminar Grupo de Tareas
+                  </button>
                 </div>
               </div>
             </mat-card-content>
