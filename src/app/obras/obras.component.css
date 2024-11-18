@@ -6,6 +6,11 @@
     text-align: center;
 }
 
+div.buscador-container {
+
+    margin-left: -30px;
+}
+
 /*----- Estilos para campos y toogle slide -----*/
 .form-container {
     width: 100%;
