@@ -257,10 +257,15 @@ body{
   text-align: center;
 }
 
+
 .modal-body {
-  padding: 30px;
+  padding-right: 30px;
   text-align: center;
+  max-height: 70vh; /* Ajusta la altura máxima de la ventana modal */
+  overflow-y: auto; /* Activa el scroll vertical cuando sea necesario */
+  
 }
+
 
 .modal-footer {
   padding: 20px;
@@ -269,6 +274,7 @@ body{
   justify-content: space-between;
   align-items: center;
 }
+
 
 .button-group-left {
   display: flex;
