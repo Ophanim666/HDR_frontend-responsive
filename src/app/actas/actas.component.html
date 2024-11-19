@@ -44,7 +44,10 @@
             <mat-icon>edit</mat-icon>
           </button>
         </div>
-      </td>
+        <button mat-flat-button color="primary" (click)="downloadPDF(acta.id)">
+          <mat-icon>download</mat-icon>
+        </button>
+      </td>        
     </tr>
   </tbody>
 </table>
