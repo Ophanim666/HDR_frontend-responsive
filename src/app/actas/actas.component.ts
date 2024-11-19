@@ -25,6 +25,7 @@ interface Especialidad {
 interface Usuario {
   id: number;
   primer_nombre: string;
+  rol_id: number;
 }
 interface Parametro {
   id?: number;
@@ -33,7 +34,6 @@ interface Parametro {
   iD_TIPO_PARAMETRO: number; // Cambiado para coincidir con la API
   estado: number;
 }
-
 interface Acta {
   id?: number;
   obrA_ID: number;
@@ -44,6 +44,21 @@ interface Acta {
   observacion: string;
   revisoR_ID: number;
 }
+
+interface GrupoTarea {
+  id?: number;
+  actA_ID: number;
+  roL_ID: number;
+  encargadO_ID: number; // Cambiado para coincidir con la API
+  usuariO_CREACION: string;
+  fechA_APROBACION: Date | null;
+}
+
+interface Tarea{
+  id: number;
+  nombre: string;
+}
+
 @Component({
   selector: 'app-actas',
   templateUrl: './actas.component.html',
@@ -59,6 +74,11 @@ export class ActasComponent implements OnInit {
   especialidad: Especialidad[] = [];
   usuario: Usuario[] = [];
   obra: Obra[] = [];
+  tarea: Tarea[] = [];
+
+  grupoTareas: GrupoTarea[] = [];
+  currentGrupo: GrupoTarea = this.getEmptyGrupoTarea();
+
 
   actaDelete: number | null = null;
   showModalActa = false;
@@ -66,7 +86,261 @@ export class ActasComponent implements OnInit {
   searchText: string = '';
   isEditMode = false;
   pagedActas: any[] = [];
+
+
+  // Arrays para las opciones de selección
+  roles: Parametro[] = [];
+  encargados = [{ id: 1, nombre: 'Encargado 1' }, { id: 2, nombre: 'Encargado 2' }];
+  tareas: any[] = []; // Lista de tareas cargadas desde la API
+  selectedTareas: number[] = []; // IDs de tareas seleccionadas
+  // Array para almacenar los grupos de tareas
+  grupos: any[] = [];
+
+
+// .....................................................................................................
+  // Método para agregar una nueva card de grupo de tareas
+  agregarNuevaCard() {
+    // // if (this.hayCardSinGuardar()) {
+    // //   alert("Por favor, guarda los datos de la card actual antes de agregar una nueva.");
+    // //   return;
+    // // }
+    // // Verifica si el último grupo tiene datos antes de agregar una nueva card
+    // // if (this.grupos.length > 0 && !this.hayCardConDatos()) {
+    // //   alert("Por favor, llena los datos de la card actual antes de agregar una nueva.");
+    // //   return;
+    // // }
+
+    // // Verifica si alguna de las cards actuales tiene datos incompletos
+    // if (this.grupos.some(grupo => 
+    //   // Verificar si el rol es nulo o vacío
+    //   (grupo.idRol === null || grupo.idRol === undefined) || 
+      
+    //   // Verificar si el encargado es nulo o vacío
+    //   (grupo.idEncargado === null || grupo.idEncargado === undefined) || 
+      
+    //   // Verificar si tareas no es un array o es un array vacío
+      
+    // )) {
+    //   console.log('Grupos actuales:', this.grupos);
+    //   alert("Por favor, llena los datos de las cards actuales antes de agregar una nueva.");
+    //   return;
+    // }
   
+    // const nuevoGrupo = {
+    //   rol: null,
+    //   encargado: null,
+    //   tareas: [],
+    //   minimizado: false  // Nueva propiedad para el estado
+    // };
+    // this.grupos.push(nuevoGrupo);
+    // Verifica si el último grupo tiene datos antes de agregar una nueva card
+  const ultimoGrupo = this.grupos[this.grupos.length - 1];
+
+  // Validación para asegurarse de que la última card esté completa
+  if (ultimoGrupo && 
+      (ultimoGrupo.idRol === null || ultimoGrupo.idRol === undefined || 
+       ultimoGrupo.idEncargado === null || ultimoGrupo.idEncargado === undefined || 
+       !Array.isArray(ultimoGrupo.idTarea) || ultimoGrupo.idTarea.length === 0)) {
+    alert("Por favor, llena los datos de la card actual antes de agregar una nueva.");
+    return;
+  }
+
+  // Si la última card está completa, agrega una nueva card vacía
+  const nuevoGrupo = {
+    idRol: null,
+    idEncargado: null,
+    idTarea: [], // Asegurando que idTarea es siempre un array
+    minimizado: false  // Nueva propiedad para el estado
+  };
+
+  // Añadir el nuevo grupo a la lista
+  this.grupos.push(nuevoGrupo);
+  }
+
+
+  loadGruposTareas(actaId?: number): void {
+    this.http.get(`${this.apiUrlGrupoTareas}/Listado`).subscribe({
+      next: (response: any) => {
+        // Filtra los grupos de tareas por idActa si se pasa el actaId
+          if (actaId) {
+            this.grupos = response.body.response.filter((grupo: any) => grupo.idActa === actaId);
+          } else {
+            this.grupos = response.body.response || [];
+          }
+        
+          console.log('currentGrupo:', this.grupos);
+      },
+      error: error => {
+        console.error('Error al cargar grupos de tareas:', error);
+        this.showError('Error al cargar los grupos de tareas.', true);
+      }
+    });
+  }
+
+  // loadGruposTareasPorActa(actaId: number): void {
+  //   this.http.get<any>(`${this.apiUrlGrupoTareas}/PorActa/${actaId}`).subscribe({
+  //     next: response => {
+  //       if (response.estado?.ack) {
+  //         this.grupoTareas = response.body.response; // Asigna los grupos de tareas a una variable
+  //       } else {
+  //         this.showError(`Error al cargar los grupos de tareas: ${response.estado?.errDes}`, true);
+  //       }
+  //     },
+  //     error: error => {
+  //       console.error('Error al cargar los grupos de tareas:', error);
+  //       this.showError('Error al cargar los grupos de tareas.', true);
+  //     }
+  //   });
+  // }
+  
+
+  // // Método para guardar la información de un grupo específico
+  // guardarGrupo(grupo: any) {
+  //   // Aquí puedes implementar la lógica de guardado, como enviarlo al backend
+  //   grupo.minimizado = true;
+  //   //console.log('Grupo guardado:', grupo);
+  // }
+
+
+  createGrupoTarea(grupo: any): void {
+    // Marcar el grupo como minimizado antes de realizar la solicitud
+    grupo.minimizado = true;
+  
+    // Construimos el objeto a enviar con los datos actuales del grupo
+    const nuevoGrupoTarea = {
+      actA_ID: this.currentActa.id,         // ID del acta asociada
+      roL_ID: grupo.idRol,              // ID del rol seleccionado
+      encargadO_ID: grupo.idEncargado,    // ID del encargado seleccionado
+      listaTareas: grupo.idTarea     // Lista de IDs de tareas seleccionadas
+    };
+  
+    // console.log('Payload enviado:', nuevoGrupoTarea); // Verificar los datos enviados
+    console.log('Payload enviado:', nuevoGrupoTarea);
+    // Realizamos la solicitud POST
+    this.http.post(`${this.apiUrlGrupoTareas}/add`, nuevoGrupoTarea).subscribe({
+      next: (response: any) => {
+        if (response.estado?.ack) {
+          // Mensaje de éxito y recargar grupos
+          this.showError('Grupo de tareas creado exitosamente.', false);
+          this.loadGruposTareas(this.currentActa.id);
+        } else {
+          // Mensaje de error si el servidor no responde como se espera
+          this.showError(`Error al crear el Grupo de Tareas: ${response.estado?.errDes || 'Respuesta no válida.'}`, true);
+        }
+      },
+      error: error => {
+        console.error('Detalles del error:', error);
+        console.error('Código de estado:', error.status); // Código HTTP
+        console.error('Mensaje:', error.message);         // Mensaje del error
+        this.showError('Error al comunicarse con el servidor.', true);
+      }
+    });
+  }
+  
+  guardarGrupoTarea(grupo: any): void {
+    // Verificar si el grupo tiene un id. Si tiene, estamos actualizando; si no, estamos creando.
+    if (grupo.idGrupoTarea) {
+      // Si existe un id, actualizar el grupo de tarea
+      this.actualizarGrupoTarea(grupo);
+    } else {
+      // Si no existe id, crear un nuevo grupo de tarea
+      this.createGrupoTarea(grupo);
+    }
+  }
+  
+  // Función para actualizar un grupo de tarea
+actualizarGrupoTarea(grupo: any): void {
+  const grupoActualizado = {
+    idGrupoTarea: grupo.idGrupoTarea,      // ID del grupo de tarea
+    actA_ID: this.currentActa.id,          // ID del acta asociada
+    roL_ID: grupo.idRol,                   // ID del rol seleccionado
+    encargadO_ID: grupo.idEncargado,       // ID del encargado seleccionado
+    listaTareas: grupo.idTarea             // Lista de IDs de tareas seleccionadas
+  };
+
+  this.http.put(`${this.apiUrlGrupoTareas}/Actualizar/${grupo.idGrupoTarea}`, grupoActualizado).subscribe({
+    next: (response: any) => {
+      if (response.estado?.ack) {
+        // Mensaje de éxito y recargar grupos
+        this.showError('Grupo de tareas actualizado exitosamente.', false);
+        this.loadGruposTareas(this.currentActa.id);
+      } else {
+        // Mensaje de error si el servidor no responde como se espera
+        this.showError(`Error al actualizar el Grupo de Tareas: ${response.estado?.errDes || 'Respuesta no válida.'}`, true);
+      }
+    },
+    error: error => {
+      console.error('Detalles del error:', error);
+      console.error('Código de estado:', error.status); // Código HTTP
+      console.error('Mensaje:', error.message);         // Mensaje del error
+      this.showError('Error al comunicarse con el servidor.', true);
+    }
+  });
+}
+
+eliminarGrupoTarea(grupoId: number): void {
+  const confirmarEliminar = confirm('¿Estás seguro de que quieres eliminar este grupo de tarea?');
+  if (!confirmarEliminar) return;  // Si el usuario cancela, no hacemos nada
+
+  // Realizamos la solicitud DELETE al backend para eliminar el grupo de tarea
+  this.http.delete(`${this.apiUrlGrupoTareas}/Eliminar/${grupoId}`).subscribe({
+    next: (response: any) => {
+      if (response.estado?.ack) {
+        // Mensaje de éxito y recargar los grupos de tareas
+        this.showError('Grupo de tarea eliminado exitosamente.', false);
+        this.loadGruposTareas(this.currentActa.id);  // Recargar los grupos de tareas para reflejar los cambios
+      } else {
+        // Mostrar error si la respuesta no es la esperada
+        this.showError(`Error al eliminar el grupo de tarea: ${response.estado?.errDes || 'Respuesta no válida.'}`, true);
+      }
+    },
+    error: error => {
+      console.error('Detalles del error:', error);
+      console.error('Código de estado:', error.status); // Código HTTP
+      console.error('Mensaje:', error.message);         // Mensaje del error
+      this.showError('Error al comunicarse con el servidor.', true);
+    }
+  });
+}
+  
+
+
+  // Método para alternar entre expandir y minimizar el grupo
+  toggleGrupo(grupo: any) {
+    grupo.minimizado = !grupo.minimizado;
+  }
+
+
+  // Función para verificar si existe alguna card sin guardar
+  // hayCardSinGuardar(): boolean {
+  //   return this.grupos.some(grupo => !grupo.minimizado); // Verifica si hay alguna card expandida
+  // }
+  // Función para verificar si el último grupo contiene datos
+  hayCardConDatos(): boolean {
+    const ultimoGrupo = this.grupos[this.grupos.length - 1];
+    // Verificamos si tiene datos significativos (rol, encargado o tareas)
+    return ultimoGrupo && (ultimoGrupo.rol || ultimoGrupo.encargado || ultimoGrupo.tareas.length > 0);
+  }
+
+
+
+  // Método para limpiar los datos y eliminar la card si está vacía
+  eliminarDatosYCard(grupo: any, index: number) {
+    // Limpiar los datos del grupo
+    grupo.rol = null;
+    grupo.encargado = null;
+    grupo.tareas = [];
+
+    // Confirmar si se desea eliminar la card completamente
+    const confirmarEliminar = confirm("¿Deseas eliminar esta card y sus datos?");
+    if (confirmarEliminar) {
+      this.grupos.splice(index, 1);  // Elimina la card del array si se confirma
+    }
+  }
+
+  // ..................................................................................................
+  
+
   // URLs de la API
   private apiUrl = 'https://localhost:7125/api/Parametro';
   private apiUrlTipoParametro = 'https://localhost:7125/api/TipoParametro';
@@ -75,6 +349,8 @@ export class ActasComponent implements OnInit {
   private apiUrlUsuarios = 'https://localhost:7125/api/Usuarios';
   private apiUrlActas = 'https://localhost:7125/api/Acta';
   private apiUrlObras = 'https://localhost:7125/api/Obra';
+  private apiUrlTareas = 'https://localhost:7125/api/Tarea';
+  private apiUrlGrupoTareas = 'https://localhost:7125/api/GrupoTarea';
 
   // Variables para manejo de errores
   showErrorModal = false;
@@ -93,6 +369,8 @@ export class ActasComponent implements OnInit {
     this.loadEspecialidades();
     this.loadUsuarios();
     this.loadObras();
+    this.loadParametrosRoles()
+    this.loadTareas();
     
   }
 
@@ -109,13 +387,26 @@ export class ActasComponent implements OnInit {
     };
   }
 
+  getEmptyGrupoTarea(): GrupoTarea {
+    return {
+      actA_ID: 0,
+      roL_ID: 0,
+      encargadO_ID: 0,
+      usuariO_CREACION: '',
+      fechA_APROBACION: null
+    };
+  }
+
+
+  
+
   //Función para cargar tipos de parámetros desde la API
   loadTipoParametros(): void {
     this.http.get<any>(`${this.apiUrlTipoParametro}/LstTipoParametros`).subscribe({
       next: response => {
         if (response.estado?.ack) {
           this.tipoParametros = response.body.response;
-          console.log('Tipos de parámetros cargados:', this.tipoParametros);
+          ////console.log('Tipos de parámetros cargados:', this.tipoParametros);
 
           this.loadParametros();
         } else {
@@ -134,7 +425,7 @@ export class ActasComponent implements OnInit {
       next: response => {
         if (response.estado?.ack) {
           this.proveedor = response.body.response;
-          console.log('Proveedores cargados:', this.proveedor);
+          ////console.log('Proveedores cargados:', this.proveedor);
         } else {
           this.showError(`Error al cargar los proveedores: ${response.estado?.errDes}`, true);
         }
@@ -145,12 +436,14 @@ export class ActasComponent implements OnInit {
       }
     });
   }
+
+
   loadObras(): void {
     this.http.get<any>(`${this.apiUrlObras}/ObtenerObras`).subscribe({
       next: response => {
         if (response.estado?.ack) {
           this.obra = response.body.response;
-          console.log('Obras cargados:', this.obra);
+          ////console.log('Obras cargados:', this.obra);
         } else {
           this.showError(`Error al cargar las Obras: ${response.estado?.errDes}`, true);
         }
@@ -162,12 +455,13 @@ export class ActasComponent implements OnInit {
     });
   }
 
+
   loadEspecialidades(): void {
     this.http.get<any>(`${this.apiUrlEspecialidad}/ListadoDeespecialidadesSimple`).subscribe({
       next: response => {
         if (response.estado?.ack) {
           this.especialidad = response.body.response;
-          console.log('Especialidades cargadas:', this.especialidad);
+          //console.log('Especialidades cargadas:', this.especialidad);
         } else {
           this.showError(`Error al cargar las especialidades: ${response.estado?.errDes}`, true);
         }
@@ -179,12 +473,13 @@ export class ActasComponent implements OnInit {
     });
   }
 
+
   loadUsuarios(): void {
     this.http.get<any>(`${this.apiUrlUsuarios}/ListarUsuarios`).subscribe({
       next: response => {
         if (response.estado?.ack) {
           this.usuario = response.body.response;
-          console.log('Usuarios cargadas:', this.usuario);
+          //console.log('Usuarios cargadas:', this.usuario);
         } else {
           this.showError(`Error al cargar los Usuarios: ${response.estado?.errDes}`, true);
         }
@@ -192,6 +487,22 @@ export class ActasComponent implements OnInit {
       error: error => {
         console.error('Error al cargar los Usuarios:', error);
         this.showError('Error en la solicitud al cargar los Usuarios.', true);
+      }
+    });
+  }
+
+  loadTareas(): void {
+    this.http.get<any>(`${this.apiUrlTareas}/ListarTareas`).subscribe({
+      next: response => {
+        if (response.estado?.ack) {
+          this.tareas = response.body.response; 
+        } else {
+          this.showError(`Error al cargar las Tareas: ${response.estado?.errDes}`, true);
+        }
+      },
+      error: error => {
+        console.error('Error al cargar las Tareas:', error);
+        this.showError('Error en la solicitud al cargar las Tareas.', true);
       }
     });
   }
@@ -217,6 +528,7 @@ export class ActasComponent implements OnInit {
   //     }
   //   });
   // }
+
 
   //Función para cargar parámetros desde la API
   loadParametros(): void {
@@ -250,7 +562,40 @@ export class ActasComponent implements OnInit {
     });
   }
 
-  // Función para cargar parámetros desde la API
+
+  //Función para cargar parámetros desde la API PARA ROLES
+  loadParametrosRoles(): void {
+    this.http.get<any>(`${this.apiUrl}/Listar`).subscribe({
+      next: response => {
+        if (response.estado.ack) {
+          // Busca el ID del tipo de parámetro cuyo nombre es "Roles"
+          const tipoRoles = this.tipoParametros.find(
+            tipo => tipo.tipO_PARAMETRO === "Roles"
+          );
+          
+          // Si encontramos el ID, filtramos los parámetros
+          if (tipoRoles) {
+            this.roles = response.body.response.filter(
+              (parametro: Parametro) => parametro.iD_TIPO_PARAMETRO === tipoRoles.id
+            );
+          } else {
+            console.warn('No se encontró el tipo de parámetro "Roles".');
+            this.roles = [];
+          }
+          this.updatePageActa();
+        } else {
+          this.showError(`Error al cargar los Parámetros: ${response.estado.errDes}`, true);
+        }
+      },
+      error: error => {
+        console.error('Error al cargar los datos:', error);
+        this.showError('Error en la solicitud al cargar los datos.', true);
+      }
+    });
+  }
+
+
+  // Función para cargar las actas desde la API
   loadActas(): void {
     this.http.get<any>(`${this.apiUrlActas}/Listar`).subscribe({
       next: response => {
@@ -275,7 +620,7 @@ export class ActasComponent implements OnInit {
     );
   }
 
-  // Función para actualizar la página de parámetros según la paginación
+  // Funcion que actualiza la pagina de acta segun la paginación
   updatePageActa(): void {
     const filtered = this.filteredActas();
     const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
@@ -294,11 +639,20 @@ export class ActasComponent implements OnInit {
   openModalActa(acta?: Acta): void {
     this.isEditMode = !!acta; // Establecer modo de edición
     this.currentActa = acta ? { ...acta } : this.getEmptyActa();
+    // this.currentGrupo = gruptarea ? { ...gruptarea} : this.getEmptyGrupoTarea;
     // Verifica el objeto currentParametro
-    console.log('currentActa:', this.currentActa); // Verifica la estructura del objeto
-    console.log('ID_TIPO_PARAMETRO:', this.currentActa.proveedoR_ID); // Verifica el valor
+    //console.log('currentActa:', this.currentActa); // Verifica la estructura del objeto
+    //console.log('currentGrupo:', this.currentGrupo); // Verifica la estructura del objeto
+    //console.log('ID_TIPO_PARAMETRO:', this.currentActa.proveedoR_ID); // Verifica el valor
     this.loadProveedores();
     this.loadObras();
+    //console.log('currentGrupo:', this.grupos);
+    if (this.isEditMode && acta?.id) {
+      this.loadGruposTareas(acta.id); // Carga los grupos de tareas del acta
+      //console.log('currentGrupo:', this.grupos);
+    } else {
+      this.grupos = []; // Limpia los grupos de tareas si es un nuevo acta
+    }
     // Asegurarse de que los tipos de parámetros estén cargados
     if (this.proveedor.length === 0) {
       this.loadProveedores();
@@ -313,7 +667,7 @@ export class ActasComponent implements OnInit {
   //   this.currentParametro.estado = event.checked ? 1 : 0;
   // }
 
-  // Función para cerrar el modal de parámetros
+  // Función para cerrar el modal de actas
   closeModalActa(): void {
     this.showModalActa = false;
     document.body.classList.remove('modal-open');
@@ -328,7 +682,7 @@ export class ActasComponent implements OnInit {
     }
   }
 
-  // Función para crear un nuevo parámetro
+  // Función para crear un Acta
   createActa(): void {
     // Convertimos la fecha a formato de cadena "YYYY-MM-DD"
     const formattedActa = {
@@ -355,7 +709,7 @@ export class ActasComponent implements OnInit {
   }
 
 
-  // Función para actualizar un parámetro existente
+  // Función para actualizar un acta
   updateActa(): void {
     // Asegúrate de que 'fecha_aprobacion' sea siempre un objeto Date
     if (this.currentActa.fechA_APROBACION && typeof this.currentActa.fechA_APROBACION === 'string') {
@@ -438,18 +792,21 @@ export class ActasComponent implements OnInit {
     this.updatePageActa();
   }
 
+
+  // ........................................................................................................................
+
   // Función para obtener el nombre de un tipo de parámetro según su ID
   getProveedorNombre(id: number): string {
-    console.log('ID recibido proveed:', id); // Ver qué ID llega
-    //console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
+    //console.log('ID recibido proveed:', id); // Ver qué ID llega
+    ////console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
     
     const proveedor = this.proveedor.find(elemento => {
-        //console.log('Comparando:aaaaa', elemento.id, 'con aaaa', id); // Ver las comparaciones
+        ////console.log('Comparando:aaaaa', elemento.id, 'con aaaa', id); // Ver las comparaciones
         return elemento.iDproveedor === id;
     });
     
     if (!proveedor) {
-        //console.log(`No se encontró proveedor para ID: ${id}`);
+        ////console.log(`No se encontró proveedor para ID: ${id}`);
         return `Tipo ${id}`;
     }
     
@@ -457,16 +814,16 @@ export class ActasComponent implements OnInit {
   }
 
   getObraNombre(id: number): string {
-    console.log('ID recibido obra:', id); // Ver qué ID llega
-    //console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
+    //console.log('ID recibido obra:', id); // Ver qué ID llega
+    ////console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
     
     const obra = this.obra.find(elemento => {
-        //console.log('Comparando:aaaaa', elemento.id, 'con aaaa', id); // Ver las comparaciones
+        ////console.log('Comparando:aaaaa', elemento.id, 'con aaaa', id); // Ver las comparaciones
         return elemento.id === id;
     });
     
     if (!obra) {
-        //console.log(`No se encontró proveedor para ID: ${id}`);
+        ////console.log(`No se encontró proveedor para ID: ${id}`);
         return `Tipo ${id}`;
     }
     
@@ -474,16 +831,16 @@ export class ActasComponent implements OnInit {
   }
 
   getEspecialidadNombre(id: number): string {
-    console.log('ID recibido:', id); // Ver qué ID llega
-    //console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
+    //console.log('ID recibido:', id); // Ver qué ID llega
+    ////console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
     
     const especialidad = this.especialidad.find(elemento => {
-       // console.log('Comparando:', elemento.id, 'con', id); // Ver las comparaciones
+       // //console.log('Comparando:', elemento.id, 'con', id); // Ver las comparaciones
         return elemento.id === id;
     });
     
     if (!especialidad) {
-        //console.log(`No se encontró especialidad para ID: ${id}`);
+        ////console.log(`No se encontró especialidad para ID: ${id}`);
         return `Tipo ${id}`;
     }
     
@@ -491,16 +848,16 @@ export class ActasComponent implements OnInit {
   }
 
   getUsuarioNombre(id: number): string {
-    //console.log('ID recibido:', id); // Ver qué ID llega
-    //console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
+    ////console.log('ID recibido:', id); // Ver qué ID llega
+    ////console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
     
     const usuario = this.usuario.find(elemento => {
-        //console.log('Comparando:', elemento.id, 'con', id); // Ver las comparaciones
+        ////console.log('Comparando:', elemento.id, 'con', id); // Ver las comparaciones
         return elemento.id === id;
     });
     
     if (!usuario) {
-        //console.log(`No se encontró usuario para ID: ${id}`);
+        ////console.log(`No se encontró usuario para ID: ${id}`);
         return `Tipo ${id}`;
     }
     
@@ -508,20 +865,37 @@ export class ActasComponent implements OnInit {
   }
 
   getEstadoNombre(id: number): string {
-    //console.log('ID recibido:', id); // Ver qué ID llega
-    //console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
+    ////console.log('ID recibido:', id); // Ver qué ID llega
+    ////console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
     
     const estado = this.parametros.find(elemento => {
-        //console.log('Comparando:', elemento.id, 'con', id); // Ver las comparaciones
+        ////console.log('Comparando:', elemento.id, 'con', id); // Ver las comparaciones
         return elemento.id === id;
     });
     
     if (!estado) {
-        //console.log(`No se encontró usuario para ID: ${id}`);
+        ////console.log(`No se encontró usuario para ID: ${id}`);
         return `Tipo ${id}`;
     }
     
     return estado.parametro; 
+  }
+
+  getTareaNombre(id: number): string {
+    //console.log('ID recibido proveed:', id); // Ver qué ID llega
+    ////console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
+    
+    const tarea = this.tarea.find(elemento => {
+        ////console.log('Comparando:aaaaa', elemento.id, 'con aaaa', id); // Ver las comparaciones
+        return elemento.id === id;
+    });
+    
+    if (!tarea) {
+        ////console.log(`No se encontró proveedor para ID: ${id}`);
+        return `Tipo ${id}`;
+    }
+    
+    return tarea.nombre; 
   }
 
 

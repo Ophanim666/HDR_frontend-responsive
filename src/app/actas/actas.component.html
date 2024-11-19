@@ -69,6 +69,7 @@
       <div class="modal-body">
         <form #parametroForm="ngForm" class="form-container">
           <div class="form-row flex-row">
+
             <!-- Campos: Obra, Proveedor y Especialidad en una fila -->
             <div class="form-column">
               <mat-form-field class="mat-form-field">
@@ -140,15 +141,99 @@
           </div>
 
           <!-- Campo Descripción (campo grande) -->
-          <div class="form-row">
+          <div class="form-row des" [ngClass]="{'agregar-mode': !isEditMode}">
             <mat-form-field class="mat-form-field">
               <mat-label>Descripción</mat-label>
               <textarea matInput [(ngModel)]="currentActa.observacion" name="descripcion" rows="5"></textarea>
             </mat-form-field>
           </div>
+          
+<!-- ........................................................................................................................................... -->
+          <!-- Botón para agregar una nueva card de tareas -->
+          <div class="add-group-container" *ngIf="isEditMode">
+            <button mat-flat-button color="primary" (click)="agregarNuevaCard()">Agregar Grupo de Tareas</button>
+          </div>
+          
 
         </form>
+        <!-- Solo mostrar en modo de edición -->
+        <div *ngFor="let grupo of grupos; let i = index" class="grupo-container" >
+          <mat-card class="grupo-card" *ngIf="isEditMode">
+            <mat-card-content>
+              <div class="grupo-header">
+                <!-- Botón para expandir/minimizar el grupo -->
+                <button mat-button (click)="toggleGrupo(grupo)">
+                  {{ grupo.minimizado ? 'Expandir' : 'Minimizar' }}
+                </button>
+
+                <!-- Botón para eliminar los datos y la card -->
+                <button mat-button color="warn" *ngIf="!grupo.idGrupoTarea" (click)="eliminarDatosYCard(grupo, i)">
+                  Eliminar Card
+                </button>
+
+              </div>
+        
+              <!-- Contenido de la card, solo se muestra si no está minimizado -->
+              <div *ngIf="!grupo.minimizado">
+                <div class="form-row flex-row">
+                  <mat-form-field class="mat-form-field">
+                    <mat-label>Rol</mat-label>
+                    <mat-select [(ngModel)]="grupo.idRol" name="rol" #rolField="ngModel">
+                      <mat-option *ngFor="let rol of roles" [value]="rol.id">
+                        {{ rol.parametro }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="rolField.invalid && rolField.touched">
+                      Debe seleccionar un rol
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field class="mat-form-field">
+                    <mat-label>Encargado</mat-label>
+                    <mat-select [(ngModel)]="grupo.idEncargado" name="encargado" required #encargadoField="ngModel">
+                      <mat-option *ngFor="let encargado of usuario" [value]="encargado.id">
+                        {{ encargado.primer_nombre }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="encargadoField.invalid && encargadoField.touched">
+                      Debe seleccionar un Encargado del grupo
+                    </mat-error>
+                  </mat-form-field>
+
+                </div>
+        
+                <div class="form-row">
+                  <mat-form-field class="mat-form-field">
+                    <mat-label>Tareas</mat-label>
+                    <mat-select [(ngModel)]="grupo.idTarea" name="tareas" multiple required #tareasField="ngModel">
+                      <mat-option *ngFor="let tarea of tareas" [value]="tarea.id">
+                        {{ tarea.nombre }}
+                      </mat-option>
+                    </mat-select>
+                    <mat-error *ngIf="tareasField.invalid && tareasField.touched">
+                      Debe seleccionar al menos una tarea
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+        
+                <!-- Botón para guardar y minimizar el grupo -->
+                <div class="button-group">
+                  <button mat-flat-button color="primary" (click)="guardarGrupoTarea(grupo)">Guardar</button>     
+                </div>
+                <!-- Botón de eliminar en cada card -->
+                <div class="button-group">
+                  <button mat-button color="warn" *ngIf="grupo.idGrupoTarea"  (click)="eliminarGrupoTarea(grupo.idGrupoTarea)">
+                    Eliminar Grupo de Tareas
+                  </button>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
       </div>
+<!-- .................................................................................................... -->
+
+
       <div class="modal-footer">
         <div class="button-group-left">
           <button mat-flat-button class="mat-flat-button cancelar" (click)="closeModalActa()">
