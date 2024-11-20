@@ -17,7 +17,6 @@ import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { BodyComponent } from './body/body.component';
 import { SidenavComponent } from './sidenav/sidenav.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 
 // Usar botones de Angular
 import { MatButtonModule } from '@angular/material/button';
@@ -79,7 +78,6 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     AppComponent,
     BodyComponent,
     SidenavComponent,
-    DashboardComponent,
 
     // Estas se usarán pero no están definidas al 100%
     ActasComponent,

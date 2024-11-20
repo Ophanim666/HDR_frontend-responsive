@@ -24,7 +24,7 @@ export class LogInComponent {
       next: (response) => {
         const token = response.token;
         localStorage.setItem('token', token);
-        this.router.navigate(['/dashboard']);
+        this.router.navigate(['/actas']);
       },
       error: (error) => {
         console.error('Error al iniciar sesión:', error);

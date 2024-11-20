@@ -2,12 +2,6 @@ import { RouterLink } from "@angular/router";
 
 export const navbarData = [
   {
-    RouterLink: 'dashboard',
-    icon: 'fa-solid fa-house',
-    label: 'Dashboard'
-  },
-
-  {
     RouterLink: 'actas',
     icon: 'fa-solid fa-file',
     label: 'Actas'
@@ -44,8 +38,8 @@ export const navbarData = [
   // los iconos se ven aqui : https://fontawesome.com/search?q=para&o=r&m=free&s=solid
   {
     RouterLink: 'gestion-tipo-parametros',
-    icon: 'fa-solid fa-hat-cowboy',
-    label: 'Gestion tipo parametros'
+    icon: 'fa-solid fa-tag',
+    label: 'Tipos de parámetros'
   },
 
   //Gestión parametos

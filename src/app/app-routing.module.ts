@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { ActasComponent } from './actas/actas.component';
 import { PerfilesComponent } from './perfiles/perfiles.component';
 import { ObrasComponent } from './obras/obras.component';
@@ -23,7 +22,6 @@ import { AuthGuard } from './guards/auth.guard';
 const routes: Routes = [
   // Aqui están las rutas de las páginas
   {path: '', redirectTo: '/login', pathMatch: 'full' }, // Redirige a la ruta de login por defecto
-  {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   // Ejemplo {path: 'settings', component: SettingsComponent} // Recordar cambiar el nombre de su component, por ejemplo: SettingsComponent
   {path: 'actas', component: ActasComponent, canActivate: [AuthGuard]},
   {path: 'perfiles', component: PerfilesComponent, canActivate: [AuthGuard]},
