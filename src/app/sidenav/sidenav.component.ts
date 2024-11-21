@@ -43,8 +43,15 @@ export class SidenavComponent implements OnInit {
 
   ngOnInit(): void {
     this.screenWidth = window.innerWidth;
+      // Inicializa el sidenav abierto al cargar la página
+    this.collapsed = true; // Cambia a "true" para que el sidenav esté abierto inicialmente.
+
+  // Emitimos el estado inicial del sidenav (opcional, en caso de que otros componentes lo necesiten)
+    this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
+
   }
 
+  
   toggleColapse(): void {
     this.collapsed = !this.collapsed;
     this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });

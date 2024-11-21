@@ -1,77 +1,88 @@
-/* MENÚ en general*/
+/* MENÚ en general */
 .sidenav {
   background: #262626;
-  transition: all .5s ease;
   position: fixed;
   z-index: 1;
   top: 0;
-  width: 5rem;
-  height: 100vh;
-  box-shadow: 0.063rem 0 1.25rem 0 #a6a6a6;
+  left: 0;
+  width: 5rem; /* Ancho colapsado */
+  height: 100vh; /* Ocupa toda la altura de la pantalla */
+  overflow-x: hidden; /* Previene barras horizontales */
+  overflow-y: hidden; /* Previene barras verticales visibles */
+  transition: width 0.3s ease; /* Animación en el ancho */
+  will-change: width; /* Optimiza la animación del ancho */
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinea los elementos al inicio en modo expandido */
+}
+
+/* MENÚ EXPANDIDO */
+.sidenav-collapsed {
+  width: 16.5625rem; /* Ancho expandido */
 }
 
 /* CONTENEDOR PARA EL LOGO Y EL TEXTO */
 .logo-container {
   display: flex;
   align-items: center;
-  padding: 0.938rem;
-  width: 100%;
+  padding: 1rem;
+  width: 100%; /* Asegura que ocupe el ancho completo del sidenav */
+  box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+  white-space: nowrap; /* Evita cortes de texto */
 }
 
-/* LOGO */
 .logo {
-  border: none; /* Puede ser innecesario si el logo no tiene un borde por defecto */
-  border-radius: 0px; /* Esto es relevante si quieres que las esquinas sean redondeadas */
-  overflow: hidden; /* Útil si quieres que cualquier contenido que desborde se recorte */
-  width: 3rem; /* Importante para definir el tamaño del logo */
-  min-width: 3rem; /* Relevante si quieres mantener un tamaño mínimo */
-  height: 3rem; /* Ajustar la altura del logo */
-  padding: 0; /* Eliminar el padding adicional */
-  cursor: pointer; /* Cambiar tipo de cursor */
-}
-
-.logo img {
-  width: 100%; /* Asegura que la imagen se ajuste al contenedor */
-  height: 100%; /* Asegura que la imagen se ajuste al contenedor */
-  object-fit: cover; /* Ajusta la imagen para cubrir el área del logo sin distorsionarla */
-  border-radius: 0px; /* Mantiene las esquinas redondeadas en la imagen */
-}
-
-/* Texto al lado de logo */
-.logo-text {
-  margin-left: 1.5rem; /* Posicionamiento y espacio */
-
-  /* Estilo de texto */
-  font-size: 24px;
-  font-weight: 600;
-  color: #f2f2f2;
-  font-family: 'Arial';
-}
-
-/* MENÚ CERRADO */
-.sidenav-collapsed {
-  width: 16.5625rem;
-}
-
-/* MARGENES LATERALES DE MENÚ */
-.sidenav-nav {
-  list-style: none;
-  padding: 0.938rem;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: calc(100% - 3.65rem);
+  width: 3rem;
+  height: 3rem;
   cursor: pointer;
 }
 
-/* ALINEACIÓN DE LOS ITEMS HACÍA LA IZQUIERDA EN MENÚ ABIERTO */
+.logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Texto al lado del logo */
+.logo-text {
+  margin-left: 1rem; /* Espaciado entre el logo y el texto */
+  font-size: 18px;
+  font-weight: 600;
+  color: #f2f2f2;
+  font-family: 'Arial', sans-serif;
+  flex-shrink: 1; /* Permite que el texto se ajuste dentro del contenedor */
+  overflow: visible; /* Asegura que el texto no sea truncado */
+  display: none; /* Oculto por defecto (menú colapsado) */
+}
+
+.sidenav-collapsed .logo-text {
+  display: block; /* Muestra el texto cuando el menú está expandido */
+}
+
+/* LISTA DE NAVEGACIÓN */
+.sidenav-nav {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Alinea los elementos al inicio */
+  width: 100%;
+  height: calc(100% - 5rem); /* Ajusta el espacio restante */
+  overflow-y: auto; /* Permite scroll interno si es necesario */
+  scrollbar-width: none; /* Oculta barra de desplazamiento en Firefox */
+}
+
+.sidenav-nav::-webkit-scrollbar {
+  display: none; /* Oculta barra de desplazamiento en navegadores basados en WebKit */
+}
+
+/* ELEMENTOS DE NAVEGACIÓN */
 .sidenav-nav-item {
   width: 100%;
   margin-bottom: 0.625rem;
 }
 
-/* ICONOS */
 .sidenav-nav-link {
   display: flex;
   align-items: center;
@@ -79,50 +90,81 @@
   color: #f2f2f2;
   text-decoration: none;
   border-radius: 0.625rem;
-  transition: all .3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease, justify-content 0.3s ease;
+  padding: 0 1rem; /* Espaciado interno uniforme */
+  box-sizing: border-box;
 }
 
-/* TAMAÑO DE ICONOS Y ALINEACIÓN AL CENTRO */
+.sidenav-nav-link:hover {
+  background-color: #3a3a3a; /* Efecto hover */
+}
+
 .sidenav-link-icon {
   font-size: 22px;
   width: 2rem;
-  min-width: 2rem;
-  margin: 0 0.5rem;
   text-align: center;
+  margin-right: 0; /* Sin margen por defecto */
 }
 
-/* MARGEN PARA EL TEXTO EN CADA ITEM*/
+.sidenav-collapsed .sidenav-link-icon {
+  margin-right: 1rem; /* Agrega margen cuando el menú está expandido */
+}
+
 .sidenav-link-text {
-  margin-left: 1.5rem;
+  display: none; /* Oculto por defecto (menú colapsado) */
 }
 
-/* HOVER PARA CADA ITEM */
-.sidenav-nav-item:hover .sidenav-nav-link {
-  background-color: #f2f2f2;
-  color: #262626;
+.sidenav-collapsed .sidenav-link-text {
+  display: inline-block; /* Muestra el texto en modo expandido */
 }
 
-/* Pendiente, no hace cambios... No estoy segura. */
-.sidenav-nav-item:hover .sidenav-link-icon,
-.sidenav-nav-item:hover .sidenav-link-text {
-  color: #262626;
+/* RESPONSIVIDAD */
+
+/* Para pantallas menores a 768px */
+@media (max-width: 768px) {
+  .sidenav {
+    width: 5rem; /* Mantiene el ancho reducido por defecto */
+    height: 100vh;
+    overflow-y: hidden;
+  }
+
+  .sidenav-collapsed {
+    width: 12rem; /* Ancho expandido en pantallas pequeñas */
+  }
+
+  .logo-text {
+    font-size: 14px; /* Ajusta el tamaño del texto */
+  }
+
+  .sidenav-link-text {
+    font-size: 14px; /* Reduce el tamaño del texto */
+  }
+
+  .sidenav-link-icon {
+    font-size: 18px; /* Reduce el tamaño de los íconos */
+  }
 }
 
-/* AL SELECCIONAR UN ITEM, ESTE SE ACTIVA... */
-.active {
-  background-color: #fff;
-}
+/* Para pantallas muy pequeñas (menores a 480px) */
+@media (max-width: 480px) {
+  .sidenav {
+    width: 5rem; /* Mantiene el ancho colapsado */
+    height: 100vh;
+  }
 
-/* COLORES PARA EL ICONO Y EL TEXTO AL ESTAR ACTIVO EL ITEM */
-.active .sidenav-link-icon,
-.active .sidenav-link-text {
-  color: #262626;
-}
+  .sidenav-collapsed {
+    width: 10rem; /* Ajusta el ancho en pantallas pequeñas */
+  }
 
-/* Estilos para los encabezados del modal */
-.modal-title {
-  font-size: 20px;
-  font-weight: 500;
-  margin: 5px;
-  text-align: center;
+  .logo-text {
+    font-size: 12px; /* Ajusta el tamaño del texto */
+  }
+
+  .sidenav-link-text {
+    font-size: 12px; /* Ajusta el texto de los ítems */
+  }
+
+  .sidenav-link-icon {
+    font-size: 16px; /* Ajusta el tamaño de los íconos */
+  }
 }

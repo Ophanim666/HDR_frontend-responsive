@@ -4,6 +4,9 @@ import { NgForm } from '@angular/forms';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
+/*se importa el pkg de JSPDF */
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 interface TipoParametro {
   id: number;
@@ -847,22 +850,44 @@ eliminarGrupoTarea(grupoId: number): void {
     return especialidad.nombre; 
   }
 
-  getUsuarioNombre(id: number): string {
-    ////console.log('ID recibido:', id); // Ver qué ID llega
-    ////console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
-    
-    const usuario = this.usuario.find(elemento => {
-        ////console.log('Comparando:', elemento.id, 'con', id); // Ver las comparaciones
-        return elemento.id === id;
-    });
-    
-    if (!usuario) {
-        ////console.log(`No se encontró usuario para ID: ${id}`);
-        return `Tipo ${id}`;
+  getRolNombre(id: number): string {
+    // Confirmar que los datos están cargados
+    if (!this.roles || this.roles.length === 0) {
+      console.warn('La lista de roles está vacía.');
+      return `Rol desconocido (ID: ${id})`;
     }
-    
-    return usuario.primer_nombre; 
+  
+    // Buscar el rol
+    const rol = this.roles.find((rol) => rol.id === id);
+  
+    // Validar el resultado
+    if (!rol) {
+      console.warn(`No se encontró un rol con el ID: ${id}`);
+      return `Rol desconocido (ID: ${id})`;
+    }
+  
+    return rol.parametro;
   }
+  
+  getUsuarioNombre(id: number): string {
+    // Confirmar que los datos están cargados
+    if (!this.usuario || this.usuario.length === 0) {
+      return `Encargado desconocido (ID: ${id})`;
+    }
+  
+    // Buscar el usuario
+    const usuario = this.usuario.find((usuario) => usuario.id === id);
+  
+    // Validar el resultado
+    if (!usuario) {
+      console.warn(`No se encontró un usuario con el ID: ${id}`);
+      return `Encargado desconocido (ID: ${id})`;
+    }
+  
+    return usuario.primer_nombre;
+  }
+  
+  
 
   getEstadoNombre(id: number): string {
     ////console.log('ID recibido:', id); // Ver qué ID llega
@@ -899,4 +924,104 @@ eliminarGrupoTarea(grupoId: number): void {
   }
 
 
+
+  /*se implementa la funcion para la descarga de actas en PDF*/
+  downloadPDF(actaId: number): void {
+    // Cargar grupos de tareas para el acta seleccionada
+    this.loadGruposTareas(actaId);
+  
+    // Esperar a que los datos se carguen antes de generar el PDF
+    setTimeout(() => {
+      const acta = this.actas.find((a) => a.id === actaId);
+      if (!acta) {
+        alert('No se encontró el acta especificada.');
+        return;
+      }
+  
+      // Verificar si los grupos de tareas están cargados
+      if (!this.grupos || this.grupos.length === 0) {
+        alert('No hay grupos de tareas asociados al acta.');
+        return;
+      }
+  
+      const doc = new jsPDF();
+      doc.setFontSize(18);
+      doc.text(`Reporte de Acta N° ${actaId}`, 14, 20);
+  
+      // Información del Acta
+      const actaInfo = [
+        ['Campo', 'Detalle'],
+        ['ID', acta.id || 'Sin ID'],
+        ['Obra', this.getObraNombre(acta.obrA_ID || 0)],
+        ['Proveedor', this.getProveedorNombre(acta.proveedoR_ID || 0)],
+        ['Especialidad', this.getEspecialidadNombre(acta.especialidaD_ID || 0)],
+        ['Administrador', this.getUsuarioNombre(acta.revisoR_ID || 0)],
+        ['Fecha de Creación', acta.fechA_APROBACION ? new Date(acta.fechA_APROBACION).toLocaleDateString() : 'Sin fecha'],
+        ['Observaciones', acta.observacion || 'Sin observaciones'],
+        ['Estado', this.getEstadoNombre(acta.estadO_ID || 0)],
+      ];
+  
+      (doc as any).autoTable({
+        head: [actaInfo[0]],
+        body: actaInfo.slice(1),
+        startY: 30,
+        theme: 'striped',
+        styles: { fontSize: 10, cellPadding: 3 },
+        headStyles: { fillColor: [22, 160, 133], textColor: 255 },
+        bodyStyles: { valign: 'top', halign: 'left' },
+        columnStyles: {
+          1: { cellWidth: 100 }, // Ajusta el ancho de la columna "Detalle"
+        },
+        didParseCell: (data: any) => {
+          if (data.row.raw && data.row.raw[0] === 'Observaciones') {
+            data.cell.styles.cellWidth = 'wrap'; // Envuelve texto largo en Observaciones
+          }
+        },
+      });
+  
+      // Grupos de Tareas
+      doc.text('Tareas Asociadas:', 14, (doc as any).lastAutoTable.finalY + 10);
+  
+      this.grupos.forEach((grupo, index) => {
+        console.log('Procesando grupo:', grupo); // Depuración
+  
+        const rolNombre = this.getRolNombre(grupo.idRol);
+        const encargadoNombre = this.getUsuarioNombre(grupo.idEncargado);
+  
+        console.log(`Rol obtenido: ${rolNombre}, Encargado obtenido: ${encargadoNombre}`); // Depuración
+  
+        const tareas = (grupo.idTarea || [])
+          .map((tareaId: number) => {
+            const tarea = this.tareas.find((t) => t.id === tareaId);
+            return tarea ? tarea.nombre : `Tarea desconocida (ID: ${tareaId})`;
+          })
+          .join(', ');
+  
+        console.log(`Tareas obtenidas: ${tareas}`); // Depuración
+  
+        doc.setFontSize(12);
+        doc.text(`Grupo ${index + 1}:`, 14, (doc as any).lastAutoTable.finalY + 15);
+  
+        const grupoInfo = [
+          ['Rol', rolNombre],
+          ['Encargado', encargadoNombre],
+          ['Tareas', tareas || 'Sin tareas asignadas'],
+        ];
+  
+        (doc as any).autoTable({
+          head: [['Campo', 'Detalle']],
+          body: grupoInfo,
+          startY: (doc as any).lastAutoTable.finalY + 20,
+          theme: 'striped',
+          styles: { fontSize: 10 },
+          headStyles: { fillColor: [22, 160, 133], textColor: 255 },
+        });
+      });
+  
+      // Guardar el PDF
+      doc.save(`Acta_${actaId}.pdf`);
+    }, 1000); // Asegúrate de que sea suficiente para cargar los datos
+  }
+  
+  
 }

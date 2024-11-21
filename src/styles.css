@@ -87,6 +87,8 @@ body{
   display: flex;
   align-items: center;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Eliminar la sombra para evitar el efecto de cuadro */
+  margin-left: -30px;
+  margin-right: 30px;
 }
 
 /* Estilo para el campo de búsqueda */
@@ -119,6 +121,8 @@ body{
   box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Sombra sutil alrededor de la tabla */
   margin-top: 20px; /* Espaciado superior de la tabla */
   background-color: white; /* Color de fondo de la tabla */
+  margin-left: -30px;
+  margin-right: 30px;
 }
 
 .table-elegant .table-title {
@@ -178,6 +182,8 @@ body{
   margin-top: 20px;
   padding: 10px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-left: -30px;
+  margin-right: 30px;
 }
   
 /* Estilos para el paginador dentro del contenedor */
@@ -246,7 +252,8 @@ body{
 .modal-dialog {
   background: #fff;
   border-radius: 8px;
-  width: 600px;
+  width: 600px; /* Ancho predeterminado */
+  max-width: 90%; /* El modal no excede el 90% del ancho de la pantalla */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -261,9 +268,21 @@ body{
 .modal-body {
   padding-right: 30px;
   text-align: center;
-  max-height: 70vh; /* Ajusta la altura máxima de la ventana modal */
-  overflow-y: auto; /* Activa el scroll vertical cuando sea necesario */
-  
+  max-height: 70vh; /* Ajusta la altura máxima del modal */
+  overflow-y: hidden; /* Por defecto, sin scroll */
+  padding-left: 30px;
+}
+
+/* Estilo específico para el modal grande */
+.modal-large {
+  overflow-y: auto; /* Activa el scroll solo en el modal grande */
+}
+
+/* Opcional: refinamiento adicional para pantallas grandes */
+@media (min-width: 768px) {
+  .modal-large {
+    overflow-y: auto; /* Asegura el scroll en pantallas grandes */
+  }
 }
 
 
@@ -279,6 +298,48 @@ body{
 .button-group-left {
   display: flex;
   gap: 10px;
+}
+
+/* ----- Responsividad ----- */
+
+/* Para pantallas menores a 768px */
+@media (max-width: 768px) {
+  .modal-dialog {
+    width: 90%; /* Ajusta el ancho al 90% de la pantalla */
+    padding: 15px; /* Reduce el espaciado interno */
+  }
+
+  .modal-body {
+    padding: 20px; /* Reduce el espaciado interno */
+  }
+
+  .modal-footer {
+    flex-wrap: wrap; /* Permite que los botones se ajusten en varias líneas si es necesario */
+    gap: 10px;
+  }
+}
+
+/* Para pantallas menores a 480px */
+@media (max-width: 480px) {
+  .modal-dialog {
+    width: 95%; /* Ocupa el 95% del ancho disponible */
+    padding: 10px; /* Reduce aún más el espaciado interno */
+  }
+
+  .modal-body {
+    padding: 15px; /* Ajuste adicional para pantallas muy pequeñas */
+  }
+
+  .modal-footer {
+    flex-direction: column; /* Los botones se apilan verticalmente */
+    align-items: center; /* Centra los botones */
+    gap: 10px; /* Espacio entre los botones */
+  }
+
+  .button-group-left {
+    flex-direction: column; /* Apila los botones en pantallas pequeñas */
+    gap: 10px; /* Espaciado vertical entre botones */
+  }
 }
 
 /*----- Estilos para modal de ALERTAS -----*/
@@ -329,3 +390,27 @@ body{
   margin: 0;
   padding: 0;
 }
+/* Scroll horizontal global para toda la página */
+html, body {
+  height: 100%; /* Ocupa toda la altura */
+  margin: 0; /* Elimina márgenes globales */
+  padding: 0; /* Elimina paddings globales */
+  overflow-x: auto; /* Habilita el scroll horizontal solo si es necesario */
+  box-sizing: border-box; /* Incluye padding y bordes en el tamaño total */
+  background-color: #f8f9fa; /* Fondo consistente con la página */
+
+}
+
+/* Personalización del scroll */
+body::-webkit-scrollbar {
+  height:15px; /* Altura del scroll horizontal */
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #ccc; /* Color del scroll */
+
+}
+
+
+
+
