@@ -872,7 +872,6 @@ eliminarGrupoTarea(grupoId: number): void {
   getUsuarioNombre(id: number): string {
     // Confirmar que los datos están cargados
     if (!this.usuario || this.usuario.length === 0) {
-      console.warn('La lista de usuarios está vacía.');
       return `Encargado desconocido (ID: ${id})`;
     }
   
@@ -967,8 +966,17 @@ eliminarGrupoTarea(grupoId: number): void {
         body: actaInfo.slice(1),
         startY: 30,
         theme: 'striped',
-        styles: { fontSize: 10 },
+        styles: { fontSize: 10, cellPadding: 3 },
         headStyles: { fillColor: [22, 160, 133], textColor: 255 },
+        bodyStyles: { valign: 'top', halign: 'left' },
+        columnStyles: {
+          1: { cellWidth: 100 }, // Ajusta el ancho de la columna "Detalle"
+        },
+        didParseCell: (data: any) => {
+          if (data.row.raw && data.row.raw[0] === 'Observaciones') {
+            data.cell.styles.cellWidth = 'wrap'; // Envuelve texto largo en Observaciones
+          }
+        },
       });
   
       // Grupos de Tareas

@@ -7,7 +7,6 @@
   left: 0;
   width: 5rem; /* Ancho colapsado */
   height: 100vh; /* Ocupa toda la altura de la pantalla */
-  box-shadow: 0.063rem 0 1.25rem 0 #a6a6a6;
   overflow-x: hidden; /* Previene barras horizontales */
   overflow-y: hidden; /* Previene barras verticales visibles */
   transition: width 0.3s ease; /* Animación en el ancho */

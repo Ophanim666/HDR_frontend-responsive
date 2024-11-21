@@ -268,9 +268,21 @@ body{
 .modal-body {
   padding-right: 30px;
   text-align: center;
-  max-height: 70vh; /* Ajusta la altura máxima de la ventana modal */
-  overflow-y: auto; /* Activa el scroll vertical cuando sea necesario */
-  
+  max-height: 70vh; /* Ajusta la altura máxima del modal */
+  overflow-y: hidden; /* Por defecto, sin scroll */
+  padding-left: 30px;
+}
+
+/* Estilo específico para el modal grande */
+.modal-large {
+  overflow-y: auto; /* Activa el scroll solo en el modal grande */
+}
+
+/* Opcional: refinamiento adicional para pantallas grandes */
+@media (min-width: 768px) {
+  .modal-large {
+    overflow-y: auto; /* Asegura el scroll en pantallas grandes */
+  }
 }
 
 
