@@ -46,7 +46,7 @@ export class GestionTipoParametrosComponent implements OnInit {
         if (response.estado.ack) {
           this.tipoParametros = response.body.response;
           this.updatePagedTipoParametros();
-          console.log('Tipos de parámetros cargados:', this.tipoParametros);
+          // console.log('Tipos de parámetros cargados:', this.tipoParametros);
         } else {
           this.showError(`Error al cargar los tipos de parámetros: ${response.estado.errDes}`, true);
         }
@@ -55,7 +55,7 @@ export class GestionTipoParametrosComponent implements OnInit {
         console.error('Error al cargar los datos:', error);
         this.showError('Error en la solicitud al cargar los datos.', true);
       },
-      complete: () => console.log('Carga de tipos de parámetros completa')
+      // complete: () => console.log('Carga de tipos de parámetros completa')
     });
   }
 
@@ -111,7 +111,7 @@ export class GestionTipoParametrosComponent implements OnInit {
     this.http.post(`${this.apiUrl}/add`, this.currentTipoParametro).subscribe({
       next: (response: any) => {
         if (response.estado.ack) {
-          console.log('Tipo de parámetro creado:', response);
+          // console.log('Tipo de parámetro creado:', response);
           this.showError('Tipo de parámetro creado exitosamente.', false);
           this.loadTipoParametros();
           this.closeModalTipoParametro();
@@ -137,7 +137,7 @@ export class GestionTipoParametrosComponent implements OnInit {
     this.http.put<any>(url, updatedData).subscribe({
       next: (response: any) => {
         if (response?.estado?.ack) {
-          console.log('Tipo de parámetro actualizado:', response);
+          // console.log('Tipo de parámetro actualizado:', response);
           this.showError('Tipo de parámetro actualizado exitosamente.', false);
           this.loadTipoParametros();
           this.closeModalTipoParametro();
@@ -172,7 +172,7 @@ export class GestionTipoParametrosComponent implements OnInit {
       this.http.delete<any>(`${this.apiUrl}/${this.tipoParametroDelete}`).subscribe({
         next: response => {
           if (response.estado.ack) {
-            console.log('Tipo de parámetro eliminado:', response);
+            // console.log('Tipo de parámetro eliminado:', response);
             this.showError('Tipo de parámetro eliminado exitosamente.', false);
             this.loadTipoParametros();
             this.closeConfirmationDialog();

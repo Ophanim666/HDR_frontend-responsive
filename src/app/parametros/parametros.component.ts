@@ -70,7 +70,7 @@ export class ParametrosComponent implements OnInit {
       next: response => {
         if (response.estado?.ack) {
           this.tipoParametros = response.body.response;
-          console.log('Tipos de parámetros cargados:', this.tipoParametros);
+          // console.log('Tipos de parámetros cargados:', this.tipoParametros);
         } else {
           this.showError(`Error al cargar los tipos de parámetros: ${response.estado?.errDes}`, true);
         }
@@ -127,8 +127,8 @@ export class ParametrosComponent implements OnInit {
     this.isEditMode = !!parametro; // Establecer modo de edición
     this.currentParametro = parametro ? { ...parametro } : this.getEmptyParametro();
     // Verifica el objeto currentParametro
-    console.log('currentParametro:', this.currentParametro); // Verifica la estructura del objeto
-    console.log('ID_TIPO_PARAMETRO:', this.currentParametro.iD_TIPO_PARAMETRO); // Verifica el valor
+    // console.log('currentParametro:', this.currentParametro); // Verifica la estructura del objeto
+    // console.log('ID_TIPO_PARAMETRO:', this.currentParametro.iD_TIPO_PARAMETRO); // Verifica el valor
 
     // Asegurarse de que los tipos de parámetros estén cargados
     if (this.tipoParametros.length === 0) {
@@ -253,16 +253,16 @@ export class ParametrosComponent implements OnInit {
 
   // Función para obtener el nombre de un tipo de parámetro según su ID
   getTipoParametroNombre(id: number): string {
-    console.log('ID recibido:', id); // Ver qué ID llega
-    console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
+    // console.log('ID recibido:', id); // Ver qué ID llega
+    // console.log('Lista de tipos:', this.tipoParametros); // Ver qué tipos tenemos disponibles
     
     const tipoParametro = this.tipoParametros.find(tipo => {
-        console.log('Comparando:', tipo.id, 'con', id); // Ver las comparaciones
+        // console.log('Comparando:', tipo.id, 'con', id); // Ver las comparaciones
         return tipo.id === id;
     });
     
     if (!tipoParametro) {
-        console.log(`No se encontró tipo parámetro para ID: ${id}`);
+        // console.log(`No se encontró tipo parámetro para ID: ${id}`);
         return `Tipo ${id}`;
     }
     

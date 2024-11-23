@@ -170,7 +170,7 @@ export class PerfilesComponent {
             estado: usuario.estado
           }));
           this.updatePageUsuario();
-          console.log('Usuarios cargados:', this.usuarios);
+          // console.log('Usuarios cargados:', this.usuarios);
         } else {
           this.showError(`Error al cargar los Usuarios: ${response.estado.errDes}`, true);
         }
@@ -179,7 +179,7 @@ export class PerfilesComponent {
         console.error('Error al cargar los datos:', error);
         this.showError('Error en la solicitud al cargar los datos.', true);
       },
-      complete: () => console.log('Carga de usuarios completa')
+      // complete: () => console.log('Carga de usuarios completa')
     });
   }
   //...............
@@ -187,11 +187,11 @@ export class PerfilesComponent {
 
   // Creacion de Usuarios ..............
   createUsuario(): void {
-    console.log(this.currentUsuarios.es_administrador)
+    // console.log(this.currentUsuarios.es_administrador)
     this.http.post(`${this.apiUrl}/add`, this.currentUsuarios).subscribe({
       next: (response: any) => {
         if (response.estado.ack) {
-          console.log('Usuario creado:', response);
+          // console.log('Usuario creado:', response);
           this.showError('Usuario creado exitosamente.', false);
           this.loadUsuarios();
           this.closeModalUsuario();
@@ -211,11 +211,11 @@ export class PerfilesComponent {
    // Editar Usuarios .......
    updateUsuario(): void {
     const url = `${this.apiUrl}/Actualizar/${this.currentUsuarios.id}`;
-    console.log(this.currentUsuarios.es_administrador);
+    // console.log(this.currentUsuarios.es_administrador);
     this.http.put<any>(url, this.currentUsuarios).subscribe({
       next: (response: any) => {
         if (response?.estado?.ack) {
-          console.log('Usuario actualizado:', response);
+          // console.log('Usuario actualizado:', response);
           this.showError('Usuario actualizado exitosamente.', false);
           this.loadUsuarios();
           this.closeModalUsuario();
@@ -251,7 +251,7 @@ export class PerfilesComponent {
       this.http.delete<any>(`${this.apiUrl}/Eliminar/${this.usuarioDelete}`).subscribe({
         next: response => {
           if (response.estado.ack) {
-            console.log('Usuario eliminado:', response);
+            // console.log('Usuario eliminado:', response);
             this.showError('Usuario eliminado exitosamente.', false);
             this.loadUsuarios();
             this.closeConfirmationDialog();

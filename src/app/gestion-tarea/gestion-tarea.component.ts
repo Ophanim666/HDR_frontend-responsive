@@ -46,7 +46,7 @@ export class GestionTareaComponent implements OnInit {
         if (response.estado.ack) {
           this.tareas = response.body.response;
           this.updatePagedTareas();
-          console.log('Tareas cargadas:', this.tareas);
+          // console.log('Tareas cargadas:', this.tareas);
         } else {
           this.showError(`Error al cargar las tareas: ${response.estado.errDes}`, true);
         }
@@ -55,7 +55,7 @@ export class GestionTareaComponent implements OnInit {
         console.error('Error al cargar los datos:', error);
         this.showError('Error en la solicitud al cargar los datos.', true);
       },
-      complete: () => console.log('Carga de tareas completa')
+      // complete: () => console.log('Carga de tareas completa')
     });
   }
 
@@ -111,7 +111,7 @@ export class GestionTareaComponent implements OnInit {
     this.http.post(`${this.apiUrl}/add`, this.currentTarea).subscribe({
       next: (response: any) => {
         if (response.estado.ack) {
-          console.log('Tarea creada:', response);
+          // console.log('Tarea creada:', response);
           this.showError('Tarea creada exitosamente.', false);
           this.loadTarea();
           this.closeModalTarea();
@@ -137,7 +137,7 @@ export class GestionTareaComponent implements OnInit {
     this.http.put<any>(url, updatedData).subscribe({
       next: (response: any) => {
         if (response?.estado?.ack) {
-          console.log('Tarea actualizada:', response);
+          // console.log('Tarea actualizada:', response);
           this.showError('Tarea actualizada exitosamente.', false);
           this.loadTarea();
           this.closeModalTarea();
@@ -172,7 +172,7 @@ export class GestionTareaComponent implements OnInit {
       this.http.delete<any>(`${this.apiUrl}/${this.tareaDelete}`).subscribe({
         next: response => {
           if (response.estado.ack) {
-            console.log('Tarea eliminada:', response);
+            // console.log('Tarea eliminada:', response);
             this.showError('Tarea eliminada exitosamente.', false);
             this.loadTarea();
             this.closeConfirmationDialog();

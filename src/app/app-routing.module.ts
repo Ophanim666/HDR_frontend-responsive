@@ -5,9 +5,6 @@ import { PerfilesComponent } from './perfiles/perfiles.component';
 import { ObrasComponent } from './obras/obras.component';
 import { GestionTareaComponent } from './gestion-tarea/gestion-tarea.component';
 import { GestionEspecialidadComponent } from './gestion-especialidad/gestion-especialidad.component';
-// Componente creación de usuarios
-import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
-import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usuarios.component';
 // Gestión proveedores
 import { GestionProveedoresComponent } from './gestion-proveedores/gestion-proveedores.component';
 // componente gestion tipo de parametro Alvaro
@@ -27,10 +24,6 @@ const routes: Routes = [
   {path: 'perfiles', component: PerfilesComponent, canActivate: [AuthGuard]},
   {path: 'obras', component: ObrasComponent, canActivate: [AuthGuard]},
   {path: 'gestion-tarea', component: GestionTareaComponent, canActivate: [AuthGuard]},
-  // Creación de usuarios
-  { path: 'crear-usuario', component: CrearUsuariosComponent, canActivate: [AuthGuard]},
-  // Edición de usuarios
-  { path: 'edicion-de-usuarios', component: EdicionDeUsuariosComponent, canActivate: [AuthGuard] },
   // Gestión de proveedores
   { path: 'gestion-proveedores', component: GestionProveedoresComponent, canActivate: [AuthGuard] },
   // Gestión de especialidad

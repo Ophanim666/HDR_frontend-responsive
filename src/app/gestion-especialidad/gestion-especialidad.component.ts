@@ -47,7 +47,7 @@ export class GestionEspecialidadComponent implements OnInit {
         if (response.estado.ack) {
           this.especialidades = response.body.response;
           this.updatePagedEspecialidades();
-          console.log('Especialidades cargadas:', this.especialidades);
+          // console.log('Especialidades cargadas:', this.especialidades);
         } else {
           this.showError(`Error al cargar las especialidades: ${response.estado.errDes}`, true);
         }
@@ -56,7 +56,7 @@ export class GestionEspecialidadComponent implements OnInit {
         console.error('Error al cargar los datos:', error);
         this.showError('Error en la solicitud al cargar los datos.', true);
       },
-      complete: () => console.log('Carga de especialidades completa')
+      // complete: () => console.log('Carga de especialidades completa')
     });
   }
 
@@ -112,7 +112,7 @@ export class GestionEspecialidadComponent implements OnInit {
     this.http.post(`${this.apiUrl}/add`, this.currentEspecialidad).subscribe({
       next: (response: any) => {
         if (response.estado.ack) {
-          console.log('Especialidad creada:', response);
+          // console.log('Especialidad creada:', response);
           this.showError('Especialidad creada exitosamente.', false);
           this.loadEspecialidad();
           this.closeModalEspecialidad();
@@ -138,7 +138,7 @@ export class GestionEspecialidadComponent implements OnInit {
     this.http.put<any>(url, updatedData).subscribe({
       next: (response: any) => {
         if (response?.estado?.ack) {
-          console.log('Especialidad actualizada:', response);
+          // console.log('Especialidad actualizada:', response);
           this.showError('Especialidad actualizada exitosamente.', false);
           this.loadEspecialidad();
           this.closeModalEspecialidad();
@@ -173,7 +173,7 @@ export class GestionEspecialidadComponent implements OnInit {
       this.http.delete<any>(`${this.apiUrl}/${this.especialidadDelete}`).subscribe({
         next: response => {
           if (response.estado.ack) {
-            console.log('Especialidad eliminada:', response);
+            // console.log('Especialidad eliminada:', response);
             this.showError('Especialidad eliminada exitosamente.', false);
             this.loadEspecialidad();
             this.closeConfirmationDialog();

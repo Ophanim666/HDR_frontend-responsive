@@ -188,7 +188,7 @@ body{
   
 /* Estilos para el paginador dentro del contenedor */
 .paginador-container .mat-paginator {
-  background-color: transparent;
+  background-color: white;
   color: white;
 }
   
