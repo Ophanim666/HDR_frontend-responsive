@@ -171,7 +171,7 @@ export class ActasComponent implements OnInit {
             this.grupos = response.body.response || [];
           }
         
-          console.log('currentGrupo:', this.grupos);
+          // console.log('currentGrupo:', this.grupos);
       },
       error: error => {
         console.error('Error al cargar grupos de tareas:', error);
@@ -983,12 +983,12 @@ eliminarGrupoTarea(grupoId: number): void {
       doc.text('Tareas Asociadas:', 14, (doc as any).lastAutoTable.finalY + 10);
   
       this.grupos.forEach((grupo, index) => {
-        console.log('Procesando grupo:', grupo); // Depuración
+        // console.log('Procesando grupo:', grupo); // Depuración
   
         const rolNombre = this.getRolNombre(grupo.idRol);
         const encargadoNombre = this.getUsuarioNombre(grupo.idEncargado);
   
-        console.log(`Rol obtenido: ${rolNombre}, Encargado obtenido: ${encargadoNombre}`); // Depuración
+        // console.log(`Rol obtenido: ${rolNombre}, Encargado obtenido: ${encargadoNombre}`); // Depuración
   
         const tareas = (grupo.idTarea || [])
           .map((tareaId: number) => {
@@ -997,7 +997,7 @@ eliminarGrupoTarea(grupoId: number): void {
           })
           .join(', ');
   
-        console.log(`Tareas obtenidas: ${tareas}`); // Depuración
+        // console.log(`Tareas obtenidas: ${tareas}`); // Depuración
   
         doc.setFontSize(12);
         doc.text(`Grupo ${index + 1}:`, 14, (doc as any).lastAutoTable.finalY + 15);

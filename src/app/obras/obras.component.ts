@@ -46,7 +46,7 @@ export class ObrasComponent implements OnInit {
         if (response.estado.ack) {
           this.obras = response.body.response;
           this.updatePagedObras();
-          console.log('Obras cargadas:', this.obras);
+          // console.log('Obras cargadas:', this.obras);
         } else {
           this.showError(`Error al cargar las obras: ${response.estado.errDes}`, true);
         }
@@ -55,7 +55,7 @@ export class ObrasComponent implements OnInit {
         console.error('Error al cargar los datos:', error);
         this.showError('Error en la solicitud al cargar los datos.', true);
       },
-      complete: () => console.log('Carga de obras completa')
+      // complete: () => console.log('Carga de obras completa')
     });
   }
 
@@ -111,7 +111,7 @@ export class ObrasComponent implements OnInit {
     this.http.post(`${this.apiUrl}/add`, this.currentObra).subscribe({
       next: (response: any) => {
         if (response.estado.ack) {
-          console.log('Obra creada:', response);
+          // console.log('Obra creada:', response);
           this.showError('Obra creada exitosamente.', false);
           this.loadObra();
           this.closeModalObra();
@@ -137,7 +137,7 @@ export class ObrasComponent implements OnInit {
     this.http.put<any>(url, updatedData).subscribe({
       next: (response: any) => {
         if (response?.estado?.ack) {
-          console.log('Obra actualizada:', response);
+          // console.log('Obra actualizada:', response);
           this.showError('Obra actualizada exitosamente.', false);
           this.loadObra();
           this.closeModalObra();
@@ -172,7 +172,7 @@ export class ObrasComponent implements OnInit {
       this.http.delete<any>(`${this.apiUrl}/${this.obraDelete}`).subscribe({
         next: response => {
           if (response.estado.ack) {
-            console.log('Obra eliminada:', response);
+            // console.log('Obra eliminada:', response);
             this.showError('Obra eliminada exitosamente.', false);
             this.loadObra();
             this.closeConfirmationDialog();

@@ -19,9 +19,9 @@
       <th>Razón Social</th>
       <th>Rut</th>
       <!-- <th>DV</th> -->
-       <th>Estado</th>
+      <th>Estado</th>
       <th>Especialidades</th> <!-- Nueva columna para especialidades -->
-      <th>Fecha</th>
+      <th>Fecha Creación</th>
       <th>Usuario Creación</th>
       <th></th>
     </tr>
@@ -41,19 +41,17 @@
           </ul>
         </td>
         <td>{{ proveedor.fechaCreacion | date: 'dd/MM/yyyy' }}</td>
-         <td>{{ proveedor.usuariO_CREACION }}</td>
+          <td>{{ proveedor.usuariO_CREACION }}</td>
         <td class="actions-columns">
           <div class="button-container">
             <button mat-flat-button color="primary" class="mat-flat-button editar" (click)="openModalProveedor(proveedor)">
-              <mat-icon>edit_square</mat-icon>
+              <mat-icon>edit</mat-icon>
             </button>
           </div>
         </td>
     </tr>
   </tbody>
 </table>
-
-
 
 <!-- Paginación -->
 <div class="paginador-container">
@@ -63,7 +61,6 @@
               (page)="onPageChange($event)">
   </mat-paginator>
 </div>
-
 
 <!-- Modal para CREAR y EDITAR proveedor -->
 <div *ngIf="showModalProveedores" class="modal">
@@ -80,7 +77,7 @@
         <form (ngSubmit)="saveProveedor()" #proveedorForm="ngForm" class="form-container">
           <div class="form-row">
 
-              <!-- Campos Nombre del Proveedor, Razón Social -->
+            <!-- Campos Nombre del Proveedor, Razón Social -->
             <div class="form-row nombre-razo">
               <mat-form-field class="mat-form-field nombre">
                 <mat-label>Proveedor</mat-label>

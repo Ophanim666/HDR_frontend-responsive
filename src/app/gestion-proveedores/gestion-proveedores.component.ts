@@ -60,7 +60,7 @@ export class GestionProveedoresComponent implements OnInit {
             nombre: especialidad.nombre  // Y el nombre para mostrarlo en el formulario
           }));
 
-          console.log('Especialidades cargadas:', this.especialidadList);
+          // console.log('Especialidades cargadas:', this.especialidadList);
         } else {
           this.showError(`Error al cargar las especialidades: ${response.estado.errDes}`, true);
         }
@@ -69,7 +69,7 @@ export class GestionProveedoresComponent implements OnInit {
         console.error('Error al cargar los datos:', error);
         this.showError('Error en la solicitud al cargar los datos.', true);
       },
-      complete: () => console.log('Carga de especialidades completa')
+      // complete: () => console.log('Carga de especialidades completa')
     });
   }
   //....
@@ -95,7 +95,7 @@ export class GestionProveedoresComponent implements OnInit {
             usuarioCreacion: proveedor.usuariO_CREACION // También agregamos el usuario de creación si está en la respuesta
           }));
           this.updatePageProveedor();
-          console.log('Proveedores cargados:', this.proveedores);
+          // console.log('Proveedores cargados:', this.proveedores);
         } else {
           this.showError(`Error al cargar los Proveedores: ${response.estado.errDes}`, true);
         }
@@ -104,7 +104,7 @@ export class GestionProveedoresComponent implements OnInit {
         console.error('Error al cargar los datos:', error);
         this.showError('Error en la solicitud al cargar los datos.', true);
       },
-      complete: () => console.log('Carga de proveedores completa')
+      // complete: () => console.log('Carga de proveedores completa')
     });
   }
 
@@ -119,7 +119,7 @@ export class GestionProveedoresComponent implements OnInit {
           const especialidadesSeleccionadas = response.body.response[0].iDespecialidades || [];
           // Establecemos las especialidades seleccionadas en el FormControl
           this.especialidades.setValue(especialidadesSeleccionadas);
-          console.log('Especialidades seleccionadas para el proveedor:', especialidadesSeleccionadas);
+          // console.log('Especialidades seleccionadas para el proveedor:', especialidadesSeleccionadas);
         } else {
           this.showError(`Error al cargar las especialidades del proveedor: ${response.estado.errDes}`, true);
         }
@@ -217,7 +217,7 @@ getEspecialidades(especialidades: string): string[] {
     this.http.post(`${this.apiUrl}/add`, this.currentProveedores).subscribe({
       next: (response: any) => {
         if (response.estado.ack) {
-          console.log('Proveedor creado:', response);
+          // console.log('Proveedor creado:', response);
           this.showError('Proveedor creado exitosamente.', false);
           this.loadProveedores();
           this.closeModalProveedor();
@@ -251,7 +251,7 @@ getEspecialidades(especialidades: string): string[] {
     this.http.put<any>(url, updatedData).subscribe({
       next: (response: any) => {
         if (response?.estado?.ack) {
-          console.log('Proveedor actualizado:', response);
+          // console.log('Proveedor actualizado:', response);
           this.showError('Proveedor actualizado exitosamente.', false);
           this.loadProveedores();
           this.closeModalProveedor();
@@ -290,7 +290,7 @@ getEspecialidades(especialidades: string): string[] {
       this.http.delete<any>(`${this.apiUrl}/Eliminar/${this.proveedorDelete}`).subscribe({
         next: response => {
           if (response.estado.ack) {
-            console.log('Proveedor eliminado:', response);
+            // console.log('Proveedor eliminado:', response);
             this.showError('Proveedor eliminado exitosamente.', false);
             this.loadProveedores();
             this.closeConfirmationDialog();

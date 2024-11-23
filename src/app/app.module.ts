@@ -30,6 +30,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 // Select simple
 import {MatSelectModule} from '@angular/material/select';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { getSpanishPaginatorIntl } from './mat-paginator-es';
 
 // Esto es para el formulario del proveedores ya que es el que tiene mas inputs
 import {MatIconModule} from '@angular/material/icon';
@@ -51,22 +53,14 @@ import { GestionTareaComponent } from './gestion-tarea/gestion-tarea.component';
 import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 
-// Crear usuarios
-import { CrearUsuariosComponent } from './crear-usuarios/crear-usuarios.component';
-
-// Editar usuarios
-import { EdicionDeUsuariosComponent } from './edicion-de-usuarios/edicion-de-usuarios.component';
-
 // Gestión de proveedores
 import { GestionProveedoresComponent } from './gestion-proveedores/gestion-proveedores.component';
 import { GestionEspecialidadComponent } from './gestion-especialidad/gestion-especialidad.component';
-import { HeaderComponent } from './header/header.component';
 
 // Rama que está trabajando Álvaro para el CRUD tipo de parámetro
 import { GestionTipoParametrosComponent } from './gestion-tipo-parametros/gestion-tipo-parametros.component';
 
 import { ParametrosComponent } from './parametros/parametros.component';
-import { CrearParametroComponent } from './crear-parametro/crear-parametro.component';
 import { LogInComponent } from './log-in/log-in.component';
 
 // Importa el interceptor
@@ -83,17 +77,13 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     ActasComponent,
     PerfilesComponent,
     ObrasComponent,
-    CrearUsuariosComponent,
-    EdicionDeUsuariosComponent,
     GestionTareaComponent,
     GestionProveedoresComponent,
     GestionEspecialidadComponent,
-    HeaderComponent,
 
     // Gestión de tipo parámetro - Álvaro
     GestionTipoParametrosComponent,
     ParametrosComponent,
-    CrearParametroComponent,
     LogInComponent,
   ],
 
@@ -131,6 +121,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
   ],
 
   providers: [
+    { provide: MatPaginatorIntl, useValue: getSpanishPaginatorIntl() },
+
     provideAnimationsAsync(),
     {
       provide: HTTP_INTERCEPTORS, // Proporciona el interceptor
