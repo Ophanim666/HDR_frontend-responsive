@@ -92,7 +92,7 @@ export class GestionProveedoresComponent implements OnInit {
             especialidades: proveedor.nombreEspecialidad.join(', '),
             // Aquí agregamos la fecha de creación
             fechaCreacion: proveedor.fechaCreacion, // Asegúrate de que el campo coincida con el nombre que se devuelve en la respuesta del backend
-            usuarioCreacion: proveedor.usuariO_CREACION // También agregamos el usuario de creación si está en la respuesta
+            usuarioCreacion: proveedor.usuarioCreacion // También agregamos el usuario de creación si está en la respuesta
           }));
           this.updatePageProveedor();
           // console.log('Proveedores cargados:', this.proveedores);
