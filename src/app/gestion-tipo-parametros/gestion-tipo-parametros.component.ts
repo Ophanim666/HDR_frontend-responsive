@@ -128,7 +128,7 @@ export class GestionTipoParametrosComponent implements OnInit {
 
   // Editar un tipo parámetro
   updateTipoParametro(): void {
-    const url = `${this.apiUrl}/${this.currentTipoParametro.id}`;
+    const url = `${this.apiUrl}/Actualizar/${this.currentTipoParametro.id}`;
     const updatedData = {
       tipO_PARAMETRO: this.currentTipoParametro.tipO_PARAMETRO,
       estado: this.currentTipoParametro.estado
@@ -169,7 +169,7 @@ export class GestionTipoParametrosComponent implements OnInit {
   // Eliminar tipo parámetro
   deleteTipoParametro(): void {
     if (this.tipoParametroDelete !== null) {
-      this.http.delete<any>(`${this.apiUrl}/${this.tipoParametroDelete}`).subscribe({
+      this.http.delete<any>(`${this.apiUrl}/Eliminar/${this.tipoParametroDelete}`).subscribe({
         next: response => {
           if (response.estado.ack) {
             // console.log('Tipo de parámetro eliminado:', response);

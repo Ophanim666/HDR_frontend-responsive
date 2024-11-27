@@ -129,7 +129,7 @@ export class GestionEspecialidadComponent implements OnInit {
 
   // Editar una especialidad existente
   updateEspecialidad(): void {
-    const url = `${this.apiUrl}/${this.currentEspecialidad.id}`;
+    const url = `${this.apiUrl}/Actualizar/${this.currentEspecialidad.id}`;
     const updatedData = {
       nombre: this.currentEspecialidad.nombre,
       estado: this.currentEspecialidad.estado
@@ -170,7 +170,7 @@ export class GestionEspecialidadComponent implements OnInit {
   // Eliminar especialidad
   deleteEspecialidad(): void {
     if (this.especialidadDelete !== null) {
-      this.http.delete<any>(`${this.apiUrl}/${this.especialidadDelete}`).subscribe({
+      this.http.delete<any>(`${this.apiUrl}/Eliminar/${this.especialidadDelete}`).subscribe({
         next: response => {
           if (response.estado.ack) {
             // console.log('Especialidad eliminada:', response);

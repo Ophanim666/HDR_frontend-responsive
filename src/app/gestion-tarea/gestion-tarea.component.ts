@@ -128,7 +128,7 @@ export class GestionTareaComponent implements OnInit {
 
   // Editar una tarea existente
   updateTarea(): void {
-    const url = `${this.apiUrl}/${this.currentTarea.id}`;
+    const url = `${this.apiUrl}/Actualizar/${this.currentTarea.id}`;
     const updatedData = {
       nombre: this.currentTarea.nombre,
       estado: this.currentTarea.estado
@@ -169,7 +169,7 @@ export class GestionTareaComponent implements OnInit {
   // Eliminar tarea
   deleteTarea(): void {
     if (this.tareaDelete !== null) {
-      this.http.delete<any>(`${this.apiUrl}/${this.tareaDelete}`).subscribe({
+      this.http.delete<any>(`${this.apiUrl}/Eliminar/${this.tareaDelete}`).subscribe({
         next: response => {
           if (response.estado.ack) {
             // console.log('Tarea eliminada:', response);
