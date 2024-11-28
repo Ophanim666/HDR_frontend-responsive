@@ -76,7 +76,6 @@
                 <mat-label>Nombre</mat-label>
                 <input
                   matInput
-                  placeholder="primer_nombre"
                   [(ngModel)]="currentUsuarios.primer_nombre"
                   name="primer_nombre"
                   required
@@ -87,7 +86,6 @@
                 <mat-label>Segundo Nombre</mat-label>
                 <input
                   matInput
-                  placeholder="segundo_nombre"
                   [(ngModel)]="currentUsuarios.segundo_nombre"
                   name="segundo_nombre"
                   required
@@ -101,7 +99,6 @@
                 <mat-label>Apellido Paterno</mat-label>
                 <input
                   matInput
-                  placeholder="primer_apellido"
                   [(ngModel)]="currentUsuarios.primer_apellido"
                   name="primer_apellido"
                   required
@@ -112,7 +109,6 @@
                 <mat-label>Apellido</mat-label>
                 <input
                   matInput
-                  placeholder="segundo_apellido"
                   [(ngModel)]="currentUsuarios.segundo_apellido"
                   name="segundo_apellido"
                   required
@@ -126,19 +122,17 @@
                 <mat-label>Rut</mat-label>
                 <input
                   matInput
-                  placeholder="RUT"
                   [(ngModel)]="currentUsuarios.rut"
                   maxlength="8" pattern="\d{8}" required (keypress)="onlyNumbers($event)"
                   name="rut"
                   required
                 />
               </mat-form-field>
-              <h5>-</h5>
+              <p>-</p>
               <mat-form-field class="mat-form-field dv">
                 <mat-label>DV</mat-label>
                 <input
                   matInput
-                  placeholder="DV"
                   [(ngModel)]="currentUsuarios.dv"
                   maxlength="1" required (keypress)="onlyOneCharacter($event)"
                   name="dv"
@@ -147,38 +141,9 @@
               </mat-form-field>
             </div>
 
-            <br>
-
-            <!-- Campo Correo y contraseña -->
-            <div class="form-row.mail">
-              <mat-form-field class="mat-form-field email">
-                <mat-label>Correo</mat-label>
-                <input
-                  matInput
-                  placeholder="email"
-                  [(ngModel)]="currentUsuarios.email"
-                  name="email"
-                  required
-                />
-              </mat-form-field>
-             
-              
-              <mat-form-field *ngIf="!isEditMode" class="mat-form-field contra">
-                <mat-label >Contraseña</mat-label>
-                <input
-                  matInput
-                  placeholder="password"
-                  [(ngModel)]="currentUsuarios.password"
-                  name="password"
-                  required
-                />
-              </mat-form-field>
-            </div>
-
-
             <!-- Campo de rol, administrador y estado -->
             <div class="form-row roles">
-                <mat-form-field class="mat-form-field">
+                <mat-form-field class="mat-form-field rol">
                   <mat-label>Rol</mat-label>
                   <mat-select [(ngModel)]="currentUsuarios.rol_id" 
                               name="rol" 
@@ -189,9 +154,32 @@
                     </mat-option>                     
                   </mat-select>
                   <mat-error *ngIf="rolField.invalid && rolField.touched">
-                    Debe seleccionar un Rol
+                    Debe seleccionar un rol
                   </mat-error>
                 </mat-form-field>        
+            </div>
+
+            <!-- Campo Correo y contraseña -->
+            <div class="form-row.mail">
+              <mat-form-field class="mat-form-field email">
+                <mat-label>Correo</mat-label>
+                <input
+                  matInput
+                  [(ngModel)]="currentUsuarios.email"
+                  name="email"
+                  required
+                />
+              </mat-form-field>
+              
+              <mat-form-field *ngIf="!isEditMode" class="mat-form-field contra">
+                <mat-label>Contraseña</mat-label>
+                <input
+                  matInput
+                  [(ngModel)]="currentUsuarios.password"
+                  name="password"
+                  required
+                />
+              </mat-form-field>
             </div>
 
             <div class="form-row cheks">

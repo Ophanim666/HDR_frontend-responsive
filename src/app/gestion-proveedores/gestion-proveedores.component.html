@@ -83,7 +83,6 @@
                 <mat-label>Proveedor</mat-label>
                 <input
                   matInput
-                  placeholder="Nombre del proveedor"
                   [(ngModel)]="currentProveedores.nombre"
                   name="nombre"
                   required
@@ -94,7 +93,6 @@
                 <mat-label>Razón Social</mat-label>
                 <input
                   matInput
-                  placeholder="Razón Social"
                   [(ngModel)]="currentProveedores.razonSocial"
                   name="razonSocial"
                   required
@@ -108,7 +106,6 @@
                 <mat-label>Rut</mat-label>
                 <input
                   matInput
-                  placeholder="RUT"
                   [(ngModel)]="currentProveedores.rut"
                   maxlength="8" pattern="\d{8}" required (keypress)="onlyNumbers($event)"
                   name="rut"
@@ -120,7 +117,6 @@
                 <mat-label>DV</mat-label>
                 <input
                   matInput
-                  placeholder="DV"
                   [(ngModel)]="currentProveedores.dv"
                   maxlength="1" required (keypress)="onlyOneCharacter($event)"
                   name="dv"
@@ -128,14 +124,11 @@
                 />
               </mat-form-field>
             </div>
-            <br>
-            <label class="rut-help-text">Digitar RUT sin puntos ni guion</label>
 
-            <br>
             <!-- Campo de especialidades y estado -->
             <div class="form-row especialidad">
               <mat-form-field class="mat-form-field esp">
-                <mat-label>Seleccionar Especialidades</mat-label>
+                <mat-label>Especialidades</mat-label>
                 <mat-select [formControl]="especialidades" multiple>
                   <mat-option *ngFor="let especialidad of especialidadList" [value]="especialidad.id">
                     {{ especialidad.nombre }}
