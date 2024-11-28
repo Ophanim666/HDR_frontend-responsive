@@ -41,7 +41,7 @@
           </ul>
         </td>
         <td>{{ proveedor.fechaCreacion | date: 'dd/MM/yyyy' }}</td>
-          <td>{{ proveedor.usuariO_CREACION }}</td>
+          <td>{{ proveedor.usuarioCreacion }}</td>
         <td class="actions-columns">
           <div class="button-container">
             <button mat-flat-button color="primary" class="mat-flat-button editar" (click)="openModalProveedor(proveedor)">
@@ -69,7 +69,7 @@
 
       <!-- Header -->
       <div class="modal-header">
-        <h2 class="modal-title">{{ isEditMode ? 'Edición' : 'Creación' }} de proveedor </h2>
+        <h2 class="modal-title">{{ isEditMode ? 'Edición' : 'Creación' }} de proveedor</h2>
       </div>
 
       <!-- Body -->
