@@ -128,7 +128,7 @@ export class ObrasComponent implements OnInit {
 
   // Editar una obra existente
   updateObra(): void {
-    const url = `${this.apiUrl}/${this.currentObra.id}`;
+    const url = `${this.apiUrl}/Actualizar/${this.currentObra.id}`;
     const updatedData = {
       nombre: this.currentObra.nombre,
       estado: this.currentObra.estado,
@@ -169,7 +169,7 @@ export class ObrasComponent implements OnInit {
   // Eliminar obra
   deleteObra(): void {
     if (this.obraDelete !== null) {
-      this.http.delete<any>(`${this.apiUrl}/${this.obraDelete}`).subscribe({
+      this.http.delete<any>(`${this.apiUrl}/Eliminar/${this.obraDelete}`).subscribe({
         next: response => {
           if (response.estado.ack) {
             // console.log('Obra eliminada:', response);
