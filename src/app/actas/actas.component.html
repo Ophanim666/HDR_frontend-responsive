@@ -219,7 +219,7 @@
                 </div>
                 <!-- Botón de eliminar en cada card -->
                 <div class="button-group">
-                  <button mat-button color="warn" *ngIf="grupo.idGrupoTarea"  (click)="eliminarGrupoTarea(grupo.idGrupoTarea)">
+                  <button mat-button color="warn" *ngIf="grupo.idGrupoTarea" (click)="eliminarGrupoTarea(grupo.idGrupoTarea)">
                     Eliminar grupo de tareas
                   </button>
                 </div>
@@ -267,6 +267,7 @@
       </div>
       <div class="modal-body">
         <p>¿Está seguro de que desea eliminar esta acta?</p>
+        <em>Nota: Podría no eliminarse si está relacionada con otros datos importantes. Por favor, revise los datos relacionados antes.</em>
       </div>
       <div class="modal-footer">
         <button mat-flat-button class="mat-flat-button cancelar" (click)="closeConfirmationDialog()">No</button>
