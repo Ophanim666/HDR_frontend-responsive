@@ -262,7 +262,7 @@ export class PerfilesComponent {
         },
         error: error => {
           console.error('Error en la solicitud:', error);
-          this.showError('Error en la solicitud al eliminar el Usuario.', true);
+          this.showError('Error en la solicitud al eliminar el usuario.', true);
         }
       });
     }

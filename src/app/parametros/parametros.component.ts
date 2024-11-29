@@ -228,7 +228,7 @@ export class ParametrosComponent implements OnInit {
         },
         error: error => {
           console.error('Error en la solicitud:', error);
-          this.showError('Error en la solicitud al eliminar el Parámetro.', true);
+          this.showError('Error en la solicitud al eliminar el parámetro.', true);
         }
       });
     }

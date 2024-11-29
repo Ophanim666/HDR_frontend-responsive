@@ -167,7 +167,7 @@
                 </button>
 
                 <!-- Botón para eliminar los datos y la card -->
-                <button mat-button color="warn" *ngIf="!grupo.idGrupoTarea" (click)="eliminarDatosYCard(grupo, i)">
+                <button mat-button color="warn" *ngIf="!grupo.idGrupoTarea" (click)="confirmDeleteCard(grupo, i)">
                   Eliminar
                 </button>
 
@@ -219,7 +219,7 @@
                 </div>
                 <!-- Botón de eliminar en cada card -->
                 <div class="button-group">
-                  <button mat-button color="warn" *ngIf="grupo.idGrupoTarea" (click)="eliminarGrupoTarea(grupo.idGrupoTarea)">
+                  <button mat-button color="warn" *ngIf="grupo.idGrupoTarea" (click)="confirmDeleteGrupoTarea(grupo.idGrupoTarea)">
                     Eliminar grupo de tareas
                   </button>
                 </div>
@@ -272,6 +272,54 @@
       <div class="modal-footer">
         <button mat-flat-button class="mat-flat-button cancelar" (click)="closeConfirmationDialog()">No</button>
         <button mat-flat-button class="mat-flat-button confirmarEliminar" (click)="deleteActa()">Sí</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de confirmación de eliminación de Grupo de Tarea -->
+<div *ngIf="showConfirmationDeleteGrupoTarea" class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Header -->
+      <div class="modal-header">
+        <h2 class="modal-title">Confirmación de eliminación</h2>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <p>¿Está seguro de que desea eliminar este grupo de tarea?</p>
+        <em>Nota: Podría no eliminarse si está relacionado con otros datos importantes. Por favor, revise los datos relacionados antes.</em>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button mat-flat-button class="mat-flat-button cancelar" (click)="closeConfirmationDialog()">No</button>
+        <button mat-flat-button class="mat-flat-button confirmarEliminar" (click)="deleteGrupoTarea()">Sí</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de confirmación de eliminación de Card -->
+<div *ngIf="showConfirmationDeleteCard" class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Header -->
+      <div class="modal-header">
+        <h2 class="modal-title">Confirmación de eliminación</h2>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <p>¿Está seguro de que desea eliminar esta card y todos sus datos?</p>
+        <em>Nota: Esta acción eliminará permanentemente la card y sus contenidos.</em>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button mat-flat-button class="mat-flat-button cancelar" (click)="closeCardConfirmationDialog()">No</button>
+        <button mat-flat-button color="warn" class="mat-flat-button confirmarEliminar" (click)="deleteCard()">Sí</button>
       </div>
     </div>
   </div>
