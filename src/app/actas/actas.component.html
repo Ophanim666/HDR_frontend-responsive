@@ -100,7 +100,7 @@
               </div>
 
               <div class="form-row esp">
-                <mat-form-field class="mat-form-field">
+                <mat-form-field class="mat-form-field esp">
                   <mat-label>Especialidad</mat-label>
                   <mat-select [(ngModel)]="currentActa.especialidaD_ID" name="especialidad" required #especialidadField="ngModel">
                     <mat-option *ngFor="let tipo of especialidad" [value]="tipo.id">
@@ -176,7 +176,7 @@
               <!-- Contenido de la card, solo se muestra si no está minimizado -->
               <div *ngIf="!grupo.minimizado">
                 <div class="form-row flex-row">
-                  <mat-form-field class="mat-form-field">
+                  <mat-form-field class="mat-form-field rol">
                     <mat-label>Rol</mat-label>
                     <mat-select [(ngModel)]="grupo.idRol" name="rol" #rolField="ngModel">
                       <mat-option *ngFor="let rol of roles" [value]="rol.id">
@@ -188,7 +188,7 @@
                     </mat-error>
                   </mat-form-field>
 
-                  <mat-form-field class="mat-form-field">
+                  <mat-form-field class="mat-form-field encargado">
                     <mat-label>Encargado</mat-label>
                     <mat-select [(ngModel)]="grupo.idEncargado" name="encargado" required #encargadoField="ngModel">
                       <mat-option *ngFor="let encargado of usuario" [value]="encargado.id">
@@ -199,11 +199,8 @@
                       Debe seleccionar un encargado para el grupo
                     </mat-error>
                   </mat-form-field>
-
-                </div>
         
-                <div class="form-row">
-                  <mat-form-field class="mat-form-field">
+                  <mat-form-field class="mat-form-field tareas">
                     <mat-label>Tareas</mat-label>
                     <mat-select [(ngModel)]="grupo.idTarea" name="tareas" multiple required #tareasField="ngModel">
                       <mat-option *ngFor="let tarea of tareas" [value]="tarea.id">

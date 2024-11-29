@@ -16,6 +16,7 @@
 .form-row.provyesp{
   display: flex;
   align-items: center;
+  gap: 20px;
 }
 
 .form-row.prov {
@@ -33,7 +34,7 @@
 }
 
 .mat-form-field.esp{
-  width: 280px;
+  width: 260px;
 }
 
 .form-row.adminyfecha{
@@ -69,11 +70,11 @@
   align-self: flex-end;
 }
 
-/* .toggle-label {
+.toggle-label {
   min-width: 50px; 
   display: inline-block;
   text-align: right;
-} */
+}
 
 /* Estilos específicos para el formulario de Descripción (campo grande) */
 /* Ajusta la altura del campo de texto para la Descripción */
@@ -108,3 +109,16 @@
   padding: 10px;
   border-radius: 8px;
 }
+
+/* .form-row.flex-row{
+  text-align: center;
+  padding-bottom: 10px;
+} */
+
+.mat-form-field.rol,
+.mat-form-field.encargado,
+.mat-form-field.tareas{
+  width: 100%;
+}
+
+
