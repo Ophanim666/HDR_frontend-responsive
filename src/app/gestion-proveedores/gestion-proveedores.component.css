@@ -1,4 +1,4 @@
-/* Estilos para los encabezados de los modals */
+/* Estilos para Modal */
 .modal-title {
   font-size: 20px;
   font-weight: 500;
@@ -10,70 +10,55 @@
   padding: 20px;
 }
 
-/* Fila para campos de formulario */
+/* Filas de Formulario */
 .form-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
 }
 
-/* Estilo específico para los campos en la misma fila */
-.form-row .mat-form-field {
-  flex: 1;
-}
-
-.form-row.rut {
-  display: flex;
-  gap: 15px;
-}
-
-/* Campo rut */
-.rut-help-text {
-  color: gray;        /* Color gris */
-  font-size: 0.9em;  /* Tamaño de fuente más pequeño */
-  margin-top: 4px;   /* Espacio entre el input y el mensaje */
-  display: block;     /* Asegura que se muestre en su propia línea */
-}
-
-/* Campo razón social */
 .form-row.nombre-razo {
   display: flex;
-  gap: 15px;
+  gap: 0px;
   width: 100%;
 }
 
-/* Campo especialidad */
-.form-row.especialidad {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  width: 90%;
-}
-
-.mat-form-field.dv{
-  flex: 1;
-  min-width: 5px;
-}
-
-/* Ajuste para que los campos proveedor, razón Social y rut tengan el mismo ancho */
-.form-row.nombre-razo .mat-form-field{
+.form-row.nombre-razo .mat-form-field {
   flex: 1;
   min-width: 300px;
 }
 
+.form-row.rutyesp{
+  display: flex;
+  align-items: center;
+  gap: 0px;
+}
+
+.form-row.rut {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
 .mat-form-field.rut {
-  flex: 1;
-  min-width: 40px;
-  width: 100px;
+  width: 186px;
 }
 
-/* Lista de item de especialidades para Creación de Proveedor */
+.mat-form-field.dv {
+  width: 60px;
+}
+
+.form-row.esp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 16px;
+}
+
 .mat-form-field.esp {
-  width: 150%; 
-  margin-bottom: 16px; 
+  width: 272px;
 }
 
-/* Responsivo para pantallas pequeñas */
+/* Responsivo */
 @media (max-width: 768px) {
   .modal-dialog {
     width: 90%;
@@ -83,16 +68,16 @@
     width: 100%;
   }
 
-  .form-group {
+  .form-group { 
     flex-direction: column;
   }
 
-  /* Ajuste en la disposición de las columnas en pantallas pequeñas */
   .form-row.especialidad {
     flex-direction: column;
   }
 
-  .columna-nombre, .columna-numero {
+  .columna-nombre, 
+  .columna-numero {
     flex: 1 1 100%;
   }
 }

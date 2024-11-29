@@ -1,4 +1,4 @@
-/* Estilos para Modales */
+/* Estilos para Modal */
 .modal-title {
   font-size: 20px;
   font-weight: 500;
@@ -10,36 +10,46 @@
   padding: 20px;
 }
 
-/* Estructura de Formulario */
+/* Filas de Formulario */
 .form-row {
   flex-wrap: wrap;
-  /* gap: 15px; */
 }
 
-.form-row .mat-form-field {
-  flex: 1;
-  min-width: 250px;
-}
-
-/* Configuraciones específicas de campos */
-.form-row.rut {
+.form-row.rutyrol{
   display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.form-row.rut {
+  display: inline-flex;
   align-items: center;
   gap: 10px;
 }
 
-.form-row.rut .mat-form-field.dv {
-  flex: 0 0 auto;
-  width: 40px; /* Ajustar el ancho de los campos Rut y DV */
+.mat-form-field.rut {
+  width: 186px;
 }
 
-.form-row.rut h5 {
-  margin: 0;
+.mat-form-field.dv {
+  width: 60px;
 }
 
-/* Campos de Nombres y Apellidos */
+.form-row.rol {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 16px;
+}
+
+.mat-form-field.rol {
+  width: 272px;
+}
+
+/* Filas Específicas */
 .form-row.nombres,
-.form-row.apellidos {
+.form-row.apellidos,
+.form-row.cheks {
   display: flex;
   gap: 15px;
 }
@@ -51,29 +61,12 @@
   flex: 1;
 }
 
-.mat-form-field.rol{
-  min-width: 250px;
-}
-
 .mat-form-field.email{
-  flex: 1;
+  width: 100%;
 }
 
 .mat-form-field.contra{
-  flex: 1;
-}
-
-/* Sección de correo, contraseña, roles y toggles */
-.form-row.roles,
-.form-row.cheks {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-}
-
-.form-row.mail {
-  display: flex;
-  gap: 15px;
+  width: 100%;
 }
 
 .toggle-wrapper {

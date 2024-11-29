@@ -1,70 +1,79 @@
 .modal-title {
-  font-size: 1.5em;
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 5px;
+  text-align: center;
 }
 
 .modal-body-prov {
   padding: 20px;
 }
 
-.form-container {
+.mat-form-field.obra{
+  width: 100%;
+}
+
+.form-row.provyesp{
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-  padding-top: 20px;
+  align-items: center;
 }
 
-/* Fila para campos de formulario */
-.form-row {
+.form-row.prov {
+  display: inline-flex;
+  align-items: center;
+}
+
+.form-row.esp {
+  display: inline-flex;
+  align-items: center;
+}
+
+.mat-form-field.prov{
+  width: 260px;
+}
+
+.mat-form-field.esp{
+  width: 280px;
+}
+
+.form-row.adminyfecha{
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
+  align-items: center;
+  gap: 20px;
 }
 
-/* Nueva estructura para las filas */
-.form-row.flex-row {
-  flex-direction: row;
-  gap: 16px; /* Espacio entre las columnas */
+.form-row.admin {
+  display: inline-flex;
+  align-items: center;
 }
 
-.form-column {
-  flex: 1;
-  min-width: 0;
+.form-row.fecha {
+  display: inline-flex;
+  align-items: center;
 }
 
-.mat-form-field
-.form-row .mat-form-field {
-  margin-right: 0;
-  margin-bottom: 16px;
+.mat-form-field.admin{
+  width: 260px;
 }
 
-.form-row .mat-form-field:last-child {
-  margin-bottom: 0;
+.mat-form-field.fecha{
+  width: 260px;
 }
 
-/* Ajuste para el campo Descripción */
+/* Ajuste para el campo descripción */
 .form-row .mat-form-field textarea {
   resize: vertical; /* Permite redimensionar solo en dirección vertical */
-}
-
-.mat-form-field {
-  width: 100%;
 }
 
 .toggle-wrapper {
   align-self: flex-end;
 }
 
-.toggle-label {
-  min-width: 50px; /* Ancho mínimo para el texto del toggle */
+/* .toggle-label {
+  min-width: 50px; 
   display: inline-block;
   text-align: right;
-}
-
-/* Asegura que las filas flexibles solo tengan una columna por defecto */
-.form-row.flex-row > .form-column {
-  width: 100%;
-}
+} */
 
 /* Estilos específicos para el formulario de Descripción (campo grande) */
 /* Ajusta la altura del campo de texto para la Descripción */
@@ -80,21 +89,14 @@
   width: 100%; /* Asegura que ocupe todo el ancho disponible */
 }
 
-/* Estilo específico para el contenedor del botón */
-.add-group-container {
-  display: block; /* Asegura que el contenedor ocupe toda la línea */
-  width: 100%; /* Asegura que ocupe el mismo ancho que los otros campos */
-}
-
 /* Ajuste para que el botón ocupe todo el ancho disponible */
 .add-group-container button {
   width: 100%;
-  
 }
 
 .add-group-container {
   text-align: center;
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 
 .grupo-container {

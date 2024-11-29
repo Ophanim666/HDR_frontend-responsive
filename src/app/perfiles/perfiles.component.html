@@ -116,47 +116,49 @@
               </mat-form-field>
             </div>
 
-            <!-- Campo para Rut y DV -->
-            <div class="form-row rut">
-              <mat-form-field class="mat-form-field rut">
-                <mat-label>Rut</mat-label>
-                <input
-                  matInput
-                  [(ngModel)]="currentUsuarios.rut"
-                  maxlength="8" pattern="\d{8}" required (keypress)="onlyNumbers($event)"
-                  name="rut"
-                  required
-                />
-              </mat-form-field>
-              <p>-</p>
-              <mat-form-field class="mat-form-field dv">
-                <mat-label>DV</mat-label>
-                <input
-                  matInput
-                  [(ngModel)]="currentUsuarios.dv"
-                  maxlength="1" required (keypress)="onlyOneCharacter($event)"
-                  name="dv"
-                  required
-                />
-              </mat-form-field>
-            </div>
+            <div class="form-row-rutyrol">
+              <!-- Campo para Rut y DV -->
+              <div class="form-row rut">
+                <mat-form-field class="mat-form-field rut">
+                  <mat-label>Rut</mat-label>
+                  <input
+                    matInput
+                    [(ngModel)]="currentUsuarios.rut"
+                    maxlength="8" pattern="\d{8}" required (keypress)="onlyNumbers($event)"
+                    name="rut"
+                    required
+                  />
+                </mat-form-field>
+                <p>-</p>
+                <mat-form-field class="mat-form-field dv">
+                  <mat-label>DV</mat-label>
+                  <input
+                    matInput
+                    [(ngModel)]="currentUsuarios.dv"
+                    maxlength="1" required (keypress)="onlyOneCharacter($event)"
+                    name="dv"
+                    required
+                  />
+                </mat-form-field>
+              </div>
 
-            <!-- Campo de rol, administrador y estado -->
-            <div class="form-row roles">
-                <mat-form-field class="mat-form-field rol">
-                  <mat-label>Rol</mat-label>
-                  <mat-select [(ngModel)]="currentUsuarios.rol_id" 
-                              name="rol" 
-                              required 
-                              #rolField="ngModel">
-                    <mat-option *ngFor="let tipo of parametros" [value]="tipo.id">
-                      {{ tipo.parametro }}
-                    </mat-option>                     
-                  </mat-select>
-                  <mat-error *ngIf="rolField.invalid && rolField.touched">
-                    Debe seleccionar un rol
-                  </mat-error>
-                </mat-form-field>        
+              <!-- Campo de rol, administrador y estado -->
+              <div class="form-row rol">
+                  <mat-form-field class="mat-form-field rol">
+                    <mat-label>Rol</mat-label>
+                    <mat-select [(ngModel)]="currentUsuarios.rol_id" 
+                                name="rol" 
+                                required 
+                                #rolField="ngModel">
+                      <mat-option *ngFor="let tipo of parametros" [value]="tipo.id">
+                        {{ tipo.parametro }}
+                      </mat-option>                     
+                    </mat-select>
+                    <mat-error *ngIf="rolField.invalid && rolField.touched">
+                      Debe seleccionar un rol
+                    </mat-error>
+                  </mat-form-field>        
+              </div>
             </div>
 
             <!-- Campo Correo y contraseña -->
@@ -184,12 +186,13 @@
 
             <div class="form-row cheks">
               <div class="toggle-wrapper">
+                <span>¿El usuario es administrador?</span>
                 <mat-slide-toggle
                   [(ngModel)]="currentUsuarios.es_administrador"
                   (change)="onToggleChange($event, 'es_administrador')"
                   name="es_administrador"
                   labelPosition="before">
-                  <span class="toggle-label">{{ currentUsuarios.es_administrador === 1 ? 'Activo' : 'Inactivo' }}</span>
+                  <span class="toggle-label">{{ currentUsuarios.es_administrador === 1 ? 'Sí' : 'No' }}</span>
                 </mat-slide-toggle>
               </div>
 

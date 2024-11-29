@@ -90,7 +90,7 @@
               </mat-form-field>
 
               <mat-form-field class="mat-form-field razo-social">
-                <mat-label>Razón Social</mat-label>
+                <mat-label>Razón social</mat-label>
                 <input
                   matInput
                   [(ngModel)]="currentProveedores.razonSocial"
@@ -100,41 +100,46 @@
               </mat-form-field>
             </div>
 
-            <!-- Campo para Rut y DV -->
-            <div class="form-row rut">
-              <mat-form-field class="mat-form-field rut">
-                <mat-label>Rut</mat-label>
-                <input
-                  matInput
-                  [(ngModel)]="currentProveedores.rut"
-                  maxlength="8" pattern="\d{8}" required (keypress)="onlyNumbers($event)"
-                  name="rut"
-                  required
-                />
-              </mat-form-field>
-              <h5>-</h5>
-              <mat-form-field class="mat-form-field dv">
-                <mat-label>DV</mat-label>
-                <input
-                  matInput
-                  [(ngModel)]="currentProveedores.dv"
-                  maxlength="1" required (keypress)="onlyOneCharacter($event)"
-                  name="dv"
-                  required
-                />
-              </mat-form-field>
-            </div>
+            <div class="form-row rutyesp">
+              <!-- Campo para Rut y DV -->
+              <div class="form-row rut">
+                <mat-form-field class="mat-form-field rut">
+                  <mat-label>Rut</mat-label>
+                  <input
+                    matInput
+                    [(ngModel)]="currentProveedores.rut"
+                    maxlength="8" pattern="\d{8}" required (keypress)="onlyNumbers($event)"
+                    name="rut"
+                    required
+                  />
+                </mat-form-field>
 
-            <!-- Campo de especialidades y estado -->
-            <div class="form-row especialidad">
-              <mat-form-field class="mat-form-field esp">
-                <mat-label>Especialidades</mat-label>
-                <mat-select [formControl]="especialidades" multiple>
-                  <mat-option *ngFor="let especialidad of especialidadList" [value]="especialidad.id">
-                    {{ especialidad.nombre }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+                <p>-</p>
+
+                <mat-form-field class="mat-form-field dv">
+                  <mat-label>DV</mat-label>
+                  <input
+                    matInput
+                    [(ngModel)]="currentProveedores.dv"
+                    maxlength="1" required (keypress)="onlyOneCharacter($event)"
+                    name="dv"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+
+              <!-- Campo de especialidades y estado -->
+              <div class="form-row esp">
+                <mat-form-field class="mat-form-field esp">
+                  <mat-label>Especialidades</mat-label>
+                  <mat-select [formControl]="especialidades" multiple>
+                    <mat-option *ngFor="let especialidad of especialidadList" [value]="especialidad.id">
+                      {{ especialidad.nombre }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
 
               <div class="toggle-wrapper">
                 <mat-slide-toggle
@@ -146,8 +151,6 @@
                 </mat-slide-toggle>
               </div>
             </div>
-
-        </div>
         </form>
       </div>
 
