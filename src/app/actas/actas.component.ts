@@ -300,7 +300,7 @@ deleteGrupoTarea(): void {
     this.http.delete(`${this.apiUrlGrupoTareas}/Eliminar/${this.grupoIdToDelete}`).subscribe({
       next: (response: any) => {
         if (response.estado?.ack) {
-          this.showError('Grupo de tarea eliminado exitosamente.', false);
+          this.showError('Grupo de tareas eliminado exitosamente.', false);
           this.loadGruposTareas(this.currentActa.id);  // Recargar los grupos de tareas para reflejar los cambios
         } else {
           this.showError(`Error al eliminar el grupo de tarea: ${response.estado.errDes}`, true);
