@@ -303,7 +303,7 @@ deleteGrupoTarea(): void {
           this.showError('Grupo de tareas eliminado exitosamente.', false);
           this.loadGruposTareas(this.currentActa.id);  // Recargar los grupos de tareas para reflejar los cambios
         } else {
-          this.showError(`Error al eliminar el grupo de tarea: ${response.estado.errDes}`, true);
+          this.showError(`Error al eliminar grupo de tareas`, true);
         }
         
         this.closeConfirmationDialog();
@@ -392,14 +392,14 @@ deleteGrupoTarea(): void {
 
   ngOnInit(): void {
     // Carga inicial de parámetros y tipos de parámetros
-    this.loadActas()
+    this.loadActas();
     this.loadTipoParametros();
     //this.loadParametros();
+    this.loadParametrosRoles();
     this.loadProveedores();
     this.loadEspecialidades();
     this.loadUsuarios();
     this.loadObras();
-    this.loadParametrosRoles()
     this.loadTareas();
   }
 
