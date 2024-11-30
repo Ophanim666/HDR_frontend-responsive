@@ -77,13 +77,12 @@
         <form (ngSubmit)="saveProveedor()" #proveedorForm="ngForm" class="form-container">
           <div class="form-row">
 
-            <!-- Campos Nombre del Proveedor, Razón Social -->
+            <!-- Campos nombre del Proveedor, Razón Social -->
             <div class="form-row nombre-razo">
               <mat-form-field class="mat-form-field nombre">
                 <mat-label>Proveedor</mat-label>
                 <input
                   matInput
-                  placeholder="Nombre del proveedor"
                   [(ngModel)]="currentProveedores.nombre"
                   name="nombre"
                   required
@@ -91,10 +90,9 @@
               </mat-form-field>
 
               <mat-form-field class="mat-form-field razo-social">
-                <mat-label>Razón Social</mat-label>
+                <mat-label>Razón social</mat-label>
                 <input
                   matInput
-                  placeholder="Razón Social"
                   [(ngModel)]="currentProveedores.razonSocial"
                   name="razonSocial"
                   required
@@ -102,46 +100,46 @@
               </mat-form-field>
             </div>
 
-            <!-- Campo para Rut y DV -->
-            <div class="form-row rut">
-              <mat-form-field class="mat-form-field rut">
-                <mat-label>Rut</mat-label>
-                <input
-                  matInput
-                  placeholder="RUT"
-                  [(ngModel)]="currentProveedores.rut"
-                  maxlength="8" pattern="\d{8}" required (keypress)="onlyNumbers($event)"
-                  name="rut"
-                  required
-                />
-              </mat-form-field>
-              <h5>-</h5>
-              <mat-form-field class="mat-form-field dv">
-                <mat-label>DV</mat-label>
-                <input
-                  matInput
-                  placeholder="DV"
-                  [(ngModel)]="currentProveedores.dv"
-                  maxlength="1" required (keypress)="onlyOneCharacter($event)"
-                  name="dv"
-                  required
-                />
-              </mat-form-field>
-            </div>
-            <br>
-            <label class="rut-help-text">Digitar RUT sin puntos ni guion</label>
+            <div class="form-row rutyesp">
+              <!-- Campo para Rut y DV -->
+              <div class="form-row rut">
+                <mat-form-field class="mat-form-field rut">
+                  <mat-label>Rut</mat-label>
+                  <input
+                    matInput
+                    [(ngModel)]="currentProveedores.rut"
+                    maxlength="8" pattern="\d{8}" required (keypress)="onlyNumbers($event)"
+                    name="rut"
+                    required
+                  />
+                </mat-form-field>
 
-            <br>
-            <!-- Campo de especialidades y estado -->
-            <div class="form-row especialidad">
-              <mat-form-field class="mat-form-field esp">
-                <mat-label>Seleccionar Especialidades</mat-label>
-                <mat-select [formControl]="especialidades" multiple>
-                  <mat-option *ngFor="let especialidad of especialidadList" [value]="especialidad.id">
-                    {{ especialidad.nombre }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
+                <p>-</p>
+
+                <mat-form-field class="mat-form-field dv">
+                  <mat-label>DV</mat-label>
+                  <input
+                    matInput
+                    [(ngModel)]="currentProveedores.dv"
+                    maxlength="1" required (keypress)="onlyOneCharacter($event)"
+                    name="dv"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+
+              <!-- Campo de especialidades y estado -->
+              <div class="form-row esp">
+                <mat-form-field class="mat-form-field esp">
+                  <mat-label>Especialidades</mat-label>
+                  <mat-select [formControl]="especialidades" multiple>
+                    <mat-option *ngFor="let especialidad of especialidadList" [value]="especialidad.id">
+                      {{ especialidad.nombre }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
 
               <div class="toggle-wrapper">
                 <mat-slide-toggle
@@ -153,8 +151,6 @@
                 </mat-slide-toggle>
               </div>
             </div>
-
-        </div>
         </form>
       </div>
 
@@ -189,6 +185,7 @@
       <!-- Body -->
       <div class="modal-body">
         <p>¿Está seguro de que desea eliminar este proveedor?</p>
+        <em>Nota: Podría no eliminarse si está relacionado con otros datos importantes. Por favor, revise los datos relacionados antes.</em>
       </div>
 
       <!-- Footer -->

@@ -99,6 +99,13 @@ export class ActasComponent implements OnInit {
   // Array para almacenar los grupos de tareas
   grupos: any[] = [];
 
+  // Identificador del grupo de tarea que se va a eliminar
+  grupoIdToDelete: number | null = null;
+  showConfirmationDeleteGrupoTarea = false;
+
+  showConfirmationDeleteCard = false;
+  currentCardToDelete: any = null;
+  currentCardIndex: number | null = null;
 
 // .....................................................................................................
   // Método para agregar una nueva card de grupo de tareas
@@ -281,32 +288,35 @@ actualizarGrupoTarea(grupo: any): void {
   });
 }
 
-eliminarGrupoTarea(grupoId: number): void {
-  const confirmarEliminar = confirm('¿Estás seguro de que quieres eliminar este grupo de tarea?');
-  if (!confirmarEliminar) return;  // Si el usuario cancela, no hacemos nada
-
-  // Realizamos la solicitud DELETE al backend para eliminar el grupo de tarea
-  this.http.delete(`${this.apiUrlGrupoTareas}/Eliminar/${grupoId}`).subscribe({
-    next: (response: any) => {
-      if (response.estado?.ack) {
-        // Mensaje de éxito y recargar los grupos de tareas
-        this.showError('Grupo de tarea eliminado exitosamente.', false);
-        this.loadGruposTareas(this.currentActa.id);  // Recargar los grupos de tareas para reflejar los cambios
-      } else {
-        // Mostrar error si la respuesta no es la esperada
-        this.showError(`Error al eliminar el grupo de tarea: ${response.estado?.errDes || 'Respuesta no válida.'}`, true);
-      }
-    },
-    error: error => {
-      console.error('Detalles del error:', error);
-      console.error('Código de estado:', error.status); // Código HTTP
-      console.error('Mensaje:', error.message);         // Mensaje del error
-      this.showError('Error al comunicarse con el servidor.', true);
-    }
-  });
+// Función para mostrar el modal de confirmación
+confirmDeleteGrupoTarea(grupoId: number): void {
+  this.grupoIdToDelete = grupoId;
+  this.showConfirmationDeleteGrupoTarea = true; // Nueva propiedad booleana
 }
-  
 
+// Función para eliminar después de confirmar
+deleteGrupoTarea(): void {
+  if (this.grupoIdToDelete) {
+    this.http.delete(`${this.apiUrlGrupoTareas}/Eliminar/${this.grupoIdToDelete}`).subscribe({
+      next: (response: any) => {
+        if (response.estado?.ack) {
+          this.showError('Grupo de tareas eliminado exitosamente.', false);
+          this.loadGruposTareas(this.currentActa.id);  // Recargar los grupos de tareas para reflejar los cambios
+        } else {
+          this.showError(`Error al eliminar grupo de tareas`, true);
+        }
+        
+        this.closeConfirmationDialog();
+      },
+      error: error => {
+        console.error('Error en la solicitud:', error);
+        this.showError('Error en la solicitud al eliminar la especialidad.', true);
+        
+        this.closeConfirmationDialog();
+      }
+    });
+  }
+}
 
   // Método para alternar entre expandir y minimizar el grupo
   toggleGrupo(grupo: any) {
@@ -327,17 +337,34 @@ eliminarGrupoTarea(grupoId: number): void {
 
 
 
-  // Método para limpiar los datos y eliminar la card si está vacía
-  eliminarDatosYCard(grupo: any, index: number) {
-    // Limpiar los datos del grupo
-    grupo.rol = null;
-    grupo.encargado = null;
-    grupo.tareas = [];
 
-    // Confirmar si se desea eliminar la card completamente
-    const confirmarEliminar = confirm("¿Deseas eliminar esta card y sus datos?");
-    if (confirmarEliminar) {
-      this.grupos.splice(index, 1);  // Elimina la card del array si se confirma
+  // Método para mostrar el modal de confirmación
+  confirmDeleteCard(grupo: any, index: number): void {
+    this.currentCardToDelete = grupo;
+    this.currentCardIndex = index;
+    this.showConfirmationDeleteCard = true;
+  }
+
+  // Método para cerrar el modal de confirmación
+  closeCardConfirmationDialog(): void {
+    this.showConfirmationDeleteCard = false;
+    this.currentCardToDelete = null;
+    this.currentCardIndex = null;
+  }
+
+  // Método para eliminar la card después de confirmar
+  deleteCard(): void {
+    if (this.currentCardToDelete && this.currentCardIndex !== null) {
+      // Limpiar los datos del grupo
+      this.currentCardToDelete.rol = null;
+      this.currentCardToDelete.encargado = null;
+      this.currentCardToDelete.tareas = [];
+
+      // Eliminar la card del array
+      this.grupos.splice(this.currentCardIndex, 1);
+
+      // Cerrar el modal
+      this.closeCardConfirmationDialog();
     }
   }
 
@@ -365,16 +392,15 @@ eliminarGrupoTarea(grupoId: number): void {
 
   ngOnInit(): void {
     // Carga inicial de parámetros y tipos de parámetros
-    this.loadActas()
+    this.loadActas();
     this.loadTipoParametros();
     //this.loadParametros();
+    this.loadParametrosRoles();
     this.loadProveedores();
     this.loadEspecialidades();
     this.loadUsuarios();
     this.loadObras();
-    this.loadParametrosRoles()
     this.loadTareas();
-    
   }
 
   // Función para obtener un objeto Parametro vacío
@@ -752,6 +778,7 @@ eliminarGrupoTarea(grupoId: number): void {
   // Función para cerrar el diálogo de confirmación de eliminación
   closeConfirmationDialog(): void {
     this.showConfirmationDeleteActa = false;
+    this.showConfirmationDeleteGrupoTarea = false;
     this.showModalActa = true;
     this.actaDelete = null;
   }
@@ -772,7 +799,7 @@ eliminarGrupoTarea(grupoId: number): void {
         },
         error: error => {
           console.error('Error en la solicitud:', error);
-          this.showError('Error en la solicitud al eliminar el Acta.', true);
+          this.showError('Error en la solicitud al eliminar el acta.', true);
         }
       });
     }

@@ -301,7 +301,7 @@ getEspecialidades(especialidades: string): string[] {
         },
         error: error => {
           console.error('Error en la solicitud:', error);
-          this.showError('Error en la solicitud al eliminar el Proveedor.', true);
+          this.showError('Error en la solicitud al eliminar el proveedor.', true);
         }
       });
     }

@@ -264,13 +264,11 @@ body{
   text-align: center;
 }
 
-
 .modal-body {
-  padding-right: 30px;
+  padding: 20px 30px;
   text-align: center;
   max-height: 70vh; /* Ajusta la altura máxima del modal */
   overflow-y: hidden; /* Por defecto, sin scroll */
-  padding-left: 30px;
 }
 
 /* Estilo específico para el modal grande */

@@ -76,7 +76,6 @@
                 <mat-label>Nombre</mat-label>
                 <input
                   matInput
-                  placeholder="primer_nombre"
                   [(ngModel)]="currentUsuarios.primer_nombre"
                   name="primer_nombre"
                   required
@@ -87,7 +86,6 @@
                 <mat-label>Segundo Nombre</mat-label>
                 <input
                   matInput
-                  placeholder="segundo_nombre"
                   [(ngModel)]="currentUsuarios.segundo_nombre"
                   name="segundo_nombre"
                   required
@@ -101,7 +99,6 @@
                 <mat-label>Apellido Paterno</mat-label>
                 <input
                   matInput
-                  placeholder="primer_apellido"
                   [(ngModel)]="currentUsuarios.primer_apellido"
                   name="primer_apellido"
                   required
@@ -112,7 +109,6 @@
                 <mat-label>Apellido</mat-label>
                 <input
                   matInput
-                  placeholder="segundo_apellido"
                   [(ngModel)]="currentUsuarios.segundo_apellido"
                   name="segundo_apellido"
                   required
@@ -120,34 +116,50 @@
               </mat-form-field>
             </div>
 
-            <!-- Campo para Rut y DV -->
-            <div class="form-row rut">
-              <mat-form-field class="mat-form-field rut">
-                <mat-label>Rut</mat-label>
-                <input
-                  matInput
-                  placeholder="RUT"
-                  [(ngModel)]="currentUsuarios.rut"
-                  maxlength="8" pattern="\d{8}" required (keypress)="onlyNumbers($event)"
-                  name="rut"
-                  required
-                />
-              </mat-form-field>
-              <h5>-</h5>
-              <mat-form-field class="mat-form-field dv">
-                <mat-label>DV</mat-label>
-                <input
-                  matInput
-                  placeholder="DV"
-                  [(ngModel)]="currentUsuarios.dv"
-                  maxlength="1" required (keypress)="onlyOneCharacter($event)"
-                  name="dv"
-                  required
-                />
-              </mat-form-field>
-            </div>
+            <div class="form-row-rutyrol">
+              <!-- Campo para Rut y DV -->
+              <div class="form-row rut">
+                <mat-form-field class="mat-form-field rut">
+                  <mat-label>Rut</mat-label>
+                  <input
+                    matInput
+                    [(ngModel)]="currentUsuarios.rut"
+                    maxlength="8" pattern="\d{8}" required (keypress)="onlyNumbers($event)"
+                    name="rut"
+                    required
+                  />
+                </mat-form-field>
+                <p>-</p>
+                <mat-form-field class="mat-form-field dv">
+                  <mat-label>DV</mat-label>
+                  <input
+                    matInput
+                    [(ngModel)]="currentUsuarios.dv"
+                    maxlength="1" required (keypress)="onlyOneCharacter($event)"
+                    name="dv"
+                    required
+                  />
+                </mat-form-field>
+              </div>
 
-            <br>
+              <!-- Campo de rol, administrador y estado -->
+              <div class="form-row rol">
+                  <mat-form-field class="mat-form-field rol">
+                    <mat-label>Rol</mat-label>
+                    <mat-select [(ngModel)]="currentUsuarios.rol_id" 
+                                name="rol" 
+                                required 
+                                #rolField="ngModel">
+                      <mat-option *ngFor="let tipo of parametros" [value]="tipo.id">
+                        {{ tipo.parametro }}
+                      </mat-option>                     
+                    </mat-select>
+                    <mat-error *ngIf="rolField.invalid && rolField.touched">
+                      Debe seleccionar un rol
+                    </mat-error>
+                  </mat-form-field>        
+              </div>
+            </div>
 
             <!-- Campo Correo y contraseña -->
             <div class="form-row.mail">
@@ -155,19 +167,16 @@
                 <mat-label>Correo</mat-label>
                 <input
                   matInput
-                  placeholder="email"
                   [(ngModel)]="currentUsuarios.email"
                   name="email"
                   required
                 />
               </mat-form-field>
-             
               
               <mat-form-field *ngIf="!isEditMode" class="mat-form-field contra">
-                <mat-label >Contraseña</mat-label>
+                <mat-label>Contraseña</mat-label>
                 <input
                   matInput
-                  placeholder="password"
                   [(ngModel)]="currentUsuarios.password"
                   name="password"
                   required
@@ -175,33 +184,15 @@
               </mat-form-field>
             </div>
 
-
-            <!-- Campo de rol, administrador y estado -->
-            <div class="form-row roles">
-                <mat-form-field class="mat-form-field">
-                  <mat-label>Rol</mat-label>
-                  <mat-select [(ngModel)]="currentUsuarios.rol_id" 
-                              name="rol" 
-                              required 
-                              #rolField="ngModel">
-                    <mat-option *ngFor="let tipo of parametros" [value]="tipo.id">
-                      {{ tipo.parametro }}
-                    </mat-option>                     
-                  </mat-select>
-                  <mat-error *ngIf="rolField.invalid && rolField.touched">
-                    Debe seleccionar un Rol
-                  </mat-error>
-                </mat-form-field>        
-            </div>
-
             <div class="form-row cheks">
               <div class="toggle-wrapper">
+                <span>¿El usuario es administrador?</span>
                 <mat-slide-toggle
                   [(ngModel)]="currentUsuarios.es_administrador"
                   (change)="onToggleChange($event, 'es_administrador')"
                   name="es_administrador"
                   labelPosition="before">
-                  <span class="toggle-label">{{ currentUsuarios.es_administrador === 1 ? 'Activo' : 'Inactivo' }}</span>
+                  <span class="toggle-label">{{ currentUsuarios.es_administrador === 1 ? 'Sí' : 'No' }}</span>
                 </mat-slide-toggle>
               </div>
 
@@ -247,7 +238,8 @@
         <h2 class="modal-title">Confirmación de eliminación</h2>
       </div>
       <div class="modal-body">
-        <p>¿Está seguro de que desea eliminar este Usuario?</p>
+        <p>¿Está seguro de que desea eliminar este usuario?</p>
+        <em>Nota: Podría no eliminarse si está relacionado con otros datos importantes. Por favor, revise los datos relacionados antes.</em>
       </div>
       <div class="modal-footer">
         <button mat-flat-button class="mat-flat-button cancelar" (click)="closeConfirmationDialog()">No</button>

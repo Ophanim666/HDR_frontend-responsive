@@ -64,15 +64,14 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h2 class="modal-title">{{ isEditMode ? 'Edición' : 'Creación' }} de Acta</h2>
+        <h2 class="modal-title">{{ isEditMode ? 'Edición' : 'Creación' }} de acta</h2>
       </div>
       <div class="modal-body modal-large">
         <form #parametroForm="ngForm" class="form-container">
-          <div class="form-row flex-row">
 
             <!-- Campos: Obra, Proveedor y Especialidad en una fila -->
-            <div class="form-column">
-              <mat-form-field class="mat-form-field">
+            <div class="form-row obra">
+              <mat-form-field class="mat-form-field obra">
                 <mat-label>Obra</mat-label>
                 <mat-select [(ngModel)]="currentActa.obrA_ID" name="obra" required #obraField="ngModel">
                   <mat-option *ngFor="let tipo of obra" [value]="tipo.id">
@@ -85,39 +84,40 @@
               </mat-form-field>
             </div>
 
-            <div class="form-column">
-              <mat-form-field class="mat-form-field">
-                <mat-label>Proveedor</mat-label>
-                <mat-select [(ngModel)]="currentActa.proveedoR_ID" name="proveedor" required #proveedorField="ngModel">
-                  <mat-option *ngFor="let tipo of proveedor" [value]="tipo.iDproveedor">
-                    {{ tipo.nombreProveedor }}
-                  </mat-option>
-                </mat-select>
-                <mat-error *ngIf="proveedorField.invalid && proveedorField.touched">
-                  Debe seleccionar un proveedor
-                </mat-error>
-              </mat-form-field>
-            </div>
+            <div class="form-row provyesp">
+              <div class="form-row prov">
+                <mat-form-field class="mat-form-field prov">
+                  <mat-label>Proveedor</mat-label>
+                  <mat-select [(ngModel)]="currentActa.proveedoR_ID" name="proveedor" required #proveedorField="ngModel">
+                    <mat-option *ngFor="let tipo of proveedor" [value]="tipo.iDproveedor">
+                      {{ tipo.nombreProveedor }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="proveedorField.invalid && proveedorField.touched">
+                    Debe seleccionar un proveedor
+                  </mat-error>
+                </mat-form-field>
+              </div>
 
-            <div class="form-column">
-              <mat-form-field class="mat-form-field">
-                <mat-label>Especialidad</mat-label>
-                <mat-select [(ngModel)]="currentActa.especialidaD_ID" name="especialidad" required #especialidadField="ngModel">
-                  <mat-option *ngFor="let tipo of especialidad" [value]="tipo.id">
-                    {{ tipo.nombre }}
-                  </mat-option>
-                </mat-select>
-                <mat-error *ngIf="especialidadField.invalid && especialidadField.touched">
-                  Debe seleccionar un tipo de parámetro
-                </mat-error>
-              </mat-form-field>
-            </div>
+              <div class="form-row esp">
+                <mat-form-field class="mat-form-field esp">
+                  <mat-label>Especialidad</mat-label>
+                  <mat-select [(ngModel)]="currentActa.especialidaD_ID" name="especialidad" required #especialidadField="ngModel">
+                    <mat-option *ngFor="let tipo of especialidad" [value]="tipo.id">
+                      {{ tipo.nombre }}
+                    </mat-option>
+                  </mat-select>
+                  <mat-error *ngIf="especialidadField.invalid && especialidadField.touched">
+                    Debe seleccionar una especialidad
+                  </mat-error>
+                </mat-form-field>
+              </div>
           </div>
 
           <!-- Fila para Administrador y Fecha de Aprobación -->
-          <div class="form-row flex-row">
-            <div class="form-column">
-              <mat-form-field class="mat-form-field">
+          <div class="form-row adminyfecha">
+            <div class="form-row admin">
+              <mat-form-field class="mat-form-field admin">
                 <mat-label>Administrador</mat-label>
                 <mat-select [(ngModel)]="currentActa.revisoR_ID" name="revisor" required #revisorField="ngModel">
                   <mat-option *ngFor="let tipo of usuario" [value]="tipo.id">
@@ -130,8 +130,8 @@
               </mat-form-field>
             </div>
 
-            <div class="form-column">
-              <mat-form-field class="mat-form-field">
+            <div class="form-row fecha">
+              <mat-form-field class="mat-form-field fecha">
                 <mat-label>Fecha Aprobación</mat-label>
                 <input matInput [matDatepicker]="picker" [(ngModel)]="currentActa.fechA_APROBACION" name="fecha_aprobacion">
                 <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
@@ -151,7 +151,7 @@
 <!-- ........................................................................................................................................... -->
           <!-- Botón para agregar una nueva card de tareas -->
           <div class="add-group-container" *ngIf="isEditMode">
-            <button mat-flat-button color="primary" (click)="agregarNuevaCard()">Agregar Grupo de Tareas</button>
+            <button mat-flat-button color="primary" (click)="agregarNuevaCard()">Agregar grupo de tareas</button>
           </div>
           
 
@@ -167,8 +167,8 @@
                 </button>
 
                 <!-- Botón para eliminar los datos y la card -->
-                <button mat-button color="warn" *ngIf="!grupo.idGrupoTarea" (click)="eliminarDatosYCard(grupo, i)">
-                  Eliminar Card
+                <button mat-button color="warn" *ngIf="!grupo.idGrupoTarea" (click)="confirmDeleteCard(grupo, i)">
+                  Eliminar
                 </button>
 
               </div>
@@ -176,7 +176,7 @@
               <!-- Contenido de la card, solo se muestra si no está minimizado -->
               <div *ngIf="!grupo.minimizado">
                 <div class="form-row flex-row">
-                  <mat-form-field class="mat-form-field">
+                  <mat-form-field class="mat-form-field rol">
                     <mat-label>Rol</mat-label>
                     <mat-select [(ngModel)]="grupo.idRol" name="rol" #rolField="ngModel">
                       <mat-option *ngFor="let rol of roles" [value]="rol.id">
@@ -188,7 +188,7 @@
                     </mat-error>
                   </mat-form-field>
 
-                  <mat-form-field class="mat-form-field">
+                  <mat-form-field class="mat-form-field encargado">
                     <mat-label>Encargado</mat-label>
                     <mat-select [(ngModel)]="grupo.idEncargado" name="encargado" required #encargadoField="ngModel">
                       <mat-option *ngFor="let encargado of usuario" [value]="encargado.id">
@@ -196,14 +196,11 @@
                       </mat-option>
                     </mat-select>
                     <mat-error *ngIf="encargadoField.invalid && encargadoField.touched">
-                      Debe seleccionar un Encargado del grupo
+                      Debe seleccionar un encargado para el grupo
                     </mat-error>
                   </mat-form-field>
-
-                </div>
         
-                <div class="form-row">
-                  <mat-form-field class="mat-form-field">
+                  <mat-form-field class="mat-form-field tareas">
                     <mat-label>Tareas</mat-label>
                     <mat-select [(ngModel)]="grupo.idTarea" name="tareas" multiple required #tareasField="ngModel">
                       <mat-option *ngFor="let tarea of tareas" [value]="tarea.id">
@@ -222,8 +219,8 @@
                 </div>
                 <!-- Botón de eliminar en cada card -->
                 <div class="button-group">
-                  <button mat-button color="warn" *ngIf="grupo.idGrupoTarea"  (click)="eliminarGrupoTarea(grupo.idGrupoTarea)">
-                    Eliminar Grupo de Tareas
+                  <button mat-button color="warn" *ngIf="grupo.idGrupoTarea" (click)="confirmDeleteGrupoTarea(grupo.idGrupoTarea)">
+                    Eliminar grupo de tareas
                   </button>
                 </div>
               </div>
@@ -245,7 +242,7 @@
           </button>
         </div>
         <div class="button-group-right">
-          <button *ngIf="isEditMode && currentActa.id" mat-flat-button class="mat-flat-button editar"
+          <button *ngIf="isEditMode && currentActa.id" mat-flat-button class="mat-flat-button actualizar"
             style="margin-right: 10px;" 
             (click)="downloadPDF(currentActa.id || 0)">
             <mat-icon>download</mat-icon>Descargar
@@ -261,8 +258,6 @@
   </div>
 </div>
 
-
-
 <!-- Modal de confirmación de eliminación  -->
 <div *ngIf="showConfirmationDeleteActa" class="modal">
   <div class="modal-dialog">
@@ -271,11 +266,60 @@
         <h2 class="modal-title">Confirmación de eliminación</h2>
       </div>
       <div class="modal-body">
-        <p>¿Está seguro de que desea eliminar este parámetro?</p>
+        <p>¿Está seguro de que desea eliminar esta acta?</p>
+        <em>Nota: Podría no eliminarse si tiene un grupo de tareas asignado. Por favor, revise los datos relacionados antes.</em>
       </div>
       <div class="modal-footer">
         <button mat-flat-button class="mat-flat-button cancelar" (click)="closeConfirmationDialog()">No</button>
         <button mat-flat-button class="mat-flat-button confirmarEliminar" (click)="deleteActa()">Sí</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de confirmación de eliminación de Grupo de Tarea -->
+<div *ngIf="showConfirmationDeleteGrupoTarea" class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Header -->
+      <div class="modal-header">
+        <h2 class="modal-title">Confirmación de eliminación</h2>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <p>¿Está seguro de que desea eliminar este grupo de tarea?</p>
+        <em>Nota: Podría no eliminarse si está relacionado con otros datos importantes. Por favor, revise los datos relacionados antes.</em>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button mat-flat-button class="mat-flat-button cancelar" (click)="closeConfirmationDialog()">No</button>
+        <button mat-flat-button class="mat-flat-button confirmarEliminar" (click)="deleteGrupoTarea()">Sí</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de confirmación de eliminación de Card -->
+<div *ngIf="showConfirmationDeleteCard" class="modal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Header -->
+      <div class="modal-header">
+        <h2 class="modal-title">Confirmación de eliminación</h2>
+      </div>
+
+      <!-- Body -->
+      <div class="modal-body">
+        <p>¿Está seguro de que desea eliminar esta tarjeta y todos sus datos?</p>
+        <em>Nota: Esta acción eliminará permanentemente la tarjeta y sus contenidos.</em>
+      </div>
+
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button mat-flat-button class="mat-flat-button cancelar" (click)="closeCardConfirmationDialog()">No</button>
+        <button mat-flat-button color="warn" class="mat-flat-button confirmarEliminar" (click)="deleteCard()">Sí</button>
       </div>
     </div>
   </div>

@@ -1,120 +1,64 @@
-/* Estilo para el modal */
-.modal {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
-  z-index: 1000;
-}
-
-.modal-dialog {
-  width: 70%; /* Incrementa el ancho del modal */
-  max-width: 800px; /* Ajusta el tamaño máximo si es necesario */
-}
-
-.modal-content {
-  background-color: #fff;
-  border-radius: 8px;
-  padding: 20px;
-}
-
-.modal-header {
-  text-align: center;
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
+/* Estilos para Modal */
 .modal-title {
-  font-size: 1.5em;
-  font-weight: bold;
+  font-size: 20px;
+  font-weight: 500;
+  margin: 5px;
+  text-align: center;
 }
 
 .modal-body-prov {
   padding: 20px;
 }
 
-.form-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
-}
-
-/* Fila para campos de formulario */
+/* Filas de Formulario */
 .form-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 15px;
-}
-
-/* Estilo específico para los campos en la misma fila */
-.form-row .mat-form-field {
-  flex: 1;
-}
-
-.form-row.rut {
-  display: flex;
-  gap: 15px;
-}
-
-/* mensaje de rut */
-.rut-help-text {
-  color: gray;        /* Color gris */
-  font-size: 0.9em;  /* Tamaño de fuente más pequeño */
-  margin-top: 4px;   /* Espacio entre el input y el mensaje */
-  display: block;     /* Asegura que se muestre en su propia línea */
 }
 
 .form-row.nombre-razo {
   display: flex;
-  gap: 15px;
+  gap: 0px;
   width: 100%;
 }
 
-.form-row.especialidad {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  width: 90%;
-}
-
-
-/* Ajuste para que los campos Proveedor, Razón Social y Rut tengan el mismo ancho */
-.form-row.nombre-razo .mat-form-field,
-.mat-form-field.rut {
+.form-row.nombre-razo .mat-form-field {
   flex: 1;
-  min-width: 200px;
-  width: 100px;
+  min-width: 300px;
 }
 
-
-.mat-form-field.dv{
-  width: 20%;
-}
-
-
-/* Footer del modal */
-.modal-footer {
+.form-row.rutyesp{
   display: flex;
-  justify-content: space-between;
-  padding-top: 10px;
-  border-top: 1px solid #ddd;
+  align-items: center;
+  gap: 0px;
 }
 
-/* lista de item de especilidades */
+.form-row.rut {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mat-form-field.rut {
+  width: 186px;
+}
+
+.mat-form-field.dv {
+  width: 60px;
+}
+
+.form-row.esp {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 16px;
+}
+
 .mat-form-field.esp {
-  width: 150%; 
-  margin-bottom: 16px; 
+  width: 272px;
 }
 
-
-
-
-/* Responsivo para pantallas pequeñas */
+/* Responsivo */
 @media (max-width: 768px) {
   .modal-dialog {
     width: 90%;
@@ -124,16 +68,16 @@
     width: 100%;
   }
 
-  .form-group {
+  .form-group { 
     flex-direction: column;
   }
 
-  /* Ajuste en la disposición de las columnas en pantallas pequeñas */
   .form-row.especialidad {
     flex-direction: column;
   }
 
-  .columna-nombre, .columna-numero {
+  .columna-nombre, 
+  .columna-numero {
     flex: 1 1 100%;
   }
 }
